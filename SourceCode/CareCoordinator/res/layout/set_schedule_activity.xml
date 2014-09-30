@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/cis573.carecoor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/TitleBarBlue"
+        android:text="@string/set_schedule_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:drawableBottom="@drawable/divider"
+                android:text="@string/set_schedule_med_info"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/set_schedule_medname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:textSize="22sp" />
+
+            <Button 
+                android:id="@+id/set_schedule_medimage"
+                android:layout_width="200dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/shadow_box"
+                android:layout_marginTop="6dp"
+                android:onClick="onPhotoClick"
+                android:text="@string/take_picture" />
+            
+            <!--<ImageView
+                android:id="@+id/set_schedule_medpill"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/shadow_box" />-->
+
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:drawableBottom="@drawable/divider"
+                android:text="@string/set_schedule_detailed_name"
+                android:textSize="16sp" />
+            
+            <EditText
+                android:id="@+id/set_schedule_medinfo1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/gray_text"
+                android:inputType="textShortMessage" >
+
+                <requestFocus />
+            </EditText>
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:drawableBottom="@drawable/divider"
+                android:text="@string/set_schedule_instructions"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/set_schedule_medinfo2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/gray_text"
+                android:inputType="textShortMessage" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:drawableBottom="@drawable/divider"
+                android:text="@string/set_schedule_take_time"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/set_schedule_take_time_hint"
+                android:textColor="@color/gray_text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:drawableBottom="@drawable/divider"
+                android:text="@string/set_schedule_day_interval"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/set_schedule_takedays_suggest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/set_schedule_take_days_everyday"
+                android:textColor="@color/gray_text" />
+
+            <android.support.v7.widget.GridLayout
+                android:id="@+id/set_schedule_taketime_grid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                app:columnCount="5" />
+
+            <RadioGroup
+                android:id="@+id/set_schedule_day_intv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp" >
+
+                <RadioButton
+                    android:id="@+id/set_schedule_every_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_schedule_every_day" />
+
+                <RadioButton
+                    android:id="@+id/set_schedule_pick_days"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_schedule_pick_days" />
+            </RadioGroup>
+
+            <android.support.v7.widget.GridLayout
+                android:id="@+id/set_schedule_pickdays_grid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                app:columnCount="5" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:drawableBottom="@drawable/divider"
+                android:text="@string/set_schedule_duration"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/set_schedule_duration_suggest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/set_schedule_duration_sugg_continuous"
+                android:textColor="@color/gray_text" />
+
+            <RadioGroup
+                android:id="@+id/set_schedule_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp" >
+
+                <RadioButton
+                    android:id="@+id/set_schedule_continuous"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_schedule_continuous" />
+
+                <RadioButton
+                    android:id="@+id/set_schedule_setduration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_schedule_setduration" />
+            </RadioGroup>
+
+            <include
+                android:id="@+id/set_schedule_duration_selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                layout="@layout/number_selector_view" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:onClick="onOkClick"
+                android:text="@android:string/ok" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

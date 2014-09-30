@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="main_page_titles">
+        <item>Settings</item>
+        <item>Contacts</item>
+        <item>Reminder</item>
+        <item>History</item>
+        <item>Appointment</item>
+        <item>Friends</item>
+        <item>Games</item>
+    </string-array>
+    <string-array name="contact_group_items">
+        <item>Useful Contacts</item>
+        <item>User Imported</item>
+    </string-array>
+    <string-array name="appointment_remind_options">
+        <item>No</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>4 hours</item>
+        <item>12 hours</item>
+        <item>1 day</item>
+    </string-array>
+    
+   <string-array name="dose_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+    
+   <string-array name="hour_array">
+       <item >1</item>
+       <item >2</item>
+       <item >3</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+       <item >1</item>
+   </string-array>
+   
+</resources>

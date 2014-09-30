@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blue_title_bar">#33b5e5</color>
+    <color name="pager_bar">#4e4747</color>
+    <color name="gray_text">#888888</color>
+    <color name="green_text">#00b050</color>
+    <color name="orange_text">#fbaf5d</color>
+	<color name="orange_light_text">#f06d36</color>
+	<color name="red_background">#ff6666</color>
+</resources>

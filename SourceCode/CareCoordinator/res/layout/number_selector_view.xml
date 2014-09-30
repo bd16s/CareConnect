@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/number_selector_minus"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_minus_sign" />
+
+    <EditText
+        android:id="@+id/number_selector_edittext"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:gravity="right|center_vertical"
+        android:inputType="number"
+        android:maxLength="5"
+        android:singleLine="true"
+        android:text="0" />
+
+    <Button
+        android:id="@+id/number_selector_add"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_add_sign" />
+
+</LinearLayout>

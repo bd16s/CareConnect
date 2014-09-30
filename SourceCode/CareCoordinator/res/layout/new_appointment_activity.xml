@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/new_appointment_date"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@android:drawable/list_selector_background"
+            android:clickable="true"
+            android:onClick="onItemClick"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/appointment_date"
+                android:drawablePadding="6dp"
+                android:gravity="center_vertical"
+                android:text="@string/appointment_new_date"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/new_appointment_date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/gray_text"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <include layout="@layout/divider" />
+
+        <RelativeLayout
+            android:id="@+id/new_appointment_time"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@android:drawable/list_selector_background"
+            android:clickable="true"
+            android:onClick="onItemClick"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/appointment_time"
+                android:drawablePadding="6dp"
+                android:gravity="center_vertical"
+                android:text="@string/appointment_new_time"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/new_appointment_time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/gray_text"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <include layout="@layout/divider" />
+        
+        <RelativeLayout
+            android:id="@+id/new_appointment_remind"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@android:drawable/list_selector_background"
+            android:clickable="true"
+            android:onClick="onItemClick"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/appointment_reminder"
+                android:drawablePadding="6dp"
+                android:gravity="center_vertical"
+                android:text="@string/appointment_new_remind"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/new_appointment_remind_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/gray_text"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <include layout="@layout/divider" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:drawableLeft="@drawable/appointment_event"
+            android:drawablePadding="6dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:textSize="16sp"
+            android:text="@string/appointment_detail" />
+        
+        <EditText
+            android:id="@+id/new_appointment_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:minLines="3"
+            android:gravity="top|left"
+            android:hint="@string/appointment_detail_hint" />
+        
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onOkClick"
+            android:text="@android:string/ok" />
+    </LinearLayout>
+
+</ScrollView>
