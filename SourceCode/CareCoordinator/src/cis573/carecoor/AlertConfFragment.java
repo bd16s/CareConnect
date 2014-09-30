@@ -47,6 +47,7 @@ public class AlertConfFragment extends Fragment implements OnSettingsChangedList
 
     public static final int PRIMARY_PHONE   = 1;
     public static final int SECONDARY_PHONE = 2;
+    
     // Alert Options...
     public static final int USER_EMAIL      = 3;
     public static final int EMAIL_PASSWORD  = 4;
