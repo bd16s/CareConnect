@@ -43,7 +43,7 @@ public class AlertConfFragment extends Fragment implements
 
 	public static final String TAG = "AlertConfFragment";
 
-	// Info codes (for arrays, etc...)
+	// Info codes (for arrays, etc...)//
 	public static final int PIN = 0;
 
 	public static final int PRIMARY_PHONE = 1;
