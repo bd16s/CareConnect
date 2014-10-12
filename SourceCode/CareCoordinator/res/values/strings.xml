@@ -10,6 +10,7 @@
     <string name="msg_empty_password">Password cannot be empty</string>
     <string name="msg_export_subject">CareCoordinator: Data Export</string>
     <string name="msg_export_failed">Export Failed</string>
+    <string name="msg_export_success">Export Success</string>
 
     <!-- Login -->
     <string name="empty_email">example@domain.com</string>

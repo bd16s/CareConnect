@@ -267,7 +267,6 @@ public class AlertConfFragment extends Fragment implements
 
 		@Override
 		public void onClick(View v) {
-
 			final String user = PreferenceUtil.get(getActivity(), USER_EMAIL);
 			String password = PreferenceUtil.get(getActivity(), EMAIL_PASSWORD);
 			final String provider = PreferenceUtil.get(getActivity(),
@@ -276,23 +275,29 @@ public class AlertConfFragment extends Fragment implements
 			if (user == null || password == null || provider == null) {
 				MyToast.show(getActivity(),
 						getString(R.string.msg_export_failed));
-			}
-
-			final String body = getFormattedData();
-
-			final GMailSender sender = new GMailSender(user, password);
-			new AsyncTask<Void, Void, Void>() {
-				@Override
-				public Void doInBackground(Void... arg) {
-					try {
-						sender.sendMail(getString(R.string.msg_export_subject),
-								body, user, provider);
-					} catch (Exception e) {
-						Log.e("SendMail", e.getMessage(), e);
+			} else if ("".equals(user) || "".equals(password) || "".equals(provider)) {
+				MyToast.show(getActivity(),
+						getString(R.string.msg_export_failed));
+			} else {
+				final String body = getFormattedData();
+				final GMailSender sender = new GMailSender(user, password);
+				new AsyncTask<Void, Void, Void>() {
+					@Override
+					public Void doInBackground(Void... arg) {
+						try {
+							sender.sendMail(getString(R.string.msg_export_subject),
+									body, user, provider);
+							MyToast.show(getActivity(),
+									getString(R.string.msg_export_success));
+						} catch (Exception e) {
+							Log.e("SendMail", e.getMessage(), e);
+							MyToast.show(getActivity(),
+									getString(R.string.msg_export_failed));
+						}
+						return null;
 					}
-					return null;
-				}
-			}.execute();
+				}.execute();
+			}
 		}
 	};
 
