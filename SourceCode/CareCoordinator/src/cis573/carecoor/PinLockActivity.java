@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
+ * Modified
  * Created by dblank on 4/24/14.
  */
 public class PinLockActivity extends BannerActivity {
