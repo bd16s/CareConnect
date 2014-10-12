@@ -18,8 +18,8 @@ public class PinLockActivity extends BannerActivity {
 	private TextView pin;
 
 	@Override
-	protected void onCreate(Bundle arg0) {
-		super.onCreate(arg0);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pin_lock_activity);
 		setBannerTitle(R.string.pin_lock_name);
 		code = PreferenceUtil.get(getApplicationContext(), 0);
@@ -46,6 +46,12 @@ public class PinLockActivity extends BannerActivity {
 	public void onPinButtonClick(View v) {
 		Button pressedButton = (Button) v;
 		String buttonText = pressedButton.getText().toString();
+		
+		if("cancel".equals(buttonText)){
+			delete();
+			return;
+		}
+		
 		testCode.append(buttonText);
 		count++;
 		changeView();
@@ -54,6 +60,17 @@ public class PinLockActivity extends BannerActivity {
 		}
 	}
 
+	private void delete(){
+		int length = testCode.length();
+		if(length <= 0){
+			return;
+		}else{
+			testCode.setLength(length - 1);
+			count--;
+			changeView();
+		}
+	}
+	
 	private void testPin() {
 		String testCodeStr = testCode.toString();
 		if (testCodeStr.equals(code)) {
@@ -71,7 +88,7 @@ public class PinLockActivity extends BannerActivity {
 	private void reset() {
 		testCode = new StringBuilder();
 		count = 0;
-		pin.setText("");
+		pin.setText("_ _ _ _");
 	}
 	
 	@Override
