@@ -56,6 +56,24 @@ public class MainActivity extends BannerActivity
 		@Override
 		public Fragment getItem(int arg0) {
 			Fragment f = null;
+//			switch(arg0){
+//			case 0:
+//				f = new AlertConfFragment();
+//			case 1:
+//				f = new ContactFragment();
+//			case 2:
+//				f = new MedScheduleFragment();
+//			case 3:
+//				f = new HistoryFragment();
+//			case 4:
+//				f = new AppointmentFragment();
+//			case 5:
+//				f = new FriendsFragment();
+//			case 6:
+//				f = new GameFragment();
+//			default:
+//					
+//			}
 			if(arg0 == 0) {	// Alert
 				f = new AlertConfFragment();
 			} else if(arg0 == 1) {	// Contact
