@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Modified
@@ -76,7 +77,7 @@ public class PinLockActivity extends BannerActivity {
 		if (testCodeStr.equals(code)) {
 			success();
 		} else {
-			reset();
+			fail();
 		}
 	}
 
@@ -85,7 +86,9 @@ public class PinLockActivity extends BannerActivity {
 		finish();
 	}
 
-	private void reset() {
+	private void fail() {
+    	Toast toast = Toast.makeText(getApplicationContext(), R.string.pin_fail_info, Toast.LENGTH_SHORT);
+		toast.show();
 		testCode = new StringBuilder();
 		count = 0;
 		pin.setText("_ _ _ _");
