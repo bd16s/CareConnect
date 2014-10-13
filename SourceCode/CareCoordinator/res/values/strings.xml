@@ -199,8 +199,8 @@
     <string name="appointment_new_remind">Remind Before</string>
     <string name="appointment_detail">Detail</string>
     <string name="appointment_detail_hint">Appointment Detail</string>
-    <string name="appointment_status_1day">1 day</string>
-    <string name="appointment_status_days">%d days</string>
+    <string name="appointment_status_1day">1 day remaining</string>
+    <string name="appointment_status_days">%d days remaining</string>
     <string name="appointment_status_today">Today</string>
     <string name="appointment_status_passed">Passed</string>
     <string name="dialog_title_remove_appointment">Remove</string>
@@ -212,6 +212,7 @@
 
     <!-- Pin Lock -->
     <string name="pin_lock_name">Pin Lock</string>
+    <string name="pin_fail_info">The Pin you enter is wrong!</string>
 
     <!-- Calendar -->
     <string name="cal_name">ExtendedCalendarView</string>
