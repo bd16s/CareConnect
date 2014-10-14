@@ -2,6 +2,7 @@ package cis573.carecoor;
 
 import cis573.carecoor.utils.PreferenceUtil;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -9,6 +10,9 @@ import android.widget.TextView;
 /**
  * Created by:
  * yucongli on 10/12/14.
+ * 
+ * Modified by:
+ * yucongli on 10/14/14.
  */
 public class PinSetActivity extends BannerActivity {
 
@@ -75,6 +79,10 @@ public class PinSetActivity extends BannerActivity {
 //		TextView pinSettingText = (TextView) findViewById(R.id.settings_pin_text);
 //		pinSettingText.setText(code.toString());
 		
+//		final LayoutInflater factory = getLayoutInflater();
+//		final View textEntryView = factory.inflate(R.layout.alert_conf_fragment, null);
+//		TextView pinSettingText = (TextView) textEntryView.findViewById(R.id.settings_pin_text);
+//		pinSettingText.setText(code.toString());
 		
 		setResult(RESULT_OK);
 		finish();
