@@ -34,6 +34,11 @@ import android.util.Log;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+/**
+ * Modified by:
+ * yucongli on 10/12
+ *
+ */
 public class AlertConfFragment extends Fragment implements
 		OnSettingsChangedListener {
 
@@ -188,12 +193,19 @@ public class AlertConfFragment extends Fragment implements
 
 	// Launch the input dialogues on when Views are clicked
 	private OnClickListener mOnTextClick = new OnClickListener() {
-
 		@Override
 		public void onClick(View v) {
 			int code = getCode(v.getId());
-			dialogs[code].setTargetFragment(AlertConfFragment.this, 0);
-			dialogs[code].show(getFragmentManager(), settingStrings[code]);
+			switch (code) {
+			case PIN:
+				Intent intent = new Intent(getActivity().getApplicationContext(), PinSetActivity.class);
+				startActivityForResult(intent, 0);
+				break;
+			default:
+				dialogs[code].setTargetFragment(AlertConfFragment.this, 0);
+				dialogs[code].show(getFragmentManager(), settingStrings[code]);
+				break;
+			}
 		}
 	};
 

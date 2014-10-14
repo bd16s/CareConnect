@@ -79,6 +79,10 @@
             android:name="cis573.carecoor.PinLockActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="cis573.carecoor.PinSetActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
 
         <receiver android:name="cis573.carecoor.reminder.ReminderReceiver" >
             <intent-filter>

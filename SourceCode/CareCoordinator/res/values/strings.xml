@@ -68,8 +68,12 @@
     <string name="dialog_add_dob_label">Input your date of birth:</string>
     <string name="dialog_add_contact_or">Or:</string>
     <string name="dialog_add_info_or">Or:</string>
-    <string name="dialog_delete_contact_title">Delete contact</string>
+    <string name="dialog_delete_contact_title">Delete Contact</string>
     <string name="dialog_delete_contact_msg">Delete this contact?</string>
+    <string name="dialog_delete_edit_contact_title">Contact</string>
+    <string name="dialog_delete_edit_contact_msg">Edit or delete this contact?</string>
+    <string name="dialog_contact_edit">Edit</string>
+    <string name="dialog_contact_delete">Delete</string>
     <string name="btn_add_contact_import">Select from contacts</string>
     <string name="btn_add_email_import">Select from contacts</string>
     <string name="btn_export_data">Export Data</string>
@@ -199,8 +203,8 @@
     <string name="appointment_new_remind">Remind Before</string>
     <string name="appointment_detail">Detail</string>
     <string name="appointment_detail_hint">Appointment Detail</string>
-    <string name="appointment_status_1day">1 day</string>
-    <string name="appointment_status_days">%d days</string>
+    <string name="appointment_status_1day">1 day remaining</string>
+    <string name="appointment_status_days">%d days remaining</string>
     <string name="appointment_status_today">Today</string>
     <string name="appointment_status_passed">Passed</string>
     <string name="dialog_title_remove_appointment">Remove</string>
@@ -212,6 +216,7 @@
 
     <!-- Pin Lock -->
     <string name="pin_lock_name">Pin Lock</string>
+    <string name="pin_fail_info">The Pin you enter is wrong!</string>
 
     <!-- Calendar -->
     <string name="cal_name">ExtendedCalendarView</string>
