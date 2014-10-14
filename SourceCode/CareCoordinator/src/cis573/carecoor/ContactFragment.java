@@ -2,6 +2,7 @@ package cis573.carecoor;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.TextView;
 import cis573.carecoor.adapter.ContactAdapter;
 import cis573.carecoor.bean.Contact;
 import cis573.carecoor.data.DataCenter;
@@ -30,6 +33,9 @@ public class ContactFragment extends Fragment {
 	public static final String TAG = "ContactFragment";
 	
 	private static final int REQUEST_IMPORT = 0;
+	
+	private static final int ADD = 0;
+	private static final int EDIT = 1;
 	
 	private Button mBtnAdd;
 	private Button mBtnImport;
@@ -48,7 +54,7 @@ public class ContactFragment extends Fragment {
 		if(mUserContacts == null) {
 			mUserContacts = new ArrayList<Contact>();
 		}
-		initAddContactDialog();
+		initAddContactDialog("", "", ADD, 0);
 	}
 
 	@Override
@@ -140,29 +146,42 @@ public class ContactFragment extends Fragment {
 				int groupPosition = ExpandableListView.getPackedPositionGroup(flatPosition);
 	            if(groupPosition == 1) {
 	            	int childPosition = ExpandableListView.getPackedPositionChild(flatPosition);
-	            	showDeleteContactDialog(childPosition);
+	            	showDeleteEditContactDialog(childPosition);
 	            }
 			}
 			return true;
 		}
 	};
 	
-	private void initAddContactDialog() {
+	private void initAddContactDialog(String name_p, String phone_p, final int type, final int position) {
 		View view = View.inflate(getActivity(), R.layout.dialog_add_contact, null);
 		final EditText etName = (EditText) view.findViewById(R.id.contact_name_edittext);
 		final EditText etPhone = (EditText) view.findViewById(R.id.contact_phone_edittext);
+		etName.setText(name_p, TextView.BufferType.EDITABLE);
+		etPhone.setText(phone_p, TextView.BufferType.EDITABLE);
 		mAddContactDialog = new AlertDialog.Builder(getActivity())
 		.setTitle(R.string.dialog_add_contact_title)
 		.setView(view)
 		.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				String name = etName.getText().toString();
-				String phone = etPhone.getText().toString();
-				mUserContacts.add(new Contact(name, phone));
-				DataCenter.setUserContacts(getActivity(), mUserContacts);
-				mAdapter.setContactList2(mUserContacts);
-				mAdapter.notifyDataSetChanged();
+				if(type == ADD){
+					String name = etName.getText().toString();
+					String phone = etPhone.getText().toString();
+					mUserContacts.add(new Contact(name, phone));
+					DataCenter.setUserContacts(getActivity(), mUserContacts);
+					mAdapter.setContactList2(mUserContacts);
+					mAdapter.notifyDataSetChanged();
+				} else{
+					Log.d(TAG,"edit");
+					String name = etName.getText().toString();
+					String phone = etPhone.getText().toString();
+					mUserContacts.get(position).setName(name);
+					mUserContacts.get(position).setPhone(phone);
+					DataCenter.setUserContacts(getActivity(), mUserContacts);
+					mAdapter.setContactList2(mUserContacts);
+					mAdapter.notifyDataSetChanged();
+				}
 			}
 		}).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
 			@Override
@@ -172,22 +191,38 @@ public class ContactFragment extends Fragment {
 		}).create();
 	}
 	
-	private void showDeleteContactDialog(final int position) {
+	private void showDeleteEditContactDialog(final int position) {
 		new AlertDialog.Builder(getActivity())
-		.setTitle(R.string.dialog_delete_contact_title)
-		.setMessage(R.string.dialog_delete_contact_msg)
-		.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+		.setTitle(R.string.dialog_delete_edit_contact_title)
+		.setMessage(R.string.dialog_delete_edit_contact_msg)
+		.setPositiveButton(R.string.dialog_contact_delete, new DialogInterface.OnClickListener() {
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				mUserContacts.remove(position);
-				DataCenter.setUserContacts(getActivity(), mUserContacts);
-				mAdapter.setContactList2(mUserContacts);
-				mAdapter.notifyDataSetChanged();
+			public void onClick(DialogInterface dialog, int which) {						
+				new AlertDialog.Builder(getActivity())
+				.setTitle(R.string.dialog_delete_contact_title)
+				.setMessage(R.string.dialog_delete_contact_msg)
+				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						mUserContacts.remove(position);
+						DataCenter.setUserContacts(getActivity(), mUserContacts);
+						mAdapter.setContactList2(mUserContacts);
+						mAdapter.notifyDataSetChanged();
+					}
+				}).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						return;
+					}
+				}).show();
 			}
-		}).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+		}).setNegativeButton(R.string.dialog_contact_edit, new DialogInterface.OnClickListener() {
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				return;
+			public void onClick(DialogInterface dialog, int which) {				
+				String name = mUserContacts.get(position).getName();
+				String phone = mUserContacts.get(position).getPhone();
+				initAddContactDialog(name, phone, EDIT, position);
+				mAddContactDialog.show();
 			}
 		}).show();
 	}
