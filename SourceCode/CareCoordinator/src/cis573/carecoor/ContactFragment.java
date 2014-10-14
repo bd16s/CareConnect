@@ -127,6 +127,7 @@ public class ContactFragment extends Fragment {
 		public void onClick(View v) {
 			int id = v.getId();
 			if(id == R.id.contact_add_btn) {
+				initAddContactDialog("", "", ADD, 0);
 				mAddContactDialog.show();
 			} else if(id == R.id.contact_import_btn) {
 				// Pick from system contacts
