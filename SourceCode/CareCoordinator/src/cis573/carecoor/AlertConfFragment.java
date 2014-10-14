@@ -34,6 +34,11 @@ import android.util.Log;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+/**
+ * Modified by:
+ * yucongli on 10/12
+ *
+ */
 public class AlertConfFragment extends Fragment implements
 		OnSettingsChangedListener {
 
@@ -188,12 +193,19 @@ public class AlertConfFragment extends Fragment implements
 
 	// Launch the input dialogues on when Views are clicked
 	private OnClickListener mOnTextClick = new OnClickListener() {
-
 		@Override
 		public void onClick(View v) {
 			int code = getCode(v.getId());
-			dialogs[code].setTargetFragment(AlertConfFragment.this, 0);
-			dialogs[code].show(getFragmentManager(), settingStrings[code]);
+			switch (code) {
+			case PIN:
+				Intent intent = new Intent(getActivity().getApplicationContext(), PinSetActivity.class);
+				startActivityForResult(intent, 0);
+				break;
+			default:
+				dialogs[code].setTargetFragment(AlertConfFragment.this, 0);
+				dialogs[code].show(getFragmentManager(), settingStrings[code]);
+				break;
+			}
 		}
 	};
 
@@ -267,7 +279,6 @@ public class AlertConfFragment extends Fragment implements
 
 		@Override
 		public void onClick(View v) {
-
 			final String user = PreferenceUtil.get(getActivity(), USER_EMAIL);
 			String password = PreferenceUtil.get(getActivity(), EMAIL_PASSWORD);
 			final String provider = PreferenceUtil.get(getActivity(),
@@ -276,23 +287,29 @@ public class AlertConfFragment extends Fragment implements
 			if (user == null || password == null || provider == null) {
 				MyToast.show(getActivity(),
 						getString(R.string.msg_export_failed));
-			}
-
-			final String body = getFormattedData();
-
-			final GMailSender sender = new GMailSender(user, password);
-			new AsyncTask<Void, Void, Void>() {
-				@Override
-				public Void doInBackground(Void... arg) {
-					try {
-						sender.sendMail(getString(R.string.msg_export_subject),
-								body, user, provider);
-					} catch (Exception e) {
-						Log.e("SendMail", e.getMessage(), e);
+			} else if ("".equals(user) || "".equals(password) || "".equals(provider)) {
+				MyToast.show(getActivity(),
+						getString(R.string.msg_export_failed));
+			} else {
+				final String body = getFormattedData();
+				final GMailSender sender = new GMailSender(user, password);
+				new AsyncTask<Void, Void, Void>() {
+					@Override
+					public Void doInBackground(Void... arg) {
+						try {
+							sender.sendMail(getString(R.string.msg_export_subject),
+									body, user, provider);
+							MyToast.show(getActivity(),
+									getString(R.string.msg_export_success));
+						} catch (Exception e) {
+							Log.e("SendMail", e.getMessage(), e);
+							MyToast.show(getActivity(),
+									getString(R.string.msg_export_failed));
+						}
+						return null;
 					}
-					return null;
-				}
-			}.execute();
+				}.execute();
+			}
 		}
 	};
 

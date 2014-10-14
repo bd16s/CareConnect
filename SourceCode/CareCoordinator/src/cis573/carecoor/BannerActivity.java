@@ -19,6 +19,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * Modified by 
+ * @author chunxiaomu
+ */
+
 public class BannerActivity extends FragmentActivity {
 
 	public static final String TAG = "BaseActivity";
@@ -31,13 +36,13 @@ public class BannerActivity extends FragmentActivity {
 	private Button mBtnInstructions;
 	private AlertDialog mAlertCfmDialog;
 	private AlertDialog mAlertSecDialog;
-	private Animation mAnimTitleIn;
+//	private Animation mAnimTitleIn;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		initDialogs();
-		mAnimTitleIn = AnimationUtils.loadAnimation(this, R.anim.title_in);
+//		mAnimTitleIn = AnimationUtils.loadAnimation(this, R.anim.title_in);
 	}
 	
 	@Override

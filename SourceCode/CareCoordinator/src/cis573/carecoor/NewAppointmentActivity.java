@@ -4,14 +4,12 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
-
 import cis573.carecoor.ExtendedCalendar.CalendarProvider;
 import cis573.carecoor.ExtendedCalendar.Event;
 import cis573.carecoor.bean.Appointment;
 import cis573.carecoor.data.DataCenter;
 import cis573.carecoor.reminder.ReminderCenter;
 import cis573.carecoor.utils.Utils;
-
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -19,7 +17,6 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.Time;
 import android.view.View;
@@ -28,6 +25,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+/**
+ * Modified by
+ * @author chunxiaomu
+ */
 public class NewAppointmentActivity extends BannerActivity {
 
 	public static final String TAG = "NewAppointmentActivity";
@@ -153,7 +154,5 @@ public class NewAppointmentActivity extends BannerActivity {
 
         values.put(CalendarProvider.END, (mCalendar.getTimeInMillis() + 60000));
         values.put(CalendarProvider.END_DAY, julian);
-
-        Uri uri = getContentResolver().insert(CalendarProvider.CONTENT_URI, values);
     }
 }

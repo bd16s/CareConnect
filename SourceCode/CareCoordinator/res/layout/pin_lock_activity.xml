@@ -153,10 +153,14 @@
             	android:onClick="onPinButtonClick"
             	android:textSize="40sp"
             	/>
-        	<View
+        	<Button
+            	android:id="@+id/button_cancel"
+            	android:text="cancel"
             	android:layout_width="0dp"
             	android:layout_weight="1"
             	android:layout_height="match_parent"
+            	android:onClick="onPinButtonClick"
+            	android:textSize="20sp"
             	/>
         	</LinearLayout>
         	

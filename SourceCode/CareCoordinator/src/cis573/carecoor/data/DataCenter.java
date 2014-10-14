@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import cis573.carecoor.ExtendedCalendar.Day;
 import cis573.carecoor.R;
@@ -157,15 +158,22 @@ public class DataCenter {
 			mAppointments = (List<Appointment>) FileKit.readObject(context, FILENAME_APPOINTMENT);
 		}
         if(d == null) return mAppointments;
-        List<Appointment> list = new LinkedList<Appointment>();
-        Iterator<Appointment> it = mAppointments.listIterator();
-        while(it.hasNext()){
-            Appointment a = it.next();
-            if(a.getDay() == d.getStartDay()){
-                list.add(a);
+        try {
+        	List<Appointment> list = new LinkedList<Appointment>();
+        	// throw an exception show toast when mAppointments is null, then return null
+        	Iterator<Appointment> it = mAppointments.listIterator();
+        	while(it.hasNext()){
+                Appointment a = it.next();
+                if(a.getDay() == d.getStartDay()){
+                    list.add(a);
+                }
             }
+    		return list;
+        } catch (NullPointerException e) {
+        	Toast toast = Toast.makeText(context, R.string.appointment_empty, Toast.LENGTH_SHORT);
+			toast.show();
+			return null;
         }
-		return list;
 	}
 	
 	public static void addAppointments(Context context, Appointment appointment) {
