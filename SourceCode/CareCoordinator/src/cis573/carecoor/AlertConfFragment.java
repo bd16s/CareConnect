@@ -9,6 +9,7 @@ import cis573.carecoor.utils.PreferenceUtil;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -301,11 +302,17 @@ public class AlertConfFragment extends Fragment implements
 					PROVIDER_EMAIL);
 
 			if (user == null || password == null || provider == null) {
-				MyToast.show(getActivity(),
-						getString(R.string.msg_export_failed));
+				getActivity().runOnUiThread(new Runnable() {
+					  public void run() {
+						  Toast.makeText(getActivity(), getString(R.string.msg_export_failed), Toast.LENGTH_SHORT).show();
+					  }
+				});
 			} else if ("".equals(user) || "".equals(password) || "".equals(provider)) {
-				MyToast.show(getActivity(),
-						getString(R.string.msg_export_failed));
+				getActivity().runOnUiThread(new Runnable() {
+					  public void run() {
+						  Toast.makeText(getActivity(), getString(R.string.msg_export_failed), Toast.LENGTH_SHORT).show();
+					  }
+				});
 			} else {
 				final String body = getFormattedData();
 				final GMailSender sender = new GMailSender(user, password);
@@ -315,12 +322,18 @@ public class AlertConfFragment extends Fragment implements
 						try {
 							sender.sendMail(getString(R.string.msg_export_subject),
 									body, user, provider);
-							MyToast.show(getActivity(),
-									getString(R.string.msg_export_success));
+							getActivity().runOnUiThread(new Runnable() {
+								  public void run() {
+									  Toast.makeText(getActivity(), getString(R.string.msg_export_success), Toast.LENGTH_SHORT).show();
+								  }
+							});
 						} catch (Exception e) {
 							Log.e("SendMail", e.getMessage(), e);
-							MyToast.show(getActivity(),
-									getString(R.string.msg_export_failed));
+//							getActivity().runOnUiThread(new Runnable() {
+//								  public void run() {
+//									  Toast.makeText(getActivity(), getString(R.string.msg_export_failed), Toast.LENGTH_SHORT).show();
+//								  }
+//							});
 						}
 						return null;
 					}
