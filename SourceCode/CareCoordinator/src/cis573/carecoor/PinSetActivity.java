@@ -2,17 +2,14 @@ package cis573.carecoor;
 
 import cis573.carecoor.utils.PreferenceUtil;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 /**
- * Created by:
- * yucongli on 10/12/14.
+ * Created by: yucongli on 10/12/14.
  * 
- * Modified by:
- * yucongli on 10/14/14.
+ * Modified by: yucongli on 10/14/14.
  */
 public class PinSetActivity extends BannerActivity {
 
@@ -48,12 +45,12 @@ public class PinSetActivity extends BannerActivity {
 	public void onPinButtonClick(View v) {
 		Button pressedButton = (Button) v;
 		String buttonText = pressedButton.getText().toString();
-		
-		if("cancel".equals(buttonText)){
+
+		if ("cancel".equals(buttonText)) {
 			delete();
 			return;
 		}
-		
+
 		code.append(buttonText);
 		count++;
 		changeView();
@@ -62,11 +59,11 @@ public class PinSetActivity extends BannerActivity {
 		}
 	}
 
-	private void delete(){
+	private void delete() {
 		int length = code.length();
-		if(length <= 0){
+		if (length <= 0) {
 			return;
-		}else{
+		} else {
 			code.setLength(length - 1);
 			count--;
 			changeView();
@@ -75,20 +72,7 @@ public class PinSetActivity extends BannerActivity {
 
 	private void success() {
 		PreferenceUtil.save(getApplicationContext(), 0, String.valueOf(code));
-//		setContentView(R.layout.alert_conf_fragment);
-//		TextView pinSettingText = (TextView) findViewById(R.id.settings_pin_text);
-//		pinSettingText.setText(code.toString());
-		
-//		final LayoutInflater factory = getLayoutInflater();
-//		final View textEntryView = factory.inflate(R.layout.alert_conf_fragment, null);
-//		TextView pinSettingText = (TextView) textEntryView.findViewById(R.id.settings_pin_text);
-//		pinSettingText.setText(code.toString());
-		
 		setResult(RESULT_OK);
 		finish();
-	}
-	
-	@Override
-	public void onBackPressed(){
 	}
 }
