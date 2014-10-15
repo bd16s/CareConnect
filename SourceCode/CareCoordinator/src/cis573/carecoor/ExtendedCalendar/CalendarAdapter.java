@@ -1,255 +1,219 @@
 package cis573.carecoor.ExtendedCalendar;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.Set;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
-        import java.util.ArrayList;
-        import java.util.Calendar;
-        import java.util.Locale;
-        import java.util.Set;
-        import java.util.TimeZone;
-        import java.util.concurrent.TimeUnit;
+import android.content.Context;
+import android.text.format.Time;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-        import android.content.Context;
-        import android.text.format.Time;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.BaseAdapter;
-        import android.widget.FrameLayout;
-        import android.widget.ImageView;
-        import android.widget.RelativeLayout;
-        import android.widget.TextView;
+import cis573.carecoor.R;
 
-        import cis573.carecoor.R;
+public class CalendarAdapter extends BaseAdapter {
 
-public class CalendarAdapter extends BaseAdapter{
+	static final int FIRST_DAY_OF_WEEK = 0;
+	Context context;
+	Calendar cal;
+	public String[] days;
 
-    static final int FIRST_DAY_OF_WEEK =0;
-    Context context;
-    Calendar cal;
-    public String[] days;
-//	OnAddNewEventClick mAddEvent;
+	ArrayList<Day> dayList = new ArrayList<Day>();
 
-    ArrayList<Day> dayList = new ArrayList<Day>();
+	public CalendarAdapter(Context context, Calendar cal) {
+		this.cal = cal;
+		this.context = context;
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		refreshDays();
+	}
 
-    public CalendarAdapter(Context context, Calendar cal){
-        this.cal = cal;
-        this.context = context;
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        refreshDays();
-    }
+	@Override
+	public int getCount() {
+		return days.length;
+	}
 
-    @Override
-    public int getCount() {
-        return days.length;
-    }
+	@Override
+	public Object getItem(int position) {
+		return dayList.get(position);
+	}
 
-    @Override
-    public Object getItem(int position) {
-        return dayList.get(position);
-    }
+	@Override
+	public long getItemId(int position) {
+		return 0;
+	}
 
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
+	public int getPrevMonth() {
+		if (cal.get(Calendar.MONTH) == cal.getActualMinimum(Calendar.MONTH)) {
+			cal.set(Calendar.YEAR, cal.get(Calendar.YEAR - 1));
+		} else {
 
-    public int getPrevMonth(){
-        if(cal.get(Calendar.MONTH) == cal.getActualMinimum(Calendar.MONTH)){
-            cal.set(Calendar.YEAR, cal.get(Calendar.YEAR-1));
-        }else{
+		}
+		int month = cal.get(Calendar.MONTH);
+		if (month == 0) {
+			return month = 11;
+		}
 
-        }
-        int month = cal.get(Calendar.MONTH);
-        if(month == 0){
-            return month = 11;
-        }
+		return month - 1;
+	}
 
-        return month-1;
-    }
+	public int getMonth() {
+		return cal.get(Calendar.MONTH);
+	}
 
-    public int getMonth(){
-        return cal.get(Calendar.MONTH);
-    }
+	@Override
+	public View getView(final int position, View convertView, ViewGroup parent) {
+		View v = convertView;
+		LayoutInflater vi = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		if (position >= 0 && position < 7) {
+			v = vi.inflate(R.layout.day_of_week, null);
+			TextView day = (TextView) v.findViewById(R.id.textView1);
 
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        View v = convertView;
-        LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if(position >= 0 && position < 7){
-            v = vi.inflate(R.layout.day_of_week, null);
-            TextView day = (TextView)v.findViewById(R.id.textView1);
+			if (position == 0) {
+				day.setText(R.string.sunday);
+			} else if (position == 1) {
+				day.setText(R.string.monday);
+			} else if (position == 2) {
+				day.setText(R.string.tuesday);
+			} else if (position == 3) {
+				day.setText(R.string.wednesday);
+			} else if (position == 4) {
+				day.setText(R.string.thursday);
+			} else if (position == 5) {
+				day.setText(R.string.friday);
+			} else if (position == 6) {
+				day.setText(R.string.saturday);
+			}
 
-            if(position == 0){
-                day.setText(R.string.sunday);
-            }else if(position == 1){
-                day.setText(R.string.monday);
-            }else if(position == 2){
-                day.setText(R.string.tuesday);
-            }else if(position == 3){
-                day.setText(R.string.wednesday);
-            }else if(position == 4){
-                day.setText(R.string.thursday);
-            }else if(position == 5){
-                day.setText(R.string.friday);
-            }else if(position == 6){
-                day.setText(R.string.saturday);
-            }
+		} else {
 
-        }else{
+			v = vi.inflate(R.layout.day_view, null);
+			FrameLayout today = (FrameLayout) v.findViewById(R.id.today_frame);
+			Calendar cal = Calendar.getInstance(TimeZone.getDefault(),
+					Locale.getDefault());
+			Day d = dayList.get(position);
+			if (d.getYear() == cal.get(Calendar.YEAR)
+					&& d.getMonth() == cal.get(Calendar.MONTH)
+					&& d.getDay() == cal.get(Calendar.DAY_OF_MONTH)) {
+				today.setVisibility(View.VISIBLE);
+			} else {
+				today.setVisibility(View.GONE);
+			}
 
-            v = vi.inflate(R.layout.day_view, null);
-            FrameLayout today = (FrameLayout)v.findViewById(R.id.today_frame);
-            Calendar cal = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
-            Day d = dayList.get(position);
-            if(d.getYear() == cal.get(Calendar.YEAR) && d.getMonth() == cal.get(Calendar.MONTH) && d.getDay() == cal.get(Calendar.DAY_OF_MONTH)){
-                today.setVisibility(View.VISIBLE);
-            }else{
-                today.setVisibility(View.GONE);
-            }
+			RelativeLayout rl = (RelativeLayout) v.findViewById(R.id.rl);
+			TextView dayTV = (TextView) v.findViewById(R.id.textView1);
+			ImageView iv = (ImageView) v.findViewById(R.id.imageCrease);
+			ImageView purple = (ImageView) v.findViewById(R.id.imagePurple);
+			ImageView green = (ImageView) v.findViewById(R.id.imageGreen);
+			ImageView orange = (ImageView) v.findViewById(R.id.imageOrange);
+			ImageView red = (ImageView) v.findViewById(R.id.imageRed);
 
-            TextView dayTV = (TextView)v.findViewById(R.id.textView1);
+			rl.setVisibility(View.VISIBLE);
+			dayTV.setVisibility(View.VISIBLE);
+			iv.setVisibility(View.INVISIBLE);
+			purple.setVisibility(View.INVISIBLE);
+			green.setVisibility(View.INVISIBLE);
+			purple.setVisibility(View.INVISIBLE);
+			orange.setVisibility(View.INVISIBLE);
+			red.setVisibility(View.INVISIBLE);
 
-            RelativeLayout rl = (RelativeLayout)v.findViewById(R.id.rl);
-            ImageView iv = (ImageView)v.findViewById(R.id.imageView1);
-            ImageView blue = (ImageView)v.findViewById(R.id.imageView2);
-            ImageView purple = (ImageView)v.findViewById(R.id.imageView3);
-            ImageView green = (ImageView)v.findViewById(R.id.imageView4);
-            ImageView orange = (ImageView)v.findViewById(R.id.imageView5);
-            ImageView red = (ImageView)v.findViewById(R.id.imageView6);
+			Day day = dayList.get(position);
+			int num = day.getNumOfEvenets();
 
-            blue.setVisibility(View.VISIBLE);
-            purple.setVisibility(View.VISIBLE);
-            green.setVisibility(View.VISIBLE);
-            purple.setVisibility(View.VISIBLE);
-            orange.setVisibility(View.VISIBLE);
-            red.setVisibility(View.VISIBLE);
+			if (num > 0) {
+				if (num >= 1) {
+					red.setVisibility(View.VISIBLE);
+				}
+				if (num >= 2) {
+					orange.setVisibility(View.VISIBLE);
+				}
+				if (num >= 3) {
+					green.setVisibility(View.VISIBLE);
+				}
+				if (num >= 4) {
+					purple.setVisibility(View.VISIBLE);
+				}
+				if (num >= 5) {
+					iv.setVisibility(View.VISIBLE);
+				}
+			}
 
-            iv.setVisibility(View.VISIBLE);
-            dayTV.setVisibility(View.VISIBLE);
-            rl.setVisibility(View.VISIBLE);
+			if (day.getDay() == 0) {
+				rl.setVisibility(View.GONE);
+			} else {
+				dayTV.setText(String.valueOf(day.getDay()));
+			}
+		}
 
-            Day day = dayList.get(position);
+		return v;
+	}
 
-            if(day.getNumOfEvenets() > 0){
-            	int num = day.getNumOfEvenets();
-                Set<Integer> colors = day.getColors();
+	public void refreshDays() {
+		// clear items
+		dayList.clear();
 
-                iv.setVisibility(View.INVISIBLE);
-                blue.setVisibility(View.INVISIBLE);
-                purple.setVisibility(View.INVISIBLE);
-                green.setVisibility(View.INVISIBLE);
-                purple.setVisibility(View.INVISIBLE);
-                orange.setVisibility(View.INVISIBLE);
-                red.setVisibility(View.INVISIBLE);
+		int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH) + 7;
+		int firstDay = (int) cal.get(Calendar.DAY_OF_WEEK);
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH);
+		TimeZone tz = TimeZone.getDefault();
 
-                if(num == 1){
-                	red.setVisibility(View.VISIBLE);
-                }else if(num == 2){
-                	red.setVisibility(View.VISIBLE);
-                	orange.setVisibility(View.VISIBLE);
-                }else if(num == 3){
-                	red.setVisibility(View.VISIBLE);
-                	orange.setVisibility(View.VISIBLE);
-                	green.setVisibility(View.VISIBLE);
-                }else if(num == 4){
-                	red.setVisibility(View.VISIBLE);
-                	orange.setVisibility(View.VISIBLE);
-                	green.setVisibility(View.VISIBLE);
-                	purple.setVisibility(View.VISIBLE);
-                }
-                else if(num == 5){
-                	red.setVisibility(View.VISIBLE);
-                	orange.setVisibility(View.VISIBLE);
-                	green.setVisibility(View.VISIBLE);
-                	purple.setVisibility(View.VISIBLE);
-                	blue.setVisibility(View.VISIBLE);
-                }
-                
+		// figure size of the array
+		if (firstDay == 1) {
+			days = new String[lastDay + (FIRST_DAY_OF_WEEK * 6)];
+		} else {
+			days = new String[lastDay + firstDay - (FIRST_DAY_OF_WEEK + 1)];
+		}
 
-            }else{
-                iv.setVisibility(View.INVISIBLE);
-                blue.setVisibility(View.INVISIBLE);
-                purple.setVisibility(View.INVISIBLE);
-                green.setVisibility(View.INVISIBLE);
-                purple.setVisibility(View.INVISIBLE);
-                orange.setVisibility(View.INVISIBLE);
-                red.setVisibility(View.INVISIBLE);
-            }
+		int j = FIRST_DAY_OF_WEEK;
 
-            if(day.getDay() == 0){
-                rl.setVisibility(View.GONE);
-            }else{
-                dayTV.setVisibility(View.VISIBLE);
-                dayTV.setText(String.valueOf(day.getDay()));
-            }
-        }
+		// populate empty days before first real day
+		if (firstDay > 1) {
+			for (j = 0; j < (firstDay - FIRST_DAY_OF_WEEK) + 7; j++) {
+				days[j] = "";
+				Day d = new Day(context, 0, 0, 0);
+				dayList.add(d);
+			}
+		} else {
+			for (j = 0; j < (FIRST_DAY_OF_WEEK * 6) + 7; j++) {
+				days[j] = "";
+				Day d = new Day(context, 0, 0, 0);
+				dayList.add(d);
+			}
+			j = FIRST_DAY_OF_WEEK * 6 + 1; // sunday => 1, monday => 7
+		}
 
-        return v;
-    }
+		// populate days
+		int dayNumber = 1;
 
-    public void refreshDays()
-    {
-        // clear items
-        dayList.clear();
+		if (j > 0 && dayList.size() > 0 && j != 1) {
+			dayList.remove(j - 1);
+		}
 
-        int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH)+7;
-        int firstDay = (int)cal.get(Calendar.DAY_OF_WEEK);
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        TimeZone tz = TimeZone.getDefault();
+		for (int i = j - 1; i < days.length; i++) {
+			Day d = new Day(context, dayNumber, year, month);
 
-        // figure size of the array
-        if(firstDay==1){
-            days = new String[lastDay+(FIRST_DAY_OF_WEEK*6)];
-        }
-        else {
-            days = new String[lastDay+firstDay-(FIRST_DAY_OF_WEEK+1)];
-        }
+			Calendar cTemp = Calendar.getInstance();
+			cTemp.set(year, month, dayNumber);
+			int startDay = Time.getJulianDay(cTemp.getTimeInMillis(),
+					TimeUnit.MILLISECONDS.toSeconds(tz.getOffset(cTemp
+							.getTimeInMillis())));
 
-        int j=FIRST_DAY_OF_WEEK;
+			d.setAdapter(this);
+			d.setStartDay(startDay);
 
-        // populate empty days before first real day
-        if(firstDay>1) {
-            for(j=0;j<(firstDay-FIRST_DAY_OF_WEEK)+7;j++) {
-                days[j] = "";
-                Day d = new Day(context,0,0,0);
-                dayList.add(d);
-            }
-        }
-        else {
-            for(j=0;j<(FIRST_DAY_OF_WEEK*6)+7;j++) {
-                days[j] = "";
-                Day d = new Day(context,0,0,0);
-                dayList.add(d);
-            }
-            j=FIRST_DAY_OF_WEEK*6+1; // sunday => 1, monday => 7
-        }
-
-        // populate days
-        int dayNumber = 1;
-
-        if(j>0 && dayList.size() > 0 && j != 1){
-            dayList.remove(j-1);
-        }
-
-        for(int i=j-1;i<days.length;i++) {
-            Day d = new Day(context,dayNumber,year,month);
-
-            Calendar cTemp = Calendar.getInstance();
-            cTemp.set(year, month, dayNumber);
-            int startDay = Time.getJulianDay(cTemp.getTimeInMillis(), TimeUnit.MILLISECONDS.toSeconds(tz.getOffset(cTemp.getTimeInMillis())));
-
-            d.setAdapter(this);
-            d.setStartDay(startDay);
-
-            days[i] = ""+dayNumber;
-            dayNumber++;
-            dayList.add(d);
-        }
-    }
-
-//	public abstract static class OnAddNewEventClick{
-//		public abstract void onAddNewEventClick();
-//	}
-
+			days[i] = "" + dayNumber;
+			dayNumber++;
+			dayList.add(d);
+		}
+	}
 }
