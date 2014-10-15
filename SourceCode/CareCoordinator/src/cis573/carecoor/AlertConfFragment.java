@@ -200,6 +200,7 @@ public class AlertConfFragment extends Fragment implements
 			case PIN:
 				Intent intent = new Intent(getActivity().getApplicationContext(), PinSetActivity.class);
 				startActivityForResult(intent, 0);
+				textViews[code].setText("****");
 				break;
 			case PRIMARY_PHONE:
 				dialogs[code].setTargetFragment(AlertConfFragment.this, 0);
@@ -210,6 +211,10 @@ public class AlertConfFragment extends Fragment implements
 				dialogs[code].show(getFragmentManager(), settingStrings[code]);
 				break;
 			}
+		}
+		
+		public void test() {
+			
 		}
 	};
 
@@ -335,9 +340,9 @@ public class AlertConfFragment extends Fragment implements
 		if ((data = PreferenceUtil.get(context, STATE)) != null)
 			formattedData += "State : " + data + "\n ";
 		if ((data = PreferenceUtil.get(context, HEIGHT)) != null)
-			formattedData += "Height : " + data + "\n ";
+			formattedData += "Height : " + data + "feet\n ";
 		if ((data = PreferenceUtil.get(context, WEIGHT)) != null)
-			formattedData += "Weight : " + data + "\n ";
+			formattedData += "Weight : " + data + "lb\n ";
 		// TODO: Allergies should be a list...
 		if ((data = PreferenceUtil.get(context, ALLERGIES)) != null)
 			formattedData += "Allergies : " + data + "\n ";
@@ -397,13 +402,15 @@ public class AlertConfFragment extends Fragment implements
 			return;
 
 		PreferenceUtil.save(getActivity(), code, setting);
-		textViews[code].setText(setting);
+		if (code == PIN) {
+			textViews[code].setText("****");
+		} else {
+			textViews[code].setText(setting);
+		}
 	}
 
 	private boolean checkSettings(int code, String setting) {
 		switch (code) {
-		case PRIMARY_PHONE:
-			return true;
 		default:
 			return true;
 		}

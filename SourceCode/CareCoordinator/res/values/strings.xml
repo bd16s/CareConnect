@@ -39,11 +39,12 @@
     <string name="settings_native_american">Native American</string>
     <string name="settings_city_label">City</string>
     <string name="settings_state_label">State</string>
-    <string name="settings_height_label">Height</string>
-    <string name="settings_weight_label">Weight</string>
+    <string name="settings_height_label">Height (feet)</string>
+    <string name="settings_weight_label">Weight (lb)</string>
     <string name="settings_allergies_label">Allergies</string>
     <string name="settings_insurance_label">Insurance Provider</string>
     <string name="settings_none">None</string>
+    <string name="invalid_input">Please make sure the input is valid</string>
     
      <!-- Alert -->
     <string name="alertconf_primary_num">Primary Number</string>
@@ -78,7 +79,6 @@
     <string name="btn_add_email_import">Select from contacts</string>
     <string name="btn_export_data">Export Data</string>
     <string name="settings_unset">(unset)</string>
-    <string name="invalid_input">Please make sure the input is valid</string>
 
     <!-- Contact -->
     <string name="btn_add_sign"> + </string>

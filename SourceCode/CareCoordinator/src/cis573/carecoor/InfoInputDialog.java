@@ -91,11 +91,11 @@ public class InfoInputDialog extends AlertDialog{
 						switch (mType) {
 						case PRIMARY_PHONE:
 						case SECONDARY_PHONE:
-							b = text.matches("^\\d{10}$");
+							b = text.matches("^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$");
 							break;
 						case USER_EMAIL:
 						case PROVIDER_EMAIL:
-							b = text.matches("^\\w+\\@\\w+\\.[a-zA-Z]+$");
+							b = text.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$");
 							break;
 						case NAME:
 						case CITY:
