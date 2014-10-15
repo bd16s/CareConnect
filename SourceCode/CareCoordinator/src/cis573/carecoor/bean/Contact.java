@@ -3,10 +3,6 @@ package cis573.carecoor.bean;
 import java.io.Serializable;
 
 public class Contact implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5240658907134977572L;
 	private String name;
 	private String phone;
