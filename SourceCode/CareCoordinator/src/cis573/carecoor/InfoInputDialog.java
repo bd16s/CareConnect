@@ -13,6 +13,8 @@ import cis573.carecoor.utils.MyToast;
  * Created by:
  * yucongli on 10/14/14.
  *
+ * Modified by:
+ * yucongli on 10/15/14.
  */
 public class InfoInputDialog extends AlertDialog{
 	
@@ -99,6 +101,7 @@ public class InfoInputDialog extends AlertDialog{
 							break;
 						case NAME:
 						case CITY:
+						case STATE:
 							b = text.matches("^[a-zA-Z ]+$");
 							break;
 						case HEIGHT:

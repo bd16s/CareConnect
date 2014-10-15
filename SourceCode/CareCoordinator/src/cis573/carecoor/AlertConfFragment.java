@@ -38,6 +38,7 @@ import java.text.SimpleDateFormat;
  * Modified by:
  * yucongli on 10/12/14.
  * yucongli on 10/14/14.
+ * yucongli on 10/15/14.
  */
 public class AlertConfFragment extends Fragment implements
 		OnSettingsChangedListener {
@@ -265,15 +266,19 @@ public class AlertConfFragment extends Fragment implements
 			case R.id.settings_ethnicity_black:
 				PreferenceUtil.saveUserEthnicity(getActivity(),
 						getString(R.string.settings_black));
+				break;
 			case R.id.settings_ethnicity_latino:
 				PreferenceUtil.saveUserEthnicity(getActivity(),
 						getString(R.string.settings_latino));
+				break;
 			case R.id.settings_ethnicity_asian:
 				PreferenceUtil.saveUserEthnicity(getActivity(),
 						getString(R.string.settings_asian));
+				break;
 			case R.id.settings_ethnicity_other:
 				PreferenceUtil.saveUserEthnicity(getActivity(),
 						getString(R.string.settings_other));
+				break;
 			default:
 				return;
 			}

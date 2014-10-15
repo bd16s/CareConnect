@@ -13,7 +13,9 @@ import cis573.carecoor.utils.PreferenceUtil;
 /**
  * Created by:
  * yucongli on 10/14/14
- *
+ * 
+ * Modified by:
+ * yucongli on 10/15/14
  */
 public class DatePickerFragment extends DialogFragment implements
 		DatePickerDialog.OnDateSetListener {
@@ -42,6 +44,6 @@ public class DatePickerFragment extends DialogFragment implements
 		// Do something with the date chosen by the user
 		String text = "" + ++month + "/" + day + "/" + year;
 		PreferenceUtil.save(getActivity(), DOB, text);
-		mEt.setText(text);
+		mEt.setText(PreferenceUtil.get(getActivity(), DOB));
 	}
 }

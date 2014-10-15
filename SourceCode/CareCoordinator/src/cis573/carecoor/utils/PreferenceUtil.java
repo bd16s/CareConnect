@@ -7,6 +7,11 @@ import android.preference.PreferenceManager;
 
 import cis573.carecoor.AlertConfFragment;
 
+/**
+ * Modified by:
+ * yucongli on 10/15/14
+ *
+ */
 public class PreferenceUtil {
 
     public static String get(Context context, int code) {
@@ -71,12 +76,12 @@ public class PreferenceUtil {
 
     public static String getUserGender(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        return pref.getString(Const.PREF_DOB, "");
+        return pref.getString(Const.PREF_GENDER, "");
     }
 
     public static void saveUserGender(Context context, String gender) {
         Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        editor.putString(Const.PREF_DOB, gender);
+        editor.putString(Const.PREF_GENDER, gender);
         editor.commit();
     }
 
