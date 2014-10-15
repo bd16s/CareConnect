@@ -202,19 +202,15 @@ public class AlertConfFragment extends Fragment implements
 				startActivityForResult(intent, 0);
 				textViews[code].setText("****");
 				break;
-			case PRIMARY_PHONE:
-				dialogs[code].setTargetFragment(AlertConfFragment.this, 0);
-				dialogs[code].show(getFragmentManager(), settingStrings[code]);
+			case DOB:
+				DatePickerFragment datePickFrag = new DatePickerFragment(textViews[code]);
+				datePickFrag.show(getFragmentManager(), settingStrings[code]);
 				break;
 			default:
 				dialogs[code].setTargetFragment(AlertConfFragment.this, 0);
 				dialogs[code].show(getFragmentManager(), settingStrings[code]);
 				break;
 			}
-		}
-		
-		public void test() {
-			
 		}
 	};
 
@@ -593,6 +589,10 @@ public class AlertConfFragment extends Fragment implements
 
 		if (text != null)
 			textView.setText(text);
+		
+		if (code == PIN && text != null && !"".equals(text)) {
+			textView.setText("****");
+		}
 	}
 
 	private static int getCode(int id) {

@@ -101,6 +101,10 @@ public class InfoInputDialog extends AlertDialog{
 						case CITY:
 							b = text.matches("^[a-zA-Z ]+$");
 							break;
+						case HEIGHT:
+						case WEIGHT:
+							b = text.matches("^\\d+$|^\\d+\\.\\d+$");
+							break;
 						}
 						return b;
 					}
