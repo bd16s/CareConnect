@@ -131,16 +131,16 @@ public class CalendarAdapter extends BaseAdapter {
 
 			if (num > 0) {
 				if (num >= 1) {
-					red.setVisibility(View.VISIBLE);
+					purple.setVisibility(View.VISIBLE);
 				}
 				if (num >= 2) {
-					orange.setVisibility(View.VISIBLE);
-				}
-				if (num >= 3) {
 					green.setVisibility(View.VISIBLE);
 				}
+				if (num >= 3) {
+					orange.setVisibility(View.VISIBLE);
+				}
 				if (num >= 4) {
-					purple.setVisibility(View.VISIBLE);
+					red.setVisibility(View.VISIBLE);
 				}
 				if (num >= 5) {
 					iv.setVisibility(View.VISIBLE);
