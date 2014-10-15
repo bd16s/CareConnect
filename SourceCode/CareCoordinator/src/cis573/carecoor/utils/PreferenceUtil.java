@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
-
+import android.util.Log;
 import cis573.carecoor.AlertConfFragment;
 
 /**
@@ -83,6 +83,10 @@ public class PreferenceUtil {
         Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
         editor.putString(Const.PREF_GENDER, gender);
         editor.commit();
+//      if (context != null) {
+//	  	  Log.i("YL", get(context, AlertConfFragment.DOB) + "/" + getUserGender(context) + "/" + getUserEthnicity(context));
+//	  	  MyToast.show(context, get(context, AlertConfFragment.DOB) + "/" + getUserGender(context) + "/" + getUserEthnicity(context));
+//      }
     }
 
     public static String getUserEthnicity(Context context) {
@@ -94,6 +98,10 @@ public class PreferenceUtil {
         Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
         editor.putString(Const.PREF_ETHNICITY, ethnicity);
         editor.commit();
+//        if (context != null) {
+//      	  Log.i("YL", get(context, AlertConfFragment.DOB) + "/" + getUserGender(context) + "/" + getUserEthnicity(context));
+//      	  MyToast.show(context, get(context, AlertConfFragment.DOB) + "/" + getUserGender(context) + "/" + getUserEthnicity(context));
+//        }
     }
 
     private static String getLocale(int code) {

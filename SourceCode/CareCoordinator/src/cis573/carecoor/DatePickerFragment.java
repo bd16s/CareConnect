@@ -20,7 +20,7 @@ import cis573.carecoor.utils.PreferenceUtil;
 public class DatePickerFragment extends DialogFragment implements
 		DatePickerDialog.OnDateSetListener {
 
-	public static final int DOB = 7;
+	public static final int DOB = AlertConfFragment.DOB;
 	TextView mEt;
 	
 	DatePickerFragment (TextView et) {

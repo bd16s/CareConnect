@@ -184,6 +184,8 @@ public class AlertConfFragment extends Fragment implements
 			mRgEthnicity.check(R.id.settings_ethnicity_latino);
 		else if (race.equals(getString(R.string.settings_asian)))
 			mRgEthnicity.check(R.id.settings_ethnicity_asian);
+		else if (race.equals(getString(R.string.settings_native_american)))
+			mRgEthnicity.check(R.id.settings_ethnicity_native_american);
 		else if (race.equals(getString(R.string.settings_other)))
 			mRgEthnicity.check(R.id.settings_ethnicity_other);
 	}
@@ -274,6 +276,10 @@ public class AlertConfFragment extends Fragment implements
 			case R.id.settings_ethnicity_asian:
 				PreferenceUtil.saveUserEthnicity(getActivity(),
 						getString(R.string.settings_asian));
+				break;
+			case R.id.settings_ethnicity_native_american:
+				PreferenceUtil.saveUserEthnicity(getActivity(),
+						getString(R.string.settings_native_american));
 				break;
 			case R.id.settings_ethnicity_other:
 				PreferenceUtil.saveUserEthnicity(getActivity(),
