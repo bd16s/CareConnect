@@ -1,8 +1,6 @@
 package cis573.carecoor;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.InputType;
@@ -11,7 +9,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import cis573.carecoor.utils.MyToast;
 
 /**
  * Created by:
@@ -80,43 +77,46 @@ public class SettingsDialogFragment2 extends DialogFragment {
 				.findViewById(R.id.dialog_add_email_import_btn);
 		mBtnImport.setOnClickListener(onImportClick);
 
-		return new AlertDialog.Builder(getActivity())
-				.setView(view)
-				.setTitle(getTitle())
-				.setPositiveButton(android.R.string.ok,
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								String text = mEtInfo.getText().toString();
-								
-								if (!validityCheck(text)) {
-									MyToast.show(getActivity().getApplicationContext(), String.valueOf(mType));
-								} else {
-									OnSettingsChangedListener listener = (OnSettingsChangedListener) getTargetFragment();
-									if (listener != null) {
-										listener.onSettingsChanged(text, mType);
-									}
-								}
-							}
-							
-							private boolean validityCheck (String text) {
-								switch (mType) {
-								case 3:
-									return text.matches("^\\d+$");
-								default:
-									return true;		
-								}
-							}
-						})
-				.setNegativeButton(android.R.string.cancel,
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								return;
-							}
-						}).create();
+		InfoInputDialog infoD = new InfoInputDialog(getActivity(), view, getTitle(), mType, mEtInfo, getTargetFragment());
+		return infoD.getDialog();
+		
+//				return new AlertDialog.Builder(getActivity())
+//				.setView(view)
+//				.setTitle(getTitle())
+//				.setPositiveButton(android.R.string.ok,
+//						new DialogInterface.OnClickListener() {
+//							@Override
+//							public void onClick(DialogInterface dialog,
+//									int which) {
+//								String text = mEtInfo.getText().toString();
+//								
+//								if (!validityCheck(text)) {
+//									MyToast.show(getActivity().getApplicationContext(), String.valueOf(mType));
+//								} else {
+//									OnSettingsChangedListener listener = (OnSettingsChangedListener) getTargetFragment();
+//									if (listener != null) {
+//										listener.onSettingsChanged(text, mType);
+//									}
+//								}
+//							}
+//							
+//							private boolean validityCheck (String text) {
+//								switch (mType) {
+//								case 3:
+//									return text.matches("^\\d+$");
+//								default:
+//									return true;		
+//								}
+//							}
+//						})
+//				.setNegativeButton(android.R.string.cancel,
+//						new DialogInterface.OnClickListener() {
+//							@Override
+//							public void onClick(DialogInterface dialog,
+//									int which) {
+//								return;
+//							}
+//						}).create();
 	}
 
 	private OnClickListener onImportClick = new OnClickListener() {

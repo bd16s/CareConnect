@@ -78,6 +78,7 @@
     <string name="btn_add_email_import">Select from contacts</string>
     <string name="btn_export_data">Export Data</string>
     <string name="settings_unset">(unset)</string>
+    <string name="invalid_input">Please make sure the input is valid</string>
 
     <!-- Contact -->
     <string name="btn_add_sign"> + </string>
