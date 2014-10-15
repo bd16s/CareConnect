@@ -85,8 +85,9 @@
     <string name="btn_minus_sign"> - </string>
     <string name="btn_import">Import</string>
     <string name="dialog_add_contact_title">Add New Contact</string>
-    <string name="dialog_contact_name">Name</string>
-    <string name="dialog_contact_phone">Phone</string>
+    <string name="dialog_contact_name">Name:</string>
+    <string name="dialog_contact_phone">Phone:</string>
+    <string name="contact_error_msg">Name and Phone cannot be empty!</string>
 
     <!-- Pick from contacts -->
     <string name="title_contacts">Contacts</string>

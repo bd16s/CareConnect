@@ -22,6 +22,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.TextView;
 import cis573.carecoor.adapter.ContactAdapter;
@@ -163,33 +164,45 @@ public class ContactFragment extends Fragment {
 		mAddContactDialog = new AlertDialog.Builder(getActivity())
 		.setTitle(R.string.dialog_add_contact_title)
 		.setView(view)
-		.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				if(type == ADD){
-					String name = etName.getText().toString();
-					String phone = etPhone.getText().toString();
-					mUserContacts.add(new Contact(name, phone));
-					DataCenter.setUserContacts(getActivity(), mUserContacts);
-					mAdapter.setContactList2(mUserContacts);
-					mAdapter.notifyDataSetChanged();
-				} else{
-					Log.d(TAG,"edit");
-					String name = etName.getText().toString();
-					String phone = etPhone.getText().toString();
-					mUserContacts.get(position).setName(name);
-					mUserContacts.get(position).setPhone(phone);
-					DataCenter.setUserContacts(getActivity(), mUserContacts);
-					mAdapter.setContactList2(mUserContacts);
-					mAdapter.notifyDataSetChanged();
-				}
-			}
-		}).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+		.setPositiveButton(android.R.string.ok, null)
+		.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				return;
 			}
 		}).create();
+		
+		mAddContactDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+		    @Override
+		    public void onShow(DialogInterface dialog) {
+
+		        Button b = mAddContactDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+		        b.setOnClickListener(new View.OnClickListener() {
+
+		            @Override
+		            public void onClick(View view) {
+		            	String name = etName.getText().toString();
+        				String phone = etPhone.getText().toString();
+        				
+        				if("".equals(name) || "".equals(phone)){
+        					Toast.makeText(getActivity().getApplicationContext(), R.string.contact_error_msg, Toast.LENGTH_SHORT).show();
+        				}else{
+        					if(type == ADD){
+            					mUserContacts.add(new Contact(name, phone));
+            				} else if(type == EDIT){
+            					mUserContacts.get(position).setName(name);
+            					mUserContacts.get(position).setPhone(phone);
+            				}
+            				DataCenter.setUserContacts(getActivity(), mUserContacts);
+            				mAdapter.setContactList2(mUserContacts);
+            				mAdapter.notifyDataSetChanged();
+    		            	mAddContactDialog.dismiss();
+        				}
+		            }
+		        });
+		    }
+		});
 	}
 	
 	private void showDeleteEditContactDialog(final int position) {
