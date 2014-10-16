@@ -9,6 +9,7 @@ import cis573.carecoor.utils.PreferenceUtil;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -36,8 +37,9 @@ import java.text.SimpleDateFormat;
 
 /**
  * Modified by:
- * yucongli on 10/12
- *
+ * yucongli on 10/12/14.
+ * yucongli on 10/14/14.
+ * yucongli on 10/15/14.
  */
 public class AlertConfFragment extends Fragment implements
 		OnSettingsChangedListener {
@@ -74,7 +76,7 @@ public class AlertConfFragment extends Fragment implements
 	// Associated views and dialogs
 	private View[] views;
 	private TextView[] textViews;
-	private SettingsDialogFragment[] dialogs;
+	private SettingsDialogFragment2[] dialogs;
 
 	private CheckBox mCbCall;
 	private CheckBox mCbText;
@@ -97,10 +99,10 @@ public class AlertConfFragment extends Fragment implements
 		super.onCreate(savedInstanceState);
 
 		// Create the dialogs
-		dialogs = new SettingsDialogFragment[NUM_DIALOGS];
+		dialogs = new SettingsDialogFragment2[NUM_DIALOGS];
 
 		for (int i = 0; i < NUM_DIALOGS; i++) {
-			dialogs[i] = SettingsDialogFragment.newInstance(i);
+			dialogs[i] = SettingsDialogFragment2.newInstance(i);
 		}
 		Toast toast = Toast.makeText(getActivity(),
 				"Tap the orange\t?\tbutton above for instructions.",
@@ -183,6 +185,8 @@ public class AlertConfFragment extends Fragment implements
 			mRgEthnicity.check(R.id.settings_ethnicity_latino);
 		else if (race.equals(getString(R.string.settings_asian)))
 			mRgEthnicity.check(R.id.settings_ethnicity_asian);
+		else if (race.equals(getString(R.string.settings_native_american)))
+			mRgEthnicity.check(R.id.settings_ethnicity_native_american);
 		else if (race.equals(getString(R.string.settings_other)))
 			mRgEthnicity.check(R.id.settings_ethnicity_other);
 	}
@@ -200,6 +204,11 @@ public class AlertConfFragment extends Fragment implements
 			case PIN:
 				Intent intent = new Intent(getActivity().getApplicationContext(), PinSetActivity.class);
 				startActivityForResult(intent, 0);
+				textViews[code].setText("****");
+				break;
+			case DOB:
+				DatePickerFragment datePickFrag = new DatePickerFragment(textViews[code]);
+				datePickFrag.show(getFragmentManager(), settingStrings[code]);
 				break;
 			default:
 				dialogs[code].setTargetFragment(AlertConfFragment.this, 0);
@@ -260,15 +269,23 @@ public class AlertConfFragment extends Fragment implements
 			case R.id.settings_ethnicity_black:
 				PreferenceUtil.saveUserEthnicity(getActivity(),
 						getString(R.string.settings_black));
+				break;
 			case R.id.settings_ethnicity_latino:
 				PreferenceUtil.saveUserEthnicity(getActivity(),
 						getString(R.string.settings_latino));
+				break;
 			case R.id.settings_ethnicity_asian:
 				PreferenceUtil.saveUserEthnicity(getActivity(),
 						getString(R.string.settings_asian));
+				break;
+			case R.id.settings_ethnicity_native_american:
+				PreferenceUtil.saveUserEthnicity(getActivity(),
+						getString(R.string.settings_native_american));
+				break;
 			case R.id.settings_ethnicity_other:
 				PreferenceUtil.saveUserEthnicity(getActivity(),
 						getString(R.string.settings_other));
+				break;
 			default:
 				return;
 			}
@@ -285,11 +302,17 @@ public class AlertConfFragment extends Fragment implements
 					PROVIDER_EMAIL);
 
 			if (user == null || password == null || provider == null) {
-				MyToast.show(getActivity(),
-						getString(R.string.msg_export_failed));
+				getActivity().runOnUiThread(new Runnable() {
+					  public void run() {
+						  Toast.makeText(getActivity(), getString(R.string.msg_export_failed), Toast.LENGTH_SHORT).show();
+					  }
+				});
 			} else if ("".equals(user) || "".equals(password) || "".equals(provider)) {
-				MyToast.show(getActivity(),
-						getString(R.string.msg_export_failed));
+				getActivity().runOnUiThread(new Runnable() {
+					  public void run() {
+						  Toast.makeText(getActivity(), getString(R.string.msg_export_failed), Toast.LENGTH_SHORT).show();
+					  }
+				});
 			} else {
 				final String body = getFormattedData();
 				final GMailSender sender = new GMailSender(user, password);
@@ -299,12 +322,18 @@ public class AlertConfFragment extends Fragment implements
 						try {
 							sender.sendMail(getString(R.string.msg_export_subject),
 									body, user, provider);
-							MyToast.show(getActivity(),
-									getString(R.string.msg_export_success));
+							getActivity().runOnUiThread(new Runnable() {
+								  public void run() {
+									  Toast.makeText(getActivity(), getString(R.string.msg_export_success), Toast.LENGTH_SHORT).show();
+								  }
+							});
 						} catch (Exception e) {
 							Log.e("SendMail", e.getMessage(), e);
-							MyToast.show(getActivity(),
-									getString(R.string.msg_export_failed));
+//							getActivity().runOnUiThread(new Runnable() {
+//								  public void run() {
+//									  Toast.makeText(getActivity(), getString(R.string.msg_export_failed), Toast.LENGTH_SHORT).show();
+//								  }
+//							});
 						}
 						return null;
 					}
@@ -331,9 +360,9 @@ public class AlertConfFragment extends Fragment implements
 		if ((data = PreferenceUtil.get(context, STATE)) != null)
 			formattedData += "State : " + data + "\n ";
 		if ((data = PreferenceUtil.get(context, HEIGHT)) != null)
-			formattedData += "Height : " + data + "\n ";
+			formattedData += "Height : " + data + "feet\n ";
 		if ((data = PreferenceUtil.get(context, WEIGHT)) != null)
-			formattedData += "Weight : " + data + "\n ";
+			formattedData += "Weight : " + data + "lb\n ";
 		// TODO: Allergies should be a list...
 		if ((data = PreferenceUtil.get(context, ALLERGIES)) != null)
 			formattedData += "Allergies : " + data + "\n ";
@@ -393,14 +422,18 @@ public class AlertConfFragment extends Fragment implements
 			return;
 
 		PreferenceUtil.save(getActivity(), code, setting);
-		textViews[code].setText(setting);
+		if (code == PIN) {
+			textViews[code].setText("****");
+		} else {
+			textViews[code].setText(setting);
+		}
 	}
 
 	private boolean checkSettings(int code, String setting) {
 		switch (code) {
-
+		default:
+			return true;
 		}
-		return true; // TODO: Replace with return false
 	}
 
 	@Override
@@ -409,147 +442,161 @@ public class AlertConfFragment extends Fragment implements
 				PickFromContactsActivity.class);
 		startActivityForResult(intent, type);
 	}
-
-	// **************************************************************************
-	// ************************** DIALOG FRAGMENTS **************************
-	// **************************************************************************
-
-	public static class SettingsDialogFragment extends DialogFragment {
-
-		private EditText mEtInfo;
-		private Button mBtnImport;
-		private int mType;
-
-		public static SettingsDialogFragment newInstance(int type) {
-			SettingsDialogFragment f = new SettingsDialogFragment();
-			Bundle args = new Bundle();
-			args.putInt("type", type);
-			f.setArguments(args);
-			return f;
-		}
-
-		@Override
-		public void onCreate(Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-			Bundle args = getArguments();
-			if (args != null) {
-				mType = args.getInt("type");
-			}
-		}
-
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			View view = View
-					.inflate(getActivity(), R.layout.dialog_email, null);
-			mEtInfo = (EditText) view
-					.findViewById(R.id.dialog_add_info_edittext);
-			setInputType(view);
-			mBtnImport = (Button) view
-					.findViewById(R.id.dialog_add_email_import_btn);
-			mBtnImport.setOnClickListener(onImportClick);
-
-			return new AlertDialog.Builder(getActivity())
-					.setView(view)
-					.setTitle(getTitle())
-					.setPositiveButton(android.R.string.ok,
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									String text = mEtInfo.getText().toString();
-									OnSettingsChangedListener listener = (OnSettingsChangedListener) getTargetFragment();
-									if (listener != null) {
-										listener.onSettingsChanged(text, mType);
-									}
-								}
-							})
-					.setNegativeButton(android.R.string.cancel,
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									return;
-								}
-							}).create();
-		}
-
-		private OnClickListener onImportClick = new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				OnSettingsChangedListener listener = (OnSettingsChangedListener) getTargetFragment();
-				if (listener != null) {
-					listener.onImportFromContact(mType);
-				}
-				getDialog().dismiss();
-			}
-		};
-
-		private void setInputType(View view) {
-			TextView label = (TextView) view
-					.findViewById(R.id.dialog_add_info_label);
-			if (mType == USER_EMAIL || mType == PROVIDER_EMAIL) {
-				mEtInfo.setInputType(InputType.TYPE_CLASS_TEXT
-						| InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-				label.setText(getString(R.string.dialog_add_email_label));
-			} else if (mType == PRIMARY_PHONE || mType == SECONDARY_PHONE) {
-				mEtInfo.setInputType(InputType.TYPE_CLASS_PHONE);
-				label.setText(getString(R.string.dialog_add_phone_label));
-			} else if (mType == NAME) {
-				mEtInfo.setInputType(InputType.TYPE_CLASS_TEXT);
-				label.setText(getString(R.string.dialog_add_name_label));
-			} else if (mType == PIN) {
-				mEtInfo.setInputType(InputType.TYPE_CLASS_TEXT
-						| InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-				label.setText(getString(R.string.dialog_add_password_label));
-			} else if (mType == DOB) {
-				mEtInfo.setInputType(InputType.TYPE_CLASS_DATETIME
-						| InputType.TYPE_DATETIME_VARIATION_DATE);
-				label.setText(getString(R.string.dialog_add_dob_label));
-			}
-		}
-
-		private String getTitle() {
-			switch (mType) {
-			case PIN:
-				return getActivity().getString(R.string.settings_pin_label);
-			case PRIMARY_PHONE:
-				return getActivity().getString(R.string.alertconf_primary_num);
-			case SECONDARY_PHONE:
-				return getActivity()
-						.getString(R.string.alertconf_secondary_num);
-			case USER_EMAIL:
-				return getActivity().getString(
-						R.string.settings_user_email_label);
-			case EMAIL_PASSWORD:
-				return getActivity().getString(
-						R.string.settings_user_email_password_label);
-			case PROVIDER_EMAIL:
-				return getActivity().getString(
-						R.string.settings_provider_email_label);
-			case NAME:
-				return getActivity().getString(
-						R.string.settings_user_name_label);
-			case DOB:
-				return getActivity()
-						.getString(R.string.settings_user_dob_label);
-			case HEIGHT:
-				return getActivity().getString(R.string.settings_height_label);
-			case WEIGHT:
-				return getActivity().getString(R.string.settings_weight_label);
-			case CITY:
-				return getActivity().getString(R.string.settings_city_label);
-			case STATE:
-				return getActivity().getString(R.string.settings_state_label);
-			case ALLERGIES:
-				return getActivity().getString(
-						R.string.settings_allergies_label);
-			case INSURANCE:
-				return getActivity().getString(
-						R.string.settings_insurance_label);
-			}
-			return null;
-		}
-	}
+//
+//	// **************************************************************************
+//	// ************************** DIALOG FRAGMENTS **************************
+//	// **************************************************************************
+//
+//	public static class SettingsDialogFragment extends DialogFragment {
+//
+//		private EditText mEtInfo;
+//		private Button mBtnImport;
+//		private int mType;
+//
+//		public static SettingsDialogFragment newInstance(int type) {
+//			SettingsDialogFragment f = new SettingsDialogFragment();
+//			Bundle args = new Bundle();
+//			args.putInt("type", type);
+//			f.setArguments(args);
+//			return f;
+//		}
+//
+//		@Override
+//		public void onCreate(Bundle savedInstanceState) {
+//			super.onCreate(savedInstanceState);
+//			Bundle args = getArguments();
+//			if (args != null) {
+//				mType = args.getInt("type");
+//			}
+//		}
+//
+//		@Override
+//		public Dialog onCreateDialog(Bundle savedInstanceState) {
+//			View view = View
+//					.inflate(getActivity(), R.layout.dialog_email, null);
+//			mEtInfo = (EditText) view
+//					.findViewById(R.id.dialog_add_info_edittext);
+//			setInputType(view);
+//			mBtnImport = (Button) view
+//					.findViewById(R.id.dialog_add_email_import_btn);
+//			mBtnImport.setOnClickListener(onImportClick);
+//
+//			return new AlertDialog.Builder(getActivity())
+//					.setView(view)
+//					.setTitle(getTitle())
+//					.setPositiveButton(android.R.string.ok,
+//							new DialogInterface.OnClickListener() {
+//								@Override
+//								public void onClick(DialogInterface dialog,
+//										int which) {
+//									String text = mEtInfo.getText().toString();
+//									
+//									if (!validityCheck(text)) {
+//										MyToast.show(getActivity().getApplicationContext(), String.valueOf(mType));
+//									} else {
+//										OnSettingsChangedListener listener = (OnSettingsChangedListener) getTargetFragment();
+//										if (listener != null) {
+//											listener.onSettingsChanged(text, mType);
+//										}
+//									}
+//								}
+//								
+//								private boolean validityCheck (String text) {
+//									switch (mType) {
+//									case 3:
+//										return text.matches("^\\d+$");
+//									default:
+//										return true;		
+//									}
+//								}
+//							})
+//					.setNegativeButton(android.R.string.cancel,
+//							new DialogInterface.OnClickListener() {
+//								@Override
+//								public void onClick(DialogInterface dialog,
+//										int which) {
+//									return;
+//								}
+//							}).create();
+//		}
+//
+//		private OnClickListener onImportClick = new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				OnSettingsChangedListener listener = (OnSettingsChangedListener) getTargetFragment();
+//				if (listener != null) {
+//					listener.onImportFromContact(mType);
+//				}
+//				getDialog().dismiss();
+//			}
+//		};
+//
+//		private void setInputType(View view) {
+//			TextView label = (TextView) view
+//					.findViewById(R.id.dialog_add_info_label);
+//			if (mType == USER_EMAIL || mType == PROVIDER_EMAIL) {
+//				mEtInfo.setInputType(InputType.TYPE_CLASS_TEXT
+//						| InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+//				label.setText(getString(R.string.dialog_add_email_label));
+//			} else if (mType == PRIMARY_PHONE || mType == SECONDARY_PHONE) {
+//				mEtInfo.setInputType(InputType.TYPE_CLASS_PHONE);
+//				label.setText(getString(R.string.dialog_add_phone_label));
+//			} else if (mType == NAME) {
+//				mEtInfo.setInputType(InputType.TYPE_CLASS_TEXT);
+//				label.setText(getString(R.string.dialog_add_name_label));
+//			} else if (mType == PIN) {
+//				mEtInfo.setInputType(InputType.TYPE_CLASS_TEXT
+//						| InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+//				label.setText(getString(R.string.dialog_add_password_label));
+//			} else if (mType == DOB) {
+//				mEtInfo.setInputType(InputType.TYPE_CLASS_DATETIME
+//						| InputType.TYPE_DATETIME_VARIATION_DATE);
+//				label.setText(getString(R.string.dialog_add_dob_label));
+//			}
+//		}
+//
+//		private String getTitle() {
+//			switch (mType) {
+//			case PIN:
+//				return getActivity().getString(R.string.settings_pin_label);
+//			case PRIMARY_PHONE:
+//				return getActivity().getString(R.string.alertconf_primary_num);
+//			case SECONDARY_PHONE:
+//				return getActivity()
+//						.getString(R.string.alertconf_secondary_num);
+//			case USER_EMAIL:
+//				return getActivity().getString(
+//						R.string.settings_user_email_label);
+//			case EMAIL_PASSWORD:
+//				return getActivity().getString(
+//						R.string.settings_user_email_password_label);
+//			case PROVIDER_EMAIL:
+//				return getActivity().getString(
+//						R.string.settings_provider_email_label);
+//			case NAME:
+//				return getActivity().getString(
+//						R.string.settings_user_name_label);
+//			case DOB:
+//				return getActivity()
+//						.getString(R.string.settings_user_dob_label);
+//			case HEIGHT:
+//				return getActivity().getString(R.string.settings_height_label);
+//			case WEIGHT:
+//				return getActivity().getString(R.string.settings_weight_label);
+//			case CITY:
+//				return getActivity().getString(R.string.settings_city_label);
+//			case STATE:
+//				return getActivity().getString(R.string.settings_state_label);
+//			case ALLERGIES:
+//				return getActivity().getString(
+//						R.string.settings_allergies_label);
+//			case INSURANCE:
+//				return getActivity().getString(
+//						R.string.settings_insurance_label);
+//			}
+//			return null;
+//		}
+//	}
 
 	/*****************************************************************
 	 ******************** HELPER FUNCTIONS ***********************
@@ -566,6 +613,10 @@ public class AlertConfFragment extends Fragment implements
 
 		if (text != null)
 			textView.setText(text);
+		
+		if (code == PIN && text != null && !"".equals(text)) {
+			textView.setText("****");
+		}
 	}
 
 	private static int getCode(int id) {

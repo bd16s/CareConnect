@@ -123,7 +123,12 @@ public class Utils {
 		String url = Const.URI_FEEDBACK_MARKET + pkgName;
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.setData(Uri.parse(url));
-		context.startActivity(intent);
+		try {
+			context.startActivity(intent);
+		} catch (Exception e) {
+			return;
+		}
+		
 	}
 	
 	public static void launchApp(Context context, String pkgName) {

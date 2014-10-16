@@ -4,9 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
-
+import android.util.Log;
 import cis573.carecoor.AlertConfFragment;
 
+/**
+ * Modified by:
+ * yucongli on 10/15/14
+ *
+ */
 public class PreferenceUtil {
 
     public static String get(Context context, int code) {
@@ -71,13 +76,17 @@ public class PreferenceUtil {
 
     public static String getUserGender(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        return pref.getString(Const.PREF_DOB, "");
+        return pref.getString(Const.PREF_GENDER, "");
     }
 
     public static void saveUserGender(Context context, String gender) {
         Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        editor.putString(Const.PREF_DOB, gender);
+        editor.putString(Const.PREF_GENDER, gender);
         editor.commit();
+//      if (context != null) {
+//	  	  Log.i("YL", get(context, AlertConfFragment.DOB) + "/" + getUserGender(context) + "/" + getUserEthnicity(context));
+//	  	  MyToast.show(context, get(context, AlertConfFragment.DOB) + "/" + getUserGender(context) + "/" + getUserEthnicity(context));
+//      }
     }
 
     public static String getUserEthnicity(Context context) {
@@ -89,6 +98,10 @@ public class PreferenceUtil {
         Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
         editor.putString(Const.PREF_ETHNICITY, ethnicity);
         editor.commit();
+//        if (context != null) {
+//      	  Log.i("YL", get(context, AlertConfFragment.DOB) + "/" + getUserGender(context) + "/" + getUserEthnicity(context));
+//      	  MyToast.show(context, get(context, AlertConfFragment.DOB) + "/" + getUserGender(context) + "/" + getUserEthnicity(context));
+//        }
     }
 
     private static String getLocale(int code) {

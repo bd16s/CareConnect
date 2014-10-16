@@ -26,6 +26,7 @@ import android.provider.MediaStore;
 import android.support.v7.widget.GridLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
@@ -33,6 +34,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -93,8 +95,8 @@ public class SetScheduleActivity extends BannerActivity {
 	private void initViews() {
 		mTvMedName = (TextView) findViewById(R.id.set_schedule_medname);
 		mIvMedImage = (Button) findViewById(R.id.set_schedule_medimage);
-		//mIvPillImage = (ImageView) findViewById(R.id.set_schedule_medpill);
-		//mIvPillImage.setVisibility(View.INVISIBLE);
+		mIvPillImage = (ImageView) findViewById(R.id.set_schedule_medpill);
+		mIvPillImage.setVisibility(View.INVISIBLE);
 		mTvMedInfo1 = (EditText) findViewById(R.id.set_schedule_medinfo1);
 		mTvMedInfo2 = (EditText) findViewById(R.id.set_schedule_medinfo2);
 		mGlTakeTime = (GridLayout) findViewById(R.id.set_schedule_taketime_grid);
@@ -312,19 +314,38 @@ public class SetScheduleActivity extends BannerActivity {
 	static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1;
 
 	public void onPhotoClick(View v) {
-		Intent takePictureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-		if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-	        // Create the File where the photo should go
+		dispatchTakePictureIntent();
+	}
+	
+	private void dispatchTakePictureIntent() {
+	    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+	    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+	    	// Create the File where the photo should go
 	        File photoFile = null;
 	        try {
 	            photoFile = createImageFile();
-	        } catch (IOException ex) {
-	        }
+	        } catch (IOException ex) {}
 	        if (photoFile != null) {
 	            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
 	                    Uri.fromFile(photoFile));
+	        	galleryAddPic();
 	            startActivityForResult(takePictureIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 	        }
+	    }
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
+	    if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+	    	File file = new File(mCurrentPhotoPath);
+//	    	mIvMedImage.setImageURI(Uri.fromFile(file));
+	    	mIvMedImage.setVisibility(View.INVISIBLE);
+	    	mIvPillImage.setVisibility(View.VISIBLE);      
+	        mIvPillImage.setImageURI(Uri.fromFile(file));
+	    }
+	    else {
+			Toast.makeText(getApplicationContext(), "data is null", Toast.LENGTH_SHORT).show(); 
 	    }
 	}
 	
@@ -333,6 +354,8 @@ public class SetScheduleActivity extends BannerActivity {
 	private File createImageFile() throws IOException {
 	    // Create an image file name
 		String imageFileName = "drugpic_" + mMedicine.getName().substring(0, 3).toLowerCase(Locale.US);
+		Log.i("Something I Need to Check", imageFileName);
+		Toast.makeText(getApplicationContext(), imageFileName, Toast.LENGTH_SHORT).show(); 
 	    File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 	    File image = File.createTempFile(
 	        imageFileName,  /* prefix */
@@ -340,21 +363,17 @@ public class SetScheduleActivity extends BannerActivity {
 	        storageDir      /* directory */
 	    );
 	    mMedicine.setPhotoPath(image);
-	    mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+	    mCurrentPhotoPath = image.getAbsolutePath();//"file:" +
 	    return image;
 	}
 	
-	
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-	        //Bundle extras = data.getExtras();
-	        //Bitmap imageBitmap = (Bitmap) extras.get("data");
-	    	mIvMedImage.setVisibility(View.INVISIBLE);
-	        //mIvPillImage.setVisibility(View.VISIBLE);      
-	        //mIvPillImage.setImageBitmap(imageBitmap);
-	    }
+	private void galleryAddPic() {
+	    Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+	    File f = new File(mCurrentPhotoPath);
+	    Uri contentUri = Uri.fromFile(f);
+	    mediaScanIntent.setData(contentUri);
+	    this.sendBroadcast(mediaScanIntent);
 	}
-	
 
 	public void onOkClick(View v) {
 		if(mTakeTimes.size() == 0) {

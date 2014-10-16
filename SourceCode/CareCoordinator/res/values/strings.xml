@@ -39,11 +39,12 @@
     <string name="settings_native_american">Native American</string>
     <string name="settings_city_label">City</string>
     <string name="settings_state_label">State</string>
-    <string name="settings_height_label">Height</string>
-    <string name="settings_weight_label">Weight</string>
+    <string name="settings_height_label">Height (feet)</string>
+    <string name="settings_weight_label">Weight (lb)</string>
     <string name="settings_allergies_label">Allergies</string>
     <string name="settings_insurance_label">Insurance Provider</string>
     <string name="settings_none">None</string>
+    <string name="invalid_input">Please make sure the input is valid</string>
     
      <!-- Alert -->
     <string name="alertconf_primary_num">Primary Number</string>
@@ -84,8 +85,9 @@
     <string name="btn_minus_sign"> - </string>
     <string name="btn_import">Import</string>
     <string name="dialog_add_contact_title">Add New Contact</string>
-    <string name="dialog_contact_name">Name</string>
-    <string name="dialog_contact_phone">Phone</string>
+    <string name="dialog_contact_name">Name:</string>
+    <string name="dialog_contact_phone">Phone:</string>
+    <string name="contact_error_msg">Name and Phone cannot be empty!</string>
 
     <!-- Pick from contacts -->
     <string name="title_contacts">Contacts</string>

@@ -45,13 +45,13 @@
                 android:onClick="onPhotoClick"
                 android:text="@string/take_picture" />
             
-            <!--<ImageView
+            <ImageView
                 android:id="@+id/set_schedule_medpill"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="6dp"
-                android:background="@drawable/shadow_box" />-->
+                android:background="@drawable/shadow_box" />
 
             
             <TextView

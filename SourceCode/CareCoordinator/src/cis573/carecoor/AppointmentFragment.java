@@ -2,16 +2,12 @@ package cis573.carecoor;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,13 +15,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.AdapterView.OnItemClickListener;
-//import android.widget.ListView;
-import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemLongClickListener;
-
-import cis573.carecoor.ExtendedCalendar.CalendarAdapter;
 import cis573.carecoor.ExtendedCalendar.CalendarProvider;
 import cis573.carecoor.ExtendedCalendar.Day;
 import cis573.carecoor.ExtendedCalendar.ExtendedCalendarView;
@@ -123,7 +114,13 @@ public class AppointmentFragment extends Fragment {
 	private OnClickListener onNewClick = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			Intent intent = new Intent(getActivity(), NewAppointmentActivity.class);
+			Day d = cView.focusedDay;
+			int[] dayData = new int[3];
+			dayData[0] = d.getYear();
+			dayData[1] = d.getMonth();
+			dayData[2] = d.getDay();
+			
+			Intent intent = new Intent(getActivity(), NewAppointmentActivity.class).putExtra("focusedDay", dayData);
 			startActivityForResult(intent, 0);
 		}
 	};
@@ -164,6 +161,7 @@ public class AppointmentFragment extends Fragment {
 						mContext.getResources()
 						.getStringArray(R.array.appointment_remind_options)[item.getRemind()]));
 				vh.detail.setText(mContext.getString(R.string.appointment_item_detail, item.getDetail()));
+				
 				int dayDiff = Utils.getDayDiffFromNow(item.getDate());
 				if(dayDiff > 0) {	// days remaining
 					if(dayDiff == 1) {
