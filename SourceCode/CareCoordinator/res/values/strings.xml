@@ -2,13 +2,13 @@
     
     <string name="dialog_add_contact_input">Add Contact</string>
 
-    <string name="app_name">Care Coordinator</string>
+    <string name="app_name">Care Connect</string>
     <string name="msg_empty_phone_number">Phone number cannot be empty</string>
     <string name="msg_primary_number_empty">Primary alert phone is not set</string>
     <string name="msg_secondary_number_empty">Secondary alert phone is not set</string>
     <string name="msg_empty_provider_email">Provider email cannot be empty</string>
     <string name="msg_empty_password">Password cannot be empty</string>
-    <string name="msg_export_subject">CareCoordinator: Data Export</string>
+    <string name="msg_export_subject">CareConnect: Data Export</string>
     <string name="msg_export_failed">Export Failed</string>
     <string name="msg_export_success">Export Success</string>
 
@@ -196,7 +196,7 @@
     <string name="reminder_text">Take medicine: %1$s</string>
 
     <!-- Appointment -->
-    <string name="MY_ACCOUNT_NAME">CareCoordinator</string>
+    <string name="MY_ACCOUNT_NAME">CareConnect</string>
     <string name="appointment_empty">No appointments on\n  selected day</string>
     <string name="btn_appointment_new">New Appointment</string>
     <string name="title_appointment_new">New Appointment</string>
