@@ -16,10 +16,10 @@ import cis573.carecoor.utils.Const;
 public class PickFromContactsActivity extends BannerActivity {
 
 	public static final String TAG = "PickFromContactsActivity";
-	
+
 	private ExpandableListView mListView;
 	private ContactAdapter mAdapter;
-	
+
 	private List<Contact> mUsefulContacts;
 	private List<Contact> mUserContacts;
 
@@ -28,7 +28,7 @@ public class PickFromContactsActivity extends BannerActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pick_from_contacts_activity);
 		setBannerTitle(R.string.title_contacts);
-		
+
 		initViews();
 		initContacts();
 	}
@@ -48,21 +48,24 @@ public class PickFromContactsActivity extends BannerActivity {
 	}
 
 	private void initContacts() {
-		mUsefulContacts = DataCenter.getUsefulContacts(PickFromContactsActivity.this);
-		mUserContacts = DataCenter.getUserContacts(PickFromContactsActivity.this);
+		mUsefulContacts = DataCenter
+				.getUsefulContacts(PickFromContactsActivity.this);
+		mUserContacts = DataCenter
+				.getUserContacts(PickFromContactsActivity.this);
 		mAdapter.setContactList1(mUsefulContacts);
 		mAdapter.setContactList2(mUserContacts);
 		mAdapter.notifyDataSetChanged();
-		for(int i = 0; i < mAdapter.getGroupCount(); i++) {
+		for (int i = 0; i < mAdapter.getGroupCount(); i++) {
 			mListView.expandGroup(i);
 		}
 	}
-	
+
 	private OnChildClickListener onChildClick = new OnChildClickListener() {
 		@Override
 		public boolean onChildClick(ExpandableListView parent, View v,
 				int groupPosition, int childPosition, long id) {
-			Contact contact = (Contact) mAdapter.getChild(groupPosition, childPosition);
+			Contact contact = (Contact) mAdapter.getChild(groupPosition,
+					childPosition);
 			Intent intent = new Intent();
 			intent.putExtra(Const.EXTRA_CONTACT, contact);
 			setResult(RESULT_OK, intent);

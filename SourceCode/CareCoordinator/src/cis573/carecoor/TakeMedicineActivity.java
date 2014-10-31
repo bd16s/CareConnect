@@ -47,27 +47,27 @@ public class TakeMedicineActivity extends BannerActivity {
 	private LinearLayout mStatusLayout;
 	private Button mBtnTake;
 	private ToggleButton mTbTracking;
-	
+
 	private Schedule mSchedule;
 	private boolean mChanged = false;
 	private Time mNextTime = null;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Bundle extras = getIntent().getExtras();
-		if(extras != null) {
+		if (extras != null) {
 			mSchedule = (Schedule) extras.getSerializable(Const.EXTRA_SCHEDULE);
 		}
 		setContentView(R.layout.take_medicine_activity);
 		setBannerTitle(R.string.title_take_medicine);
 		initViews();
-		
+
 		showMedicineInfo();
 		showScheduleInfo();
 		showScheduleStatus();
 	}
-	
+
 	private void initViews() {
 		mTvMedName = (TextView) findViewById(R.id.take_medicine_medname);
 		mIvMedImage = (ImageView) findViewById(R.id.take_medicine_medimage);
@@ -79,10 +79,10 @@ public class TakeMedicineActivity extends BannerActivity {
 		mBtnTake = (Button) findViewById(R.id.take_medicine_take_btn);
 		mTbTracking = (ToggleButton) findViewById(R.id.take_medicine_tracking);
 	}
-	
+
 	@Override
 	public void onBackPressed() {
-		if(mChanged) {
+		if (mChanged) {
 			setResult(RESULT_OK);
 		}
 		super.onBackPressed();
@@ -90,131 +90,145 @@ public class TakeMedicineActivity extends BannerActivity {
 
 	private void showMedicineInfo() {
 		Medicine medicine = null;
-		if(mSchedule != null) {
+		if (mSchedule != null) {
 			medicine = mSchedule.getMedicine();
 		}
-		if(medicine == null) {
+		if (medicine == null) {
 			return;
 		}
 		mTvMedName.setText(medicine.getName());
-		System.out.println("photopath is null: " + (medicine.getPhotoPath() == null));
-		if (medicine.getPhotoPath() != null){
-			//mIvMedImage.setImageBitmap(medicine.getBitmap());
+		System.out.println("photopath is null: "
+				+ (medicine.getPhotoPath() == null));
+		if (medicine.getPhotoPath() != null) {
+			// mIvMedImage.setImageBitmap(medicine.getBitmap());
 			mIvMedImage.setImageURI(Uri.fromFile(medicine.getPhotoPath()));
 		}
-		//mIvMedImage.setImageResource(MedicineCenter.getMedicineImageRes(TakeMedicineActivity.this, medicine));
+		// mIvMedImage.setImageResource(MedicineCenter.getMedicineImageRes(TakeMedicineActivity.this,
+		// medicine));
 		mTvMedInfo1.setText(medicine.getDetailedName());
 		mTvMedInfo2.setText(medicine.getInstructions());
 	}
-	
+
 	private void showScheduleInfo() {
-		if(mSchedule == null) {
+		if (mSchedule == null) {
 			return;
 		}
 		StringBuilder sb = new StringBuilder();
-		sb.append(getString(R.string.take_medicine_created_at,
-				Utils.getDateString(mSchedule.getCreateDate()))).append('\n');
-		
+		sb.append(
+				getString(R.string.take_medicine_created_at,
+						Utils.getDateString(mSchedule.getCreateDate())))
+				.append('\n');
+
 		StringBuilder sbHours = new StringBuilder();
-//		List<Integer> hours = mSchedule.getHours();
+		// List<Integer> hours = mSchedule.getHours();
 		List<Time> times = mSchedule.getTimes();
 		Time time;
-		for(int i = 0; i < times.size(); i++) {
+		for (int i = 0; i < times.size(); i++) {
 			time = times.get(i);
 			sbHours.append(Utils.get12ClockTimeString(time));
-			if(i != times.size() - 1) {
+			if (i != times.size() - 1) {
 				sbHours.append(", ");
 			}
 		}
-		sb.append(getString(R.string.take_medicine_hours_to_take, sbHours.toString())).append('\n');
-		
+		sb.append(
+				getString(R.string.take_medicine_hours_to_take,
+						sbHours.toString())).append('\n');
+
 		List<Integer> days = mSchedule.getDays();
 		String daysStr = "";
-		if(days == null || days.size() == 0) {
+		if (days == null || days.size() == 0) {
 			daysStr = getString(R.string.set_schedule_every_day);
 		} else {
 			StringBuilder sbDays = new StringBuilder();
 			int day;
-			for(int i = 0; i < days.size(); i++) {
+			for (int i = 0; i < days.size(); i++) {
 				day = days.get(i);
 				sbDays.append(Utils.getWeekName(day));
-				if(i != days.size() - 1) {
+				if (i != days.size() - 1) {
 					sbDays.append(", ");
 				}
 			}
 			daysStr = sbDays.toString();
 		}
-		sb.append(getString(R.string.take_medicine_days_to_take, daysStr)).append('\n');
-		
+		sb.append(getString(R.string.take_medicine_days_to_take, daysStr))
+				.append('\n');
+
 		int duration = mSchedule.getDuration();
 		String durationStr = "";
-		if(duration > 0) {
+		if (duration > 0) {
 			durationStr = getString(R.string.duration_days, duration);
 		} else {
 			durationStr = getString(R.string.duration_continuous);
 		}
 		sb.append(getString(R.string.take_medicine_duration, durationStr));
-		
+
 		mTvScheduleInfo.setText(sb.toString());
-		
+
 		mTbTracking.setChecked(mSchedule.isTracking());
 		mTbTracking.setOnCheckedChangeListener(onTrackingChanged);
 	}
-	
+
 	private void showScheduleStatus() {
 		mBtnTake.setEnabled(false);
 		mStatusLayout.removeAllViews();
-		int status = ScheduleCenter.getScheduleStatusSimple(TakeMedicineActivity.this, mSchedule);
-		if(status == ScheduleCenter.SCHEDULE_NO_TODAY) {
+		int status = ScheduleCenter.getScheduleStatusSimple(
+				TakeMedicineActivity.this, mSchedule);
+		if (status == ScheduleCenter.SCHEDULE_NO_TODAY) {
 			mTvScheduleStatus.setText(R.string.schedule_state_no_today);
-		} else if(status == ScheduleCenter.SCHEDULE_ENDED) {
+		} else if (status == ScheduleCenter.SCHEDULE_ENDED) {
 			mTvScheduleStatus.setText(R.string.schedule_state_ended);
-		} else if(status >= 0) {
+		} else if (status >= 0) {
 			mTvScheduleStatus.setText(R.string.take_medicine_schedule_today);
-//			List<Integer> hours = mSchedule.getHours();
+			// List<Integer> hours = mSchedule.getHours();
 			List<Time> times = mSchedule.getTimes();
-			List<TakeRecord> records = ScheduleCenter.getDayTakeRecordsForScheduleToday(TakeMedicineActivity.this,
-					mSchedule);
-			if(records != null) {
+			List<TakeRecord> records = ScheduleCenter
+					.getDayTakeRecordsForScheduleToday(
+							TakeMedicineActivity.this, mSchedule);
+			if (records != null) {
 				Collections.sort(records, sorter);
-				if(records.size() < times.size()) {
+				if (records.size() < times.size()) {
 					mNextTime = times.get(records.size());
 				}
 			}
-			
-//			int hour;
+
+			// int hour;
 			Time time;
 			TakeRecord record;
 			View statusView;
 			TextView tvHour, tvTaken;
-			for(int i = 0; i < times.size(); i++) {
-				statusView = View.inflate(TakeMedicineActivity.this, R.layout.schedule_status_item, null);
-				tvHour = (TextView) statusView.findViewById(R.id.schedule_status_time);
-				tvTaken = (TextView) statusView.findViewById(R.id.schedule_status_taken);
-				
+			for (int i = 0; i < times.size(); i++) {
+				statusView = View.inflate(TakeMedicineActivity.this,
+						R.layout.schedule_status_item, null);
+				tvHour = (TextView) statusView
+						.findViewById(R.id.schedule_status_time);
+				tvTaken = (TextView) statusView
+						.findViewById(R.id.schedule_status_taken);
+
 				time = times.get(i);
 				tvHour.setText(Utils.get12ClockTimeString(time));
-				if(records != null) {
-					if(i < records.size()) {
+				if (records != null) {
+					if (i < records.size()) {
 						record = records.get(i);
-						tvTaken.setTextColor(getResources().getColor(R.color.green_text));
+						tvTaken.setTextColor(getResources().getColor(
+								R.color.green_text));
 						tvTaken.setText(getString(R.string.taken_at,
 								Utils.getTimeString(record.getTakeTime())));
 					}
 				}
-				
+
 				mStatusLayout.addView(statusView);
 			}
-			
-			if(records == null || records.size() < times.size()) {
+
+			if (records == null || records.size() < times.size()) {
 				mBtnTake.setEnabled(true);
 			}
 		}
 	}
-	
+
 	private OnCheckedChangeListener onTrackingChanged = new OnCheckedChangeListener() {
 		@Override
-		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		public void onCheckedChanged(CompoundButton buttonView,
+				boolean isChecked) {
 			mSchedule.setTracking(isChecked);
 			DataCenter.saveSchedule(TakeMedicineActivity.this, mSchedule);
 			mChanged = true;
@@ -223,26 +237,35 @@ public class TakeMedicineActivity extends BannerActivity {
 
 	public void onTakeClick(View v) {
 		new AlertDialog.Builder(TakeMedicineActivity.this)
-		.setTitle(R.string.dialog_title_take_med)
-		.setMessage(R.string.dialog_msg_take_med)
-		.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				Date now = new Date();
-				TakeRecord record = new TakeRecord(mSchedule, now, Utils.getAdjustedDate(now, mNextTime));
-				DataCenter.addTakeRecord(TakeMedicineActivity.this, record);
-				ReminderCenter.addNextReminder(TakeMedicineActivity.this, mSchedule);
-				showScheduleStatus();
-				mChanged = true;
-			}
-		}).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				return;
-			}
-		}).show();
+				.setTitle(R.string.dialog_title_take_med)
+				.setMessage(R.string.dialog_msg_take_med)
+				.setPositiveButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								Date now = new Date();
+								TakeRecord record = new TakeRecord(mSchedule,
+										now, Utils.getAdjustedDate(now,
+												mNextTime));
+								DataCenter.addTakeRecord(
+										TakeMedicineActivity.this, record);
+								ReminderCenter.addNextReminder(
+										TakeMedicineActivity.this, mSchedule);
+								showScheduleStatus();
+								mChanged = true;
+							}
+						})
+				.setNegativeButton(android.R.string.cancel,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								return;
+							}
+						}).show();
 	}
-	
+
 	private static Comparator<TakeRecord> sorter = new Comparator<TakeRecord>() {
 		@Override
 		public int compare(TakeRecord lhs, TakeRecord rhs) {

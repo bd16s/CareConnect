@@ -8,8 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Modified by:
- * xzonghan on 10/12/14.
+ * Modified by: xzonghan on 10/12/14.
  */
 public class PinLockActivity extends BannerActivity {
 
@@ -47,12 +46,12 @@ public class PinLockActivity extends BannerActivity {
 	public void onPinButtonClick(View v) {
 		Button pressedButton = (Button) v;
 		String buttonText = pressedButton.getText().toString();
-		
-		if("cancel".equals(buttonText)){
+
+		if ("cancel".equals(buttonText)) {
 			delete();
 			return;
 		}
-		
+
 		testCode.append(buttonText);
 		count++;
 		changeView();
@@ -61,17 +60,17 @@ public class PinLockActivity extends BannerActivity {
 		}
 	}
 
-	private void delete(){
+	private void delete() {
 		int length = testCode.length();
-		if(length <= 0){
+		if (length <= 0) {
 			return;
-		}else{
+		} else {
 			testCode.setLength(length - 1);
 			count--;
 			changeView();
 		}
 	}
-	
+
 	private void testPin() {
 		String testCodeStr = testCode.toString();
 		if (testCodeStr.equals(code)) {
@@ -87,14 +86,15 @@ public class PinLockActivity extends BannerActivity {
 	}
 
 	private void fail() {
-    	Toast toast = Toast.makeText(getApplicationContext(), R.string.pin_fail_info, Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(getApplicationContext(),
+				R.string.pin_fail_info, Toast.LENGTH_SHORT);
 		toast.show();
 		testCode = new StringBuilder();
 		count = 0;
 		pin.setText("_ _ _ _");
 	}
-	
+
 	@Override
-	public void onBackPressed(){
+	public void onBackPressed() {
 	}
 }

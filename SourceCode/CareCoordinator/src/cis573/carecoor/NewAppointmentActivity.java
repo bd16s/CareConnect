@@ -6,7 +6,6 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import cis573.carecoor.ExtendedCalendar.CalendarProvider;
-import cis573.carecoor.ExtendedCalendar.Event;
 import cis573.carecoor.bean.Appointment;
 import cis573.carecoor.data.DataCenter;
 import cis573.carecoor.reminder.ReminderCenter;
@@ -19,7 +18,6 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.Time;
 import android.view.View;

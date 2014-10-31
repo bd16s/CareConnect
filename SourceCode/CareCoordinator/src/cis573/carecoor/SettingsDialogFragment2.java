@@ -11,9 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * Created by:
- * yucongli on 10/14/14.
- *
+ * Created by: yucongli on 10/14/14.
+ * 
  */
 
 // **************************************************************************
@@ -44,7 +43,7 @@ public class SettingsDialogFragment2 extends DialogFragment {
 	public static final int ALLERGIES = 12;
 	public static final int INSURANCE = 13;
 	public static final int NUM_DIALOGS = 14;
-	
+
 	private EditText mEtInfo;
 	private Button mBtnImport;
 	private int mType;
@@ -68,55 +67,56 @@ public class SettingsDialogFragment2 extends DialogFragment {
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		View view = View
-				.inflate(getActivity(), R.layout.dialog_email, null);
-		mEtInfo = (EditText) view
-				.findViewById(R.id.dialog_add_info_edittext);
+		View view = View.inflate(getActivity(), R.layout.dialog_email, null);
+		mEtInfo = (EditText) view.findViewById(R.id.dialog_add_info_edittext);
 		setInputType(view);
 		mBtnImport = (Button) view
 				.findViewById(R.id.dialog_add_email_import_btn);
 		mBtnImport.setOnClickListener(onImportClick);
 
-		InfoInputDialog infoD = new InfoInputDialog(getActivity(), view, getTitle(), mType, mEtInfo, getTargetFragment());
+		InfoInputDialog infoD = new InfoInputDialog(getActivity(), view,
+				getTitle(), mType, mEtInfo, getTargetFragment());
 		return infoD.getDialog();
-		
-//				return new AlertDialog.Builder(getActivity())
-//				.setView(view)
-//				.setTitle(getTitle())
-//				.setPositiveButton(android.R.string.ok,
-//						new DialogInterface.OnClickListener() {
-//							@Override
-//							public void onClick(DialogInterface dialog,
-//									int which) {
-//								String text = mEtInfo.getText().toString();
-//								
-//								if (!validityCheck(text)) {
-//									MyToast.show(getActivity().getApplicationContext(), String.valueOf(mType));
-//								} else {
-//									OnSettingsChangedListener listener = (OnSettingsChangedListener) getTargetFragment();
-//									if (listener != null) {
-//										listener.onSettingsChanged(text, mType);
-//									}
-//								}
-//							}
-//							
-//							private boolean validityCheck (String text) {
-//								switch (mType) {
-//								case 3:
-//									return text.matches("^\\d+$");
-//								default:
-//									return true;		
-//								}
-//							}
-//						})
-//				.setNegativeButton(android.R.string.cancel,
-//						new DialogInterface.OnClickListener() {
-//							@Override
-//							public void onClick(DialogInterface dialog,
-//									int which) {
-//								return;
-//							}
-//						}).create();
+
+		// return new AlertDialog.Builder(getActivity())
+		// .setView(view)
+		// .setTitle(getTitle())
+		// .setPositiveButton(android.R.string.ok,
+		// new DialogInterface.OnClickListener() {
+		// @Override
+		// public void onClick(DialogInterface dialog,
+		// int which) {
+		// String text = mEtInfo.getText().toString();
+		//
+		// if (!validityCheck(text)) {
+		// MyToast.show(getActivity().getApplicationContext(),
+		// String.valueOf(mType));
+		// } else {
+		// OnSettingsChangedListener listener = (OnSettingsChangedListener)
+		// getTargetFragment();
+		// if (listener != null) {
+		// listener.onSettingsChanged(text, mType);
+		// }
+		// }
+		// }
+		//
+		// private boolean validityCheck (String text) {
+		// switch (mType) {
+		// case 3:
+		// return text.matches("^\\d+$");
+		// default:
+		// return true;
+		// }
+		// }
+		// })
+		// .setNegativeButton(android.R.string.cancel,
+		// new DialogInterface.OnClickListener() {
+		// @Override
+		// public void onClick(DialogInterface dialog,
+		// int which) {
+		// return;
+		// }
+		// }).create();
 	}
 
 	private OnClickListener onImportClick = new OnClickListener() {
@@ -161,11 +161,9 @@ public class SettingsDialogFragment2 extends DialogFragment {
 		case PRIMARY_PHONE:
 			return getActivity().getString(R.string.alertconf_primary_num);
 		case SECONDARY_PHONE:
-			return getActivity()
-					.getString(R.string.alertconf_secondary_num);
+			return getActivity().getString(R.string.alertconf_secondary_num);
 		case USER_EMAIL:
-			return getActivity().getString(
-					R.string.settings_user_email_label);
+			return getActivity().getString(R.string.settings_user_email_label);
 		case EMAIL_PASSWORD:
 			return getActivity().getString(
 					R.string.settings_user_email_password_label);
@@ -173,11 +171,9 @@ public class SettingsDialogFragment2 extends DialogFragment {
 			return getActivity().getString(
 					R.string.settings_provider_email_label);
 		case NAME:
-			return getActivity().getString(
-					R.string.settings_user_name_label);
+			return getActivity().getString(R.string.settings_user_name_label);
 		case DOB:
-			return getActivity()
-					.getString(R.string.settings_user_dob_label);
+			return getActivity().getString(R.string.settings_user_dob_label);
 		case HEIGHT:
 			return getActivity().getString(R.string.settings_height_label);
 		case WEIGHT:
@@ -187,11 +183,9 @@ public class SettingsDialogFragment2 extends DialogFragment {
 		case STATE:
 			return getActivity().getString(R.string.settings_state_label);
 		case ALLERGIES:
-			return getActivity().getString(
-					R.string.settings_allergies_label);
+			return getActivity().getString(R.string.settings_allergies_label);
 		case INSURANCE:
-			return getActivity().getString(
-					R.string.settings_insurance_label);
+			return getActivity().getString(R.string.settings_insurance_label);
 		}
 		return null;
 	}

@@ -18,10 +18,10 @@ public class CoorApplication extends Application {
 		initUsefulContacts();
 		MedicineCenter.init(this);
 	}
-	
+
 	private void initUsefulContacts() {
 		List<Contact> list = DataCenter.getUsefulContacts(this);
-		if(list == null) {
+		if (list == null) {
 			list = new ArrayList<Contact>();
 			list.add(new Contact("Penn Nursing", "215-898-5074"));
 			list.add(new Contact("University of Pennsylvania", "215-898-5000"));

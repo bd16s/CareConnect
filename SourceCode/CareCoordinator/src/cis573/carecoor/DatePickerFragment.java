@@ -11,23 +11,21 @@ import android.widget.TextView;
 import cis573.carecoor.utils.PreferenceUtil;
 
 /**
- * Created by:
- * yucongli on 10/14/14
+ * Created by: yucongli on 10/14/14
  * 
- * Modified by:
- * yucongli on 10/15/14
+ * Modified by: yucongli on 10/15/14
  */
 public class DatePickerFragment extends DialogFragment implements
 		DatePickerDialog.OnDateSetListener {
 
 	public static final int DOB = AlertConfFragment.DOB;
 	TextView mEt;
-	
-	DatePickerFragment (TextView et) {
+
+	DatePickerFragment(TextView et) {
 		super();
 		mEt = et;
 	}
-	
+
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		// Use the current date as the default date in the picker

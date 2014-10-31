@@ -6,10 +6,11 @@ import android.view.View;
 
 /**
  * Modified
+ * 
  * @author xuxu
  */
 
-public class InstructionsActivity extends Activity {	
+public class InstructionsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

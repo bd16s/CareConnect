@@ -22,7 +22,7 @@ import android.widget.TextView;
 import cis573.carecoor.bean.Friend;
 
 public class FriendsFragment extends Fragment {
-	
+
 	private ListView mListView;
 	private FriendsAdapter mAdapter;
 	private List<Friend> mFriendList;
@@ -30,7 +30,8 @@ public class FriendsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.friends_fragment, container, false);
+		View view = inflater.inflate(R.layout.friends_fragment, container,
+				false);
 		mListView = (ListView) view;
 		mListView.setOnItemClickListener(onItemClick);
 		return view;
@@ -47,46 +48,57 @@ public class FriendsFragment extends Fragment {
 	}
 
 	private static void addFriends(List<Friend> list) {
-		if(list == null) {
+		if (list == null) {
 			return;
 		}
-		list.add(new Friend("Penn Nursing", "https://www.facebook.com/PennNursing", R.drawable.penn_nursing));
-		list.add(new Friend("Penn Engineering", "https://www.facebook.com/PennEngineering", R.drawable.penn_engineering));
+		list.add(new Friend("Penn Nursing",
+				"https://www.facebook.com/PennNursing", R.drawable.penn_nursing));
+		list.add(new Friend("Penn Engineering",
+				"https://www.facebook.com/PennEngineering",
+				R.drawable.penn_engineering));
 	}
-	
+
 	OnItemClickListener onItemClick = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			Friend item = (Friend) arg0.getItemAtPosition(arg2);
-			if(item != null) {
+			if (item != null) {
 				final String url = item.getUrl();
 				new AlertDialog.Builder(getActivity())
-				.setTitle(R.string.dialog_title_friends)
-				.setMessage(getString(R.string.dialog_friends_facebook_page, item.getName()))
-				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						Intent intent = new Intent(Intent.ACTION_VIEW);
-						intent.setData(Uri.parse(url));
-						startActivity(intent);
-					}
-				}).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						return;
-					}
-				}).show();
+						.setTitle(R.string.dialog_title_friends)
+						.setMessage(
+								getString(
+										R.string.dialog_friends_facebook_page,
+										item.getName()))
+						.setPositiveButton(android.R.string.ok,
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										Intent intent = new Intent(
+												Intent.ACTION_VIEW);
+										intent.setData(Uri.parse(url));
+										startActivity(intent);
+									}
+								})
+						.setNegativeButton(android.R.string.cancel,
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										return;
+									}
+								}).show();
 			}
 		}
 	};
-	
+
 	public static class FriendsAdapter extends BaseAdapter {
 
 		private Context mContext;
 		private List<Friend> mFriendList;
-		
-		
+
 		public FriendsAdapter(Context context) {
 			this.mContext = context;
 		}
@@ -113,23 +125,26 @@ public class FriendsFragment extends Fragment {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder vh;
-			if(convertView == null) {
-				convertView = View.inflate(mContext, R.layout.friends_list_item, null);
+			if (convertView == null) {
+				convertView = View.inflate(mContext,
+						R.layout.friends_list_item, null);
 				vh = new ViewHolder();
-				vh.icon = (ImageView) convertView.findViewById(R.id.friends_item_icon);
-				vh.name = (TextView) convertView.findViewById(R.id.friends_item_name);
+				vh.icon = (ImageView) convertView
+						.findViewById(R.id.friends_item_icon);
+				vh.name = (TextView) convertView
+						.findViewById(R.id.friends_item_name);
 				convertView.setTag(vh);
 			} else {
 				vh = (ViewHolder) convertView.getTag();
 			}
 			Friend item = (Friend) getItem(position);
-			if(item != null) {
+			if (item != null) {
 				vh.icon.setImageResource(item.getIconId());
 				vh.name.setText(item.getName());
 			}
 			return convertView;
 		}
-		
+
 		private static class ViewHolder {
 			ImageView icon;
 			TextView name;

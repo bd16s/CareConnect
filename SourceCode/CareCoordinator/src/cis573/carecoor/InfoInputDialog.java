@@ -10,14 +10,12 @@ import android.widget.EditText;
 import cis573.carecoor.utils.MyToast;
 
 /**
- * Created by:
- * yucongli on 10/14/14.
- *
- * Modified by:
- * yucongli on 10/15/14.
+ * Created by: yucongli on 10/14/14.
+ * 
+ * Modified by: yucongli on 10/15/14.
  */
-public class InfoInputDialog extends AlertDialog{
-	
+public class InfoInputDialog extends AlertDialog {
+
 	// Info codes (for arrays, etc...)
 	public static final int PIN = 0;
 
@@ -40,7 +38,7 @@ public class InfoInputDialog extends AlertDialog{
 	public static final int ALLERGIES = 12;
 	public static final int INSURANCE = 13;
 	public static final int NUM_DIALOGS = 14;
-		
+
 	Context mContext = null;
 	View mView = null;
 	CharSequence mTitle = null;
@@ -48,8 +46,9 @@ public class InfoInputDialog extends AlertDialog{
 	EditText mEtInfo = null;
 	Fragment mFragment = null;
 	AlertDialog mDialog = null;
-	
-	protected InfoInputDialog(Context context, View view, CharSequence title, int type, EditText mEtInfo, Fragment fragment) {
+
+	protected InfoInputDialog(Context context, View view, CharSequence title,
+			int type, EditText mEtInfo, Fragment fragment) {
 		super(context);
 		mContext = context;
 		mView = view;
@@ -59,25 +58,23 @@ public class InfoInputDialog extends AlertDialog{
 		mFragment = fragment;
 		init();
 	}
-	
+
 	protected void init() {
-		mDialog = new Builder(mContext)
-		.setView(mView)
-		.setTitle(mTitle)
-		.setPositiveButton(android.R.string.ok, null)
-		.setNegativeButton(android.R.string.cancel, null)
-		.create();
-		
+		mDialog = new Builder(mContext).setView(mView).setTitle(mTitle)
+				.setPositiveButton(android.R.string.ok, null)
+				.setNegativeButton(android.R.string.cancel, null).create();
+
 		mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
 
-		    @Override
-		    public void onShow(final DialogInterface dialog) {
-		    	
-		        Button b = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-		        b.setOnClickListener(new View.OnClickListener() {
-		            @Override
-		            public void onClick(View view) {
-		            	String text = mEtInfo.getText().toString();
+			@Override
+			public void onShow(final DialogInterface dialog) {
+
+				Button b = ((AlertDialog) dialog)
+						.getButton(AlertDialog.BUTTON_POSITIVE);
+				b.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						String text = mEtInfo.getText().toString();
 						if (!validityCheck(text)) {
 							MyToast.show(mContext, R.string.invalid_input);
 						} else {
@@ -87,9 +84,10 @@ public class InfoInputDialog extends AlertDialog{
 							}
 							dialog.dismiss();
 						}
-		            }
-		            private boolean validityCheck (String text) {
-		            	boolean b = true;
+					}
+
+					private boolean validityCheck(String text) {
+						boolean b = true;
 						switch (mType) {
 						case PRIMARY_PHONE:
 						case SECONDARY_PHONE:
@@ -111,19 +109,20 @@ public class InfoInputDialog extends AlertDialog{
 						}
 						return b;
 					}
-		        });
-		        
-		        b = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE);
-		        b.setOnClickListener(new View.OnClickListener() {
-		        	@Override
-		            public void onClick(View view) {
-		        		dialog.dismiss();
-		        	}
-		        });
-		    }
+				});
+
+				b = ((AlertDialog) dialog)
+						.getButton(AlertDialog.BUTTON_NEGATIVE);
+				b.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						dialog.dismiss();
+					}
+				});
+			}
 		});
 	}
-	
+
 	protected AlertDialog getDialog() {
 		return mDialog;
 	}
