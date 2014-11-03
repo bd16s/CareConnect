@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -178,8 +179,11 @@ public class ChooseMedActivity extends BannerActivity implements
 			adapter.setNotifyOnChange(true);
 			// attach the adapter to textview
 			autoCompView.setAdapter(adapter);
-			adapter.notifyDataSetChanged();
-			for (String string : result) {
+			adapter.notifyDataSetChanged();			
+			
+			HashSet<String> eliminateDup = new HashSet<String>(result);
+			
+			for (String string : eliminateDup) {
 				Logger.d("YourApp", "onPostExecute : result = " + string);
 				if (string == result.get(0)) {
 					adapter.add(string);
@@ -215,7 +219,7 @@ public class ChooseMedActivity extends BannerActivity implements
 				StringBuilder sb = new StringBuilder(apiURL);
 				sb.append(URLEncoder.encode(arg0[0], "utf8"));
 				sb.append(properties);
-				URL url = new URL(sb.toString());
+				URL url = new URL(sb.toString());				
 				conn = (HttpURLConnection) url.openConnection();
 				in = new BufferedInputStream(conn.getInputStream());
 				factory = XmlPullParserFactory.newInstance();
@@ -238,7 +242,6 @@ public class ChooseMedActivity extends BannerActivity implements
 					conn.disconnect();
 				}
 			}
-
 			return resultList;
 		}
 
