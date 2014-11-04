@@ -3,6 +3,7 @@ package cis573.carecoor;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -17,18 +18,26 @@ import org.achartengine.renderer.XYSeriesRenderer;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
+import cis573.carecoor.ExtendedCalendar.Day;
+import cis573.carecoor.ExtendedCalendar.ExtendedCalendarView;
+import cis573.carecoor.data.DataCenter;
 import cis573.carecoor.data.ScheduleCenter;
 import cis573.carecoor.data.ScheduleCenter.Conformity;
+import cis573.carecoor.utils.MyToast;
 
 public class TrackActivity extends BannerActivity {
 
+	private ExtendedCalendarView dailyTable;
 	private GraphicalView weekGraph;
 	private GraphicalView monthGraph;
 	private LinearLayout viewTab1;
 	private LinearLayout viewTab2;
+	private LinearLayout viewTab3;
 	private TabHost mTabHost;
 
 	@Override
@@ -36,19 +45,43 @@ public class TrackActivity extends BannerActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_track);
 		setBannerTitle(R.string.track);
+		initTable();
 		initGraph();
 		viewTab1 = (LinearLayout) findViewById(R.id.tab1);
-		viewTab1.addView(weekGraph);
+		viewTab1.addView(dailyTable);
 		viewTab2 = (LinearLayout) findViewById(R.id.tab2);
-		viewTab2.addView(monthGraph);
+		viewTab2.addView(weekGraph);
+		viewTab3 = (LinearLayout) findViewById(R.id.tab3);
+		viewTab3.addView(monthGraph);
 		mTabHost = (TabHost) findViewById(R.id.tabhost);
 		mTabHost.setup();
+		mTabHost.addTab(mTabHost.newTabSpec("tab_daily")
+				.setIndicator("DAILY").setContent(R.id.tab1));
 		mTabHost.addTab(mTabHost.newTabSpec("tab_weekly")
-				.setIndicator("WEEKLY").setContent(R.id.tab1));
+				.setIndicator("WEEKLY").setContent(R.id.tab2));
 		mTabHost.addTab(mTabHost.newTabSpec("tab_monthly")
-				.setIndicator("MONTHLY").setContent(R.id.tab2));
+				.setIndicator("MONTHLY").setContent(R.id.tab3));
 	}
 
+	private void initTable() {
+		dailyTable = new ExtendedCalendarView(this.getApplicationContext());
+		dailyTable.setOnDayClickListener(onDayClick);
+	}
+	
+	private ExtendedCalendarView.OnDayClickListener onDayClick = new ExtendedCalendarView.OnDayClickListener() {
+		@Override
+		public void onDayClicked(AdapterView<?> adapter, View view,
+				int position, long id, Day day) {
+			MyToast.show(getBaseContext(), "Not implement");
+		}
+	};
+	
+	private static void setBeginningOfDay(Calendar cal) {
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+	}
 	private void initGraph() {
 		XYMultipleSeriesDataset weekDataset = new XYMultipleSeriesDataset();
 		XYMultipleSeriesDataset monthDataset = new XYMultipleSeriesDataset();
