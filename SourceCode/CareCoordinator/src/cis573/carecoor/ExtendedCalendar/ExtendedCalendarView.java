@@ -1,6 +1,7 @@
 package cis573.carecoor.ExtendedCalendar;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import android.annotation.SuppressLint;
@@ -9,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.GestureDetector;
@@ -25,6 +27,7 @@ import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnClickListener;
 
 import cis573.carecoor.R;
+import cis573.carecoor.utils.MyToast;
 
 public class ExtendedCalendarView extends RelativeLayout implements OnItemClickListener,OnCreateContextMenuListener,
         OnClickListener{
@@ -146,6 +149,10 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
         });
 
         addView(calendar);
+        
+        Date date = new Date();
+        Day d = new Day(this.getContext(), date.getDate(), 1900 + date.getYear(), date.getMonth());
+        focusedDay = d;
     }
 
     private class GestureListener extends SimpleOnGestureListener {
