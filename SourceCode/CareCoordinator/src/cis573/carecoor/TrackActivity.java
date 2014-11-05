@@ -3,7 +3,6 @@ package cis573.carecoor;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -15,20 +14,23 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
+import android.widget.TextView;
 import cis573.carecoor.ExtendedCalendar.Day;
 import cis573.carecoor.ExtendedCalendar.ExtendedCalendarView;
+import cis573.carecoor.adapter.CommonAdapter;
 import cis573.carecoor.data.DataCenter;
 import cis573.carecoor.data.ScheduleCenter;
 import cis573.carecoor.data.ScheduleCenter.Conformity;
-import cis573.carecoor.utils.MyToast;
 
 /**
  * Modified by:
@@ -37,7 +39,8 @@ import cis573.carecoor.utils.MyToast;
  */
 public class TrackActivity extends BannerActivity {
 
-	private ExtendedCalendarView dailyList;
+	private View dailyListView;
+	private ExtendedCalendarView dailyTable;
 	private GraphicalView weekGraph;
 	private GraphicalView monthGraph;
 	private LinearLayout viewTab1;
@@ -53,7 +56,7 @@ public class TrackActivity extends BannerActivity {
 		initList();
 		initGraph();
 		viewTab1 = (LinearLayout) findViewById(R.id.tab1);
-		viewTab1.addView(dailyList);
+		viewTab1.addView(dailyListView);
 		viewTab2 = (LinearLayout) findViewById(R.id.tab2);
 		viewTab2.addView(weekGraph);
 		viewTab3 = (LinearLayout) findViewById(R.id.tab3);
@@ -69,8 +72,9 @@ public class TrackActivity extends BannerActivity {
 	}
 
 	private void initList() {
-		dailyList = new ExtendedCalendarView(this.getApplicationContext());
-		dailyList.setOnDayClickListener(onDayClick);
+		dailyListView = getLayoutInflater().inflate(R.layout.activity_track_daily_layout, null);
+		dailyTable = (ExtendedCalendarView) dailyListView.findViewById(R.id.track_calendar);
+		dailyTable.setOnDayClickListener(onDayClick);
 	}
 	
 	private ExtendedCalendarView.OnDayClickListener onDayClick = new ExtendedCalendarView.OnDayClickListener() {
@@ -78,23 +82,10 @@ public class TrackActivity extends BannerActivity {
 		public void onDayClicked(AdapterView<?> adapter, View view,
 				int position, long id, Day day) {
 //			MyToast.show(getBaseContext(), "Not implement");
-			
-			Map<Date, Conformity> map = ScheduleCenter
-					.getOverallConformity(TrackActivity.this);
-			Calendar calendar = Calendar.getInstance(Locale.US);
-			setBeginningOfDay(calendar);
-			Date tmp = calendar.getTime();
-			map.put(tmp, new Conformity(8, 10));
-			MyToast.show(getBaseContext(), tmp.toString());
+			Date tmpDate = new Date(day.getDay(), day.getYear(), day.getMonth());
+			Map<String, Double> medConfMap = ScheduleCenter.getOverallConformity_daily(TrackActivity.this, tmpDate);
 		}
 	};
-	
-	private static void setBeginningOfDay(Calendar cal) {
-		cal.set(Calendar.HOUR_OF_DAY, 0);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-	}
 	
 	private void initGraph() {
 		XYMultipleSeriesDataset weekDataset = new XYMultipleSeriesDataset();

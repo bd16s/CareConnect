@@ -159,7 +159,7 @@ public class ScheduleCenter {
 	 * @param context
 	 * @return
 	 */
-	public static Map<Date, Conformity> getOverallConformity_daily(Context context, Date date) {
+	public static Map<String, Double> getOverallConformity_daily(Context context, Date date) {
 		List<Schedule> schedules = DataCenter.getSchedules(context);
 		if (schedules == null || schedules.size() <= 0) {
 			return null;
@@ -186,7 +186,7 @@ public class ScheduleCenter {
 					(double) taken_times / total_times);
 		}
 		System.out.println("map: " + med_conformity);
-		return map;
+		return med_conformity;
 	}
 
 	public static Map<Date, Conformity> getOverallConformity(
