@@ -171,6 +171,9 @@ public class ScheduleCenter {
 		calendar.setTime(date);
 		setBeginningOfDay(calendar);
 		
+		
+		System.out.println("date: " + date.toString() + "calendar.toString(): " + calendar.getTime());
+		
 		HashMap<String, Double> med_conformity = new HashMap<String, Double>();
 		ArrayList<TrackingRecord> dailyRecordList = new ArrayList<TrackingRecord>();
 		
