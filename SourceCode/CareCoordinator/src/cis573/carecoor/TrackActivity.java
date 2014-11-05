@@ -93,7 +93,7 @@ public class TrackActivity extends BannerActivity {
 		public void onDayClicked(AdapterView<?> adapter, View view,
 				int position, long id, Day day) {
 //			MyToast.show(getBaseContext(), "clickTest");
-			Date tmpDate = new Date(day.getDay(), day.getYear(), day.getMonth());
+			Date tmpDate = new Date(day.getYear(), day.getMonth(), day.getDay());
 			List<TrackingRecord> medConfMap = ScheduleCenter.getOverallConformity_daily(TrackActivity.this, tmpDate);
 			System.out.print(medConfMap);
 			mAdapter.setData(medConfMap);
