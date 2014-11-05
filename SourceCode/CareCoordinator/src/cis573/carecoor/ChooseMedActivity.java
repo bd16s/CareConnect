@@ -82,8 +82,10 @@ public class ChooseMedActivity extends BannerActivity implements
 		if (mExistMeds != null){
 			for(Schedule med : mExistMeds){
 				if (med.getMedicine().getName().equals(str)){
-					Toast.makeText(getApplicationContext(), "Already take this medicine", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), "Already take this medicine.\n Please try again.", Toast.LENGTH_SHORT).show();
 					nextPage = false;
+					this.autoCompView.clearComposingText();
+					this.autoCompView.setText("");
 				}
 			}
 		}
