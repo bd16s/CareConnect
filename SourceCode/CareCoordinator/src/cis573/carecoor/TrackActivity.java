@@ -3,6 +3,7 @@ package cis573.carecoor;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -23,14 +24,17 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
+import cis573.carecoor.AppointmentFragment.AppointmentAdapter;
 import cis573.carecoor.ExtendedCalendar.Day;
 import cis573.carecoor.ExtendedCalendar.ExtendedCalendarView;
 import cis573.carecoor.adapter.CommonAdapter;
 import cis573.carecoor.data.DataCenter;
 import cis573.carecoor.data.ScheduleCenter;
 import cis573.carecoor.data.ScheduleCenter.Conformity;
+import cis573.carecoor.utils.MyToast;
 
 /**
  * Modified by:
@@ -39,7 +43,8 @@ import cis573.carecoor.data.ScheduleCenter.Conformity;
  */
 public class TrackActivity extends BannerActivity {
 
-	private View dailyListView;
+	private ListView mListView;
+	private View dailyView;
 	private ExtendedCalendarView dailyTable;
 	private GraphicalView weekGraph;
 	private GraphicalView monthGraph;
@@ -47,6 +52,8 @@ public class TrackActivity extends BannerActivity {
 	private LinearLayout viewTab2;
 	private LinearLayout viewTab3;
 	private TabHost mTabHost;
+	private DailyConformityAdapter mAdapter;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +63,7 @@ public class TrackActivity extends BannerActivity {
 		initList();
 		initGraph();
 		viewTab1 = (LinearLayout) findViewById(R.id.tab1);
-		viewTab1.addView(dailyListView);
+		viewTab1.addView(dailyView);
 		viewTab2 = (LinearLayout) findViewById(R.id.tab2);
 		viewTab2.addView(weekGraph);
 		viewTab3 = (LinearLayout) findViewById(R.id.tab3);
@@ -72,18 +79,28 @@ public class TrackActivity extends BannerActivity {
 	}
 
 	private void initList() {
-		dailyListView = getLayoutInflater().inflate(R.layout.activity_track_daily_layout, null);
-		dailyTable = (ExtendedCalendarView) dailyListView.findViewById(R.id.track_calendar);
+		dailyView = getLayoutInflater().inflate(R.layout.activity_track_daily_layout, null);
+		dailyTable = (ExtendedCalendarView) dailyView.findViewById(R.id.track_calendar);
 		dailyTable.setOnDayClickListener(onDayClick);
+		
+		mListView = (ListView) dailyView.findViewById(R.id.track_daily_record_list);
+		mAdapter = new DailyConformityAdapter(this);
+		mListView.setAdapter(mAdapter);
 	}
 	
 	private ExtendedCalendarView.OnDayClickListener onDayClick = new ExtendedCalendarView.OnDayClickListener() {
 		@Override
 		public void onDayClicked(AdapterView<?> adapter, View view,
 				int position, long id, Day day) {
-//			MyToast.show(getBaseContext(), "Not implement");
+//			MyToast.show(getBaseContext(), "clickTest");
 			Date tmpDate = new Date(day.getDay(), day.getYear(), day.getMonth());
-			Map<String, Double> medConfMap = ScheduleCenter.getOverallConformity_daily(TrackActivity.this, tmpDate);
+			List<TrackingRecord> medConfMap = ScheduleCenter.getOverallConformity_daily(TrackActivity.this, tmpDate);
+			System.out.print(medConfMap);
+			mAdapter.setData(medConfMap);
+			mAdapter.notifyDataSetChanged();
+			
+			TextView tv = (TextView) dailyView.findViewById(R.id.track_daily_record_empty);
+			tv.setVisibility(View.GONE);
 		}
 	};
 	
@@ -201,7 +218,7 @@ public class TrackActivity extends BannerActivity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder vh;
 			if (convertView == null) {
-				convertView = View.inflate(mContext, R.layout.appointment_item,
+				convertView = View.inflate(mContext, R.layout.activity_track_daily_item,
 						null);
 				vh = new ViewHolder();
 				vh.medicine = (TextView) convertView
@@ -216,7 +233,7 @@ public class TrackActivity extends BannerActivity {
 			TrackingRecord item = (TrackingRecord) getItem(position);
 			if (item != null) {
 				vh.medicine.setText(item.medName);
-				vh.conformity.setText(String.valueOf(item.conf));
+				vh.conformity.setText(String.valueOf(item.conf) + "%");
 			}
 			return convertView;
 		}
