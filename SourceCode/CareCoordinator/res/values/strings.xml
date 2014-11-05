@@ -178,6 +178,7 @@
     <string name="take_medicine_schedule_status">Schedule Status</string>
     <string name="take_medicine_tracking">Tracking</string>
     <string name="take_medicine_tracking_info">Track your conformity to the schedule</string>
+    <string name="take_medicine_tracking_daily_record_empty">No record found on selected day</string>
     <string name="btn_take">Take</string>
     <string name="duration_days">%d day(s)</string>
     <string name="duration_continuous">Continuous</string>

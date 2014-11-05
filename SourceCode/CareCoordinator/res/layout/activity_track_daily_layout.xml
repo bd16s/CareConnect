@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_height="0dp"
+        android:layout_weight="55"
+        android:layout_width="match_parent">
+         <cis573.carecoor.ExtendedCalendar.ExtendedCalendarView
+              android:id="@+id/track_calendar"
+              android:layout_height="match_parent"
+              android:layout_width="match_parent"/>
+    </RelativeLayout>
+    
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.2dp"
+        android:id="@+id/separator"
+        android:visibility="visible"
+        android:background="@android:color/darker_gray"/>
+    
+
+    <RelativeLayout
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="45">
+         <ListView
+             android:id="@+id/track_daily_record_list"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_alignEnd="@+id/track_daily_record_add_button"
+             android:layout_above="@+id/track_daily_record_add_button"
+            />
+
+         <TextView
+            android:id="@+id/track_daily_record_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="@string/take_medicine_tracking_daily_record_empty"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="32sp" />
+    </RelativeLayout>
+</LinearLayout>
