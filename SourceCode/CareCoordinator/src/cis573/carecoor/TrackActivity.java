@@ -72,6 +72,9 @@ public class TrackActivity extends BannerActivity {
 		@Override
 		public void onDayClicked(AdapterView<?> adapter, View view,
 				int position, long id, Day day) {
+			Date selectedDate = new Date(day.getYear(), day.getMonth(), day.getDay());
+			System.out.println("selectedDate: " + selectedDate);
+			
 			MyToast.show(getBaseContext(), "Not implement");
 		}
 	};

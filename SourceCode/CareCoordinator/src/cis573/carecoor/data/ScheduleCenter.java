@@ -210,7 +210,6 @@ public class ScheduleCenter {
 		if (startDate == null) {
 			return null;
 		}
-		
 		Calendar now = Calendar.getInstance(Locale.US);
 		setBeginningOfDay(now);
 		Calendar calendar = Calendar.getInstance(Locale.US);
