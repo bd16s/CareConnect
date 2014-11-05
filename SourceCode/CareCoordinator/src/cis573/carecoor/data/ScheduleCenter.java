@@ -171,9 +171,7 @@ public class ScheduleCenter {
 		calendar.setTime(date);
 		setBeginningOfDay(calendar);
 		
-		
-		System.out.println("date: " + date.toString() + "calendar.toString(): " + calendar.getTime());
-		
+				
 		HashMap<String, Double> med_conformity = new HashMap<String, Double>();
 		ArrayList<TrackingRecord> dailyRecordList = new ArrayList<TrackingRecord>();
 		
@@ -188,11 +186,10 @@ public class ScheduleCenter {
 			int taken_times = records.size();
 			int total_times = schedule.getTimes().size();
 			
-			System.out.println("taken_times: " + taken_times + "total_times: " + total_times);
 			
 			med_conformity.put(schedule.getMedicine().getName(),
 					(double) taken_times / total_times);
-			dailyRecordList.add(new TrackingRecord(schedule.getMedicine().getName(), (double) (taken_times / total_times) * 100));
+			dailyRecordList.add(new TrackingRecord(schedule.getMedicine().getName(),  ((double) taken_times / total_times) * 100));
 		}
 		System.out.println("map: " + med_conformity);
 		return dailyRecordList;
