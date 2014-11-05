@@ -109,7 +109,7 @@
     <!-- Medicine Schedule -->
     <string name="medschedule_empty">No medicines are scheduled</string>
     <string name="medschedule_add">Add New Medicine</string>
-    <string name="medschedule_track">Track Compliance</string>
+    <string name="medschedule_track">Track Adherence</string>
     <string name="medschedule_choose_med_title">Choose your medicine</string>
     <string name="next">next</string>
     <string name="choose">Choose From Medicine List :</string>
