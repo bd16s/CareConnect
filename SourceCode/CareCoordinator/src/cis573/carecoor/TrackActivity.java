@@ -235,7 +235,7 @@ public class TrackActivity extends BannerActivity {
 			TrackingRecord item = (TrackingRecord) getItem(position);
 			if (item != null) {
 				vh.medicine.setText(item.medName);
-				double round_number = Math.round(item.conf * 100) / 100;
+				double round_number = (double) Math.round(item.conf * 100) / 100;
 				vh.conformity.setText(String.valueOf(round_number) + "%");
 			}
 			return convertView;
