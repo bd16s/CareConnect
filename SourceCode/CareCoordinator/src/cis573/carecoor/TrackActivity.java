@@ -191,4 +191,40 @@ public class TrackActivity extends BannerActivity {
 		return renderer;
 	}
 
+	public static class DailyConformityAdapter extends CommonAdapter<TrackingRecord> {
+
+		public DailyConformityAdapter(Context context) {
+			super(context);
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			ViewHolder vh;
+			if (convertView == null) {
+				convertView = View.inflate(mContext, R.layout.appointment_item,
+						null);
+				vh = new ViewHolder();
+				vh.medicine = (TextView) convertView
+						.findViewById(R.id.activity_track_daily_medicine);
+				vh.conformity = (TextView) convertView
+						.findViewById(R.id.activity_track_daily_conformity);
+				convertView.setTag(vh);
+			} else {
+				vh = (ViewHolder) convertView.getTag();
+			}
+
+			TrackingRecord item = (TrackingRecord) getItem(position);
+			if (item != null) {
+				vh.medicine.setText(item.medName);
+				vh.conformity.setText(String.valueOf(item.conf));
+			}
+			return convertView;
+		}
+	}
+	
+	private static class ViewHolder {
+		TextView medicine;
+		TextView conformity;
+	}
+	
 }
