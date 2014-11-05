@@ -30,9 +30,14 @@ import cis573.carecoor.data.ScheduleCenter;
 import cis573.carecoor.data.ScheduleCenter.Conformity;
 import cis573.carecoor.utils.MyToast;
 
+/**
+ * Modified by:
+ * yucongli on 11/04/14
+ *
+ */
 public class TrackActivity extends BannerActivity {
 
-	private ExtendedCalendarView dailyTable;
+	private ExtendedCalendarView dailyList;
 	private GraphicalView weekGraph;
 	private GraphicalView monthGraph;
 	private LinearLayout viewTab1;
@@ -45,10 +50,10 @@ public class TrackActivity extends BannerActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_track);
 		setBannerTitle(R.string.track);
-		initTable();
+		initList();
 		initGraph();
 		viewTab1 = (LinearLayout) findViewById(R.id.tab1);
-		viewTab1.addView(dailyTable);
+		viewTab1.addView(dailyList);
 		viewTab2 = (LinearLayout) findViewById(R.id.tab2);
 		viewTab2.addView(weekGraph);
 		viewTab3 = (LinearLayout) findViewById(R.id.tab3);
@@ -63,16 +68,24 @@ public class TrackActivity extends BannerActivity {
 				.setIndicator("MONTHLY").setContent(R.id.tab3));
 	}
 
-	private void initTable() {
-		dailyTable = new ExtendedCalendarView(this.getApplicationContext());
-		dailyTable.setOnDayClickListener(onDayClick);
+	private void initList() {
+		dailyList = new ExtendedCalendarView(this.getApplicationContext());
+		dailyList.setOnDayClickListener(onDayClick);
 	}
 	
 	private ExtendedCalendarView.OnDayClickListener onDayClick = new ExtendedCalendarView.OnDayClickListener() {
 		@Override
 		public void onDayClicked(AdapterView<?> adapter, View view,
 				int position, long id, Day day) {
-			MyToast.show(getBaseContext(), "Not implement");
+//			MyToast.show(getBaseContext(), "Not implement");
+			
+			Map<Date, Conformity> map = ScheduleCenter
+					.getOverallConformity(TrackActivity.this);
+			Calendar calendar = Calendar.getInstance(Locale.US);
+			setBeginningOfDay(calendar);
+			Date tmp = calendar.getTime();
+			map.put(tmp, new Conformity(8, 10));
+			MyToast.show(getBaseContext(), tmp.toString());
 		}
 	};
 	
@@ -82,6 +95,7 @@ public class TrackActivity extends BannerActivity {
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 	}
+	
 	private void initGraph() {
 		XYMultipleSeriesDataset weekDataset = new XYMultipleSeriesDataset();
 		XYMultipleSeriesDataset monthDataset = new XYMultipleSeriesDataset();
