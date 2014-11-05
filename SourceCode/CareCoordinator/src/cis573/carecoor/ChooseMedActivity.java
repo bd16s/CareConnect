@@ -9,6 +9,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -25,14 +26,17 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 import cis573.carecoor.bean.Medicine;
+import cis573.carecoor.bean.Schedule;
+import cis573.carecoor.data.DataCenter;
 import cis573.carecoor.utils.Const;
 import cis573.carecoor.utils.Logger;
 
 public class ChooseMedActivity extends BannerActivity implements
 		OnItemClickListener {
-
+	
 	public static final String TAG = "ChooseMedActivity";
 	AutoCompleteTextView autoCompView;
 	ArrayAdapter<String> adapter;
@@ -72,15 +76,25 @@ public class ChooseMedActivity extends BannerActivity implements
 
 	public void onItemClick(AdapterView<?> adapterView, View view,
 			int position, long id) {
+		boolean nextPage = true;
 		String str = (String) adapterView.getItemAtPosition(position);
-
-		Medicine item = new Medicine();
-		item.setName(str);
-		Intent intent = new Intent(ChooseMedActivity.this,
-				SetScheduleActivity.class);
-		intent.putExtra(Const.EXTRA_MEDICINE, item);
-		startActivityForResult(intent, 0);
-		// Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+		List<Schedule> mExistMeds = DataCenter.getSchedules(ChooseMedActivity.this);
+		if (mExistMeds != null){
+			for(Schedule med : mExistMeds){
+				if (med.getMedicine().getName().equals(str)){
+					Toast.makeText(getApplicationContext(), "Already take this medicine", Toast.LENGTH_SHORT).show();
+					nextPage = false;
+				}
+			}
+		}
+		if (nextPage){
+			Medicine item = new Medicine();
+			item.setName(str);
+			Intent intent = new Intent(ChooseMedActivity.this,
+					SetScheduleActivity.class);
+			intent.putExtra(Const.EXTRA_MEDICINE, item);
+			startActivityForResult(intent, 0);
+		}
 	}
 
 	@Override
