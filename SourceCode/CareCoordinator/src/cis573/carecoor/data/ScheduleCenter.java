@@ -3,8 +3,6 @@ package cis573.carecoor.data;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -15,6 +13,7 @@ import cis573.carecoor.bean.Schedule;
 import cis573.carecoor.bean.Schedule.Time;
 import cis573.carecoor.bean.TakeRecord;
 import cis573.carecoor.utils.Utils;
+import cis573.carecoor.TrackingRecord;
 
 public class ScheduleCenter {
 
@@ -159,19 +158,18 @@ public class ScheduleCenter {
 	 * @param context
 	 * @return
 	 */
-	public static Map<Date, Conformity> getOverallConformity_daily(Context context, Date date) {
+	public static List<TrackingRecord> getOverallConformity_daily(Context context, Date date) {
 		List<Schedule> schedules = DataCenter.getSchedules(context);
 		if (schedules == null || schedules.size() <= 0) {
 			return null;
 		}
-		Map<Date, Conformity> map = new TreeMap<Date, Conformity>();
-
 		Calendar calendar = Calendar.getInstance(Locale.US);
 		calendar.setTime(date);
 		setBeginningOfDay(calendar);
 		
-		HashMap<String, Double> med_conformity = new HashMap<String, Double>();
-
+				
+		ArrayList<TrackingRecord> dailyRecordList = new ArrayList<TrackingRecord>();
+		
 		for (Schedule schedule : schedules) {
 			if (!schedule.isTracking()) { // Not tracking
 				continue;
@@ -182,11 +180,11 @@ public class ScheduleCenter {
 					schedule, calendar.getTime());
 			int taken_times = records.size();
 			int total_times = schedule.getTimes().size();
-			med_conformity.put(schedule.getMedicine().getName(),
-					(double) taken_times / total_times);
+			
+			
+			dailyRecordList.add(new TrackingRecord(schedule.getMedicine().getName(),  ((double) taken_times / total_times) * 100));
 		}
-		System.out.println("map: " + med_conformity);
-		return map;
+		return dailyRecordList;
 	}
 
 	public static Map<Date, Conformity> getOverallConformity(
