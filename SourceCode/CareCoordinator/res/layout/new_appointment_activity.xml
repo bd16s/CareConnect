@@ -27,7 +27,7 @@
                 android:drawablePadding="6dp"
                 android:gravity="center_vertical"
                 android:text="@string/appointment_new_date"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/new_appointment_date_text"
@@ -36,7 +36,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:textColor="@color/gray_text"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
         </RelativeLayout>
 
         <include layout="@layout/divider" />
@@ -59,7 +59,7 @@
                 android:drawablePadding="6dp"
                 android:gravity="center_vertical"
                 android:text="@string/appointment_new_time"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/new_appointment_time_text"
@@ -68,7 +68,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:textColor="@color/gray_text"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
         </RelativeLayout>
 
         <include layout="@layout/divider" />
@@ -91,7 +91,7 @@
                 android:drawablePadding="6dp"
                 android:gravity="center_vertical"
                 android:text="@string/appointment_new_remind"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/new_appointment_remind_text"
@@ -100,7 +100,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:textColor="@color/gray_text"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
         </RelativeLayout>
 
         <include layout="@layout/divider" />
@@ -113,7 +113,7 @@
             android:drawablePadding="6dp"
             android:gravity="center_vertical"
             android:paddingLeft="20dp"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:text="@string/appointment_detail" />
         
         <EditText

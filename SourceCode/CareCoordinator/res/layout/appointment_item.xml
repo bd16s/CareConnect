@@ -16,19 +16,19 @@
 	        android:id="@+id/appointment_time_text"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:textSize="16sp" />
+	        android:textSize="18sp" />
 	    
 	    <TextView
 	        android:id="@+id/appointment_remind_text"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	         android:textSize="16sp" />
+	         android:textSize="18sp" />
 	    
 	    <TextView
 	        android:id="@+id/appointment_detail_text"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:textSize="16sp"/>
+	        android:textSize="18sp"/>
 	</LinearLayout>
 	
 	<TextView
@@ -36,5 +36,5 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_marginLeft="10dp"
-	    android:textSize="18sp" />
+	    android:textSize="20sp" />
 </LinearLayout>

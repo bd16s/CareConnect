@@ -19,7 +19,7 @@
             android:layout_marginTop="6dp"
             android:lines="1"
             android:textColor="#ff000000"
-            android:textSize="24sp"
+            android:textSize="26sp"
             android:text="@string/settings_login_label" />
 
         <ImageView
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/settings_pin_label"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/settings_pin_text"
@@ -49,7 +49,7 @@
                 android:layout_marginTop="6dp"
                 android:lines="1"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:text="@string/settings_unset"
                 android:inputType="textVisiblePassword"/>
         </LinearLayout>
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/alertconf_primary_num"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/alert_conf_primary_text"
@@ -95,7 +95,7 @@
                 android:layout_marginTop="6dp"
                 android:lines="1"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:text="215-820-2940" />
         </LinearLayout>
 
@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/alertconf_secondary_num"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/alert_conf_secondary_text"
@@ -126,7 +126,7 @@
                 android:layout_marginTop="6dp"
                 android:lines="1"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:text="123-456-7890" />
         </LinearLayout>
 
@@ -182,7 +182,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/settings_user_email_label"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/settings_user_email_text"
@@ -191,7 +191,7 @@
                 android:layout_marginTop="6dp"
                 android:lines="1"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:inputType="textEmailAddress"
                 android:text="@string/empty_email" />
         </LinearLayout>
@@ -214,7 +214,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/settings_user_email_password_label"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/settings_user_email_password_text"
@@ -223,7 +223,7 @@
                 android:layout_marginTop="6dp"
                 android:lines="1"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:inputType="textPassword"
                 android:text="@string/settings_unset" />
         </LinearLayout>
@@ -246,7 +246,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/settings_provider_email_label"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/settings_provider_email_text"
@@ -255,7 +255,7 @@
                 android:layout_marginTop="6dp"
                 android:lines="1"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:text="@string/empty_email"
                 android:inputType="textEmailAddress"/>
         </LinearLayout>
@@ -292,7 +292,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/settings_user_name_label"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/settings_user_name_text"
@@ -301,7 +301,7 @@
                 android:layout_marginTop="6dp"
                 android:lines="1"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:text="@string/settings_unset" />
         </LinearLayout>
 
@@ -323,7 +323,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/settings_user_dob_label"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/settings_user_dob_text"
@@ -332,7 +332,7 @@
                 android:layout_marginTop="6dp"
                 android:lines="1"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:text="@string/settings_unset" />
         </LinearLayout>
 

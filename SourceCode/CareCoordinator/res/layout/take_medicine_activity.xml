@@ -20,7 +20,7 @@
                 android:layout_margin="10dp"
                 android:drawableBottom="@drawable/divider"
                 android:text="@string/set_schedule_med_info"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/take_medicine_medname"
@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
-                android:textSize="22sp" />
+                android:textSize="24sp" />
 
             <ImageView
                 android:id="@+id/take_medicine_medimage"
@@ -59,7 +59,7 @@
                 android:layout_margin="10dp"
                 android:drawableBottom="@drawable/divider"
                 android:text="@string/take_medicine_schedule_info"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/take_medicine_schedule_info"
@@ -101,7 +101,7 @@
                 android:layout_marginTop="10dp"
                 android:drawableBottom="@drawable/divider"
                 android:text="@string/take_medicine_schedule_status"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/take_medicine_schedule_status"
@@ -110,7 +110,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/gray_text"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:id="@+id/take_medicine_status_layout"

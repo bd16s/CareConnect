@@ -25,7 +25,7 @@
                 android:layout_margin="10dp"
                 android:drawableBottom="@drawable/divider"
                 android:text="@string/set_schedule_med_info"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/set_schedule_medname"
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
-                android:textSize="22sp" />
+                android:textSize="24sp" />
 
             <Button 
                 android:id="@+id/set_schedule_medimage"
@@ -62,7 +62,7 @@
                 android:layout_marginTop="10dp"
                 android:drawableBottom="@drawable/divider"
                 android:text="@string/set_schedule_detailed_name"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
             
             <EditText
                 android:id="@+id/set_schedule_medinfo1"
@@ -83,7 +83,7 @@
                 android:layout_marginTop="10dp"
                 android:drawableBottom="@drawable/divider"
                 android:text="@string/set_schedule_instructions"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/set_schedule_medinfo2"
@@ -101,7 +101,7 @@
                 android:layout_marginTop="10dp"
                 android:drawableBottom="@drawable/divider"
                 android:text="@string/set_schedule_take_time"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -120,7 +120,7 @@
                 android:layout_marginTop="10dp"
                 android:drawableBottom="@drawable/divider"
                 android:text="@string/set_schedule_day_interval"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/set_schedule_takedays_suggest"
@@ -175,7 +175,7 @@
                 android:layout_marginTop="10dp"
                 android:drawableBottom="@drawable/divider"
                 android:text="@string/set_schedule_duration"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/set_schedule_duration_suggest"
