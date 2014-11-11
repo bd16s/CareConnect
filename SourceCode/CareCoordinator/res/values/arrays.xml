@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="main_page_titles">
-        <item>Settings</item>
+        <item>History</item>
         <item>Contacts</item>
         <item>Reminder</item>
-        <item>History</item>
         <item>Appointment</item>
+        <item>Settings</item>
         <item>Friends</item>
         <item>Games</item>
     </string-array>
