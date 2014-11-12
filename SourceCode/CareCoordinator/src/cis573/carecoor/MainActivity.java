@@ -1,5 +1,8 @@
 package cis573.carecoor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,9 +25,8 @@ import cis573.carecoor.utils.Logger;
 import cis573.carecoor.utils.PreferenceUtil;
 
 /**
- * Modified by:
- * Naicheng Zhang on 11/10/14
- *
+ * Modified by: Naicheng Zhang on 11/10/14
+ * 
  */
 
 public class MainActivity extends BannerActivity {
@@ -33,7 +36,7 @@ public class MainActivity extends BannerActivity {
 	private ViewPager mViewPager;
 
 	private MainPagerAdapter mAdapter;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Logger.setDebug(true);
@@ -55,41 +58,77 @@ public class MainActivity extends BannerActivity {
 		mAdapter = new MainPagerAdapter(getSupportFragmentManager(),
 				MainActivity.this);
 		mViewPager.setAdapter(mAdapter);
-		
+
 		// click button to change to a certain page
 		final Button button = (Button) findViewById(R.id.pager_btn);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            	mViewPager.setCurrentItem(2); // for example, the 3rd page
-            }
-        });
-        
-        // spinner to change to a certain page;
-        Spinner spinner = (Spinner) findViewById(R.id.pager_spinner);
-		// Create an ArrayAdapter using the string array and a default spinner layout
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-		         R.array.main_page_titles, android.R.layout.simple_spinner_item);
+		button.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				mViewPager.setCurrentItem(2); // for example, the 3rd page
+			}
+		});
+
+		// spinner to change to a certain page;
+		Spinner spinner = (Spinner) findViewById(R.id.pager_spinner);
+		// Create an ArrayAdapter using the string array and a default spinner
+		// layout
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+				this, R.array.main_page_titles,
+				android.R.layout.simple_spinner_item);
+		String[] tmpStrArray = this.getResources().getStringArray(R.array.main_page_titles);
+		ArrayList<String> strList= new ArrayList<String>();
+		for(int i = 0; i < tmpStrArray.length; ++i) {
+			strList.add(tmpStrArray[i]);
+		}
+		MainSpinnerArrayAdapter adapter2 = new MainSpinnerArrayAdapter(this,
+				android.R.layout.simple_spinner_item, strList);
 		// Specify the layout to use when the list of choices appears
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Apply the adapter to the spinner
-		spinner.setAdapter(adapter);
-		//spinner.setOnItemSelectedListener(this); // how to implement selecting an item?
+		spinner.setAdapter(adapter2);
+		OnItemSelectedListener onItemClick = new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				mViewPager.setCurrentItem(position);
+				System.out.println("selected: " + position);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		spinner.setOnItemSelectedListener(onItemClick); // how to implement
+		// selecting an item?
 	}
 
 	// how to implement selecting an item?
-	public class SpinnerActivity extends Activity implements OnItemSelectedListener {
-	    
-	    public void onItemSelected(AdapterView<?> parent, View view, 
-	            int pos, long id) {
-	        // An item was selected. You can retrieve the selected item using
-	        //parent.getItemAtPosition(pos);
-	    }
+	public class SpinnerActivity extends Activity implements
+			OnItemSelectedListener {
 
-	    public void onNothingSelected(AdapterView<?> parent) {
-	        // Another interface callback
-	    }
+		public void onItemSelected(AdapterView<?> parent, View view, int pos,
+				long id) {
+			// An item was selected. You can retrieve the selected item using
+			// parent.getItemAtPosition(pos);
+		}
+
+		public void onNothingSelected(AdapterView<?> parent) {
+			// Another interface callback
+		}
 	}
-	
+
+	public class MainSpinnerArrayAdapter extends ArrayAdapter<String> {
+
+		public MainSpinnerArrayAdapter(Context context, int resource,
+				List<String> objects) {
+			super(context, resource, objects);
+			// TODO Auto-generated constructor stub
+		}
+
+	}
+
 	public static class MainPagerAdapter extends FragmentPagerAdapter {
 
 		private String[] mPageTitles;
@@ -104,14 +143,14 @@ public class MainActivity extends BannerActivity {
 		public Fragment getItem(int arg0) {
 			Fragment f = null;
 			if (arg0 == 0) { // History
-				f = new HistoryFragment();		
+				f = new HistoryFragment();
 			} else if (arg0 == 1) { // Contact
 				f = new ContactFragment();
 			} else if (arg0 == 2) { // Reminder
 				f = new MedScheduleFragment();
 			} else if (arg0 == 3) { // Appointment
 				f = new AppointmentFragment();
-			} else if (arg0 == 4) { // Alert		
+			} else if (arg0 == 4) { // Alert
 				f = new AlertConfFragment();
 			} else if (arg0 == 5) { // Friends
 				f = new FriendsFragment();
