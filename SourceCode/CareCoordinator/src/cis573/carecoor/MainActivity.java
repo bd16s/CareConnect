@@ -14,6 +14,12 @@ import android.widget.TextView;
 import cis573.carecoor.utils.Logger;
 import cis573.carecoor.utils.PreferenceUtil;
 
+/**
+ * Modified by:
+ * Naicheng Zhang on 11/10/14
+ *
+ */
+
 public class MainActivity extends BannerActivity {
 
 	public static final String TAG = "MainActivity";
@@ -58,16 +64,16 @@ public class MainActivity extends BannerActivity {
 		@Override
 		public Fragment getItem(int arg0) {
 			Fragment f = null;
-			if (arg0 == 0) { // Alert
-				f = new AlertConfFragment();
+			if (arg0 == 0) { // History
+				f = new HistoryFragment();		
 			} else if (arg0 == 1) { // Contact
 				f = new ContactFragment();
 			} else if (arg0 == 2) { // Reminder
 				f = new MedScheduleFragment();
-			} else if (arg0 == 3) { // History
-				f = new HistoryFragment();
-			} else if (arg0 == 4) { // Appointment
+			} else if (arg0 == 3) { // Appointment
 				f = new AppointmentFragment();
+			} else if (arg0 == 4) { // Alert		
+				f = new AlertConfFragment();
 			} else if (arg0 == 5) { // Friends
 				f = new FriendsFragment();
 			} else if (arg0 == 6) { // Games
