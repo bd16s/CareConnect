@@ -5,12 +5,14 @@ import java.util.List;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import cis573.carecoor.bean.Medicine;
 import cis573.carecoor.bean.TakeRecord;
 import cis573.carecoor.data.DataCenter;
@@ -29,6 +31,12 @@ public class HistoryFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mAdapter = new HistoryAdapter(getActivity());
+		Toast toast = Toast.makeText(getActivity(),
+				"Tap the orange\t?\tbutton above for instructions.",
+				Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL,
+				0, 0);
+		toast.show();
 	}
 
 	@Override

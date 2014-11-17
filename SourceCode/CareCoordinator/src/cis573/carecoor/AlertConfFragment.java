@@ -94,12 +94,7 @@ public class AlertConfFragment extends Fragment implements
 		for (int i = 0; i < NUM_DIALOGS; i++) {
 			dialogs[i] = SettingsDialogFragment2.newInstance(i);
 		}
-		Toast toast = Toast.makeText(getActivity(),
-				"Tap the orange\t?\tbutton above for instructions.",
-				Toast.LENGTH_LONG);
-		toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL,
-				0, 0);
-		toast.show();
+		
 	}
 
 	@Override

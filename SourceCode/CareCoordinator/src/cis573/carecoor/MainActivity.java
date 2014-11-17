@@ -115,9 +115,11 @@ public class MainActivity extends BannerActivity {
 				f = new AlertConfFragment();
 			} else if (arg0 == 5) { // Friends
 				f = new FriendsFragment();
-			} else if (arg0 == 6) { // Games
-				f = new GameFragment();
-			}/*
+			}
+//			} else if (arg0 == 6) { // Games
+//				f = new GameFragment();
+//			}
+			/*
 			 * { f = DummyFragment.newInstance(mPageTitles[arg0]); }
 			 */
 			return f;
