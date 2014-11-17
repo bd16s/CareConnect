@@ -1,9 +1,7 @@
 package cis573.carecoor;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,19 +14,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import cis573.carecoor.utils.Logger;
 import cis573.carecoor.utils.PreferenceUtil;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+
 /**
  * Modified by:
- * Naicheng Zhang on 11/10/14
- * Yucong Li on 12/10/14
+ * Naicheng Zhang on 11/17/14
+ * Yucong Li on 11/12/14
  * 
  */
 
@@ -42,6 +41,14 @@ public class MainActivity extends BannerActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// Initialize Parse
+		Parse.initialize(this, "NbamWDleFCMujQcvM5sM1FvWZSp7L95Mo62F4j3M", "5bvHRymIRokpH0Sk1xY37Q9Ys9RdYF4MawTc1eO7");
+		
+		// Test sending data
+		ParseObject testObject = new ParseObject("TestObject");
+		testObject.put("foo", "bar");
+		testObject.saveInBackground();
+		
 		Logger.setDebug(true);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
