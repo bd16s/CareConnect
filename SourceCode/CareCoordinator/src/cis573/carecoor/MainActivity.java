@@ -41,9 +41,7 @@ public class MainActivity extends BannerActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// Initialize Parse
-		Parse.initialize(this, "NbamWDleFCMujQcvM5sM1FvWZSp7L95Mo62F4j3M", "5bvHRymIRokpH0Sk1xY37Q9Ys9RdYF4MawTc1eO7");
-		
+			
 		// Test sending data
 		ParseObject testObject = new ParseObject("TestObject");
 		testObject.put("foo", "bar");

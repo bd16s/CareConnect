@@ -8,6 +8,8 @@ import cis573.carecoor.bean.Contact;
 import cis573.carecoor.data.DataCenter;
 import cis573.carecoor.data.MedicineCenter;
 
+import com.parse.Parse;
+
 public class CoorApplication extends Application {
 
 	public static final String TAG = "CoorApplication";
@@ -15,6 +17,10 @@ public class CoorApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		
+		Parse.initialize(this, getString(R.string.parse_app_id),
+		        getString(R.string.parse_client_key));
+		
 		initUsefulContacts();
 		MedicineCenter.init(this);
 	}
