@@ -100,6 +100,7 @@ public class MainActivity extends BannerActivity {
 			}
 		};
 		spinner.setOnItemSelectedListener(onSpinnerItemSelected);
+		
 		// Retrieve current user from Parse.com
 		ParseUser currentUser = ParseUser.getCurrentUser();
 
