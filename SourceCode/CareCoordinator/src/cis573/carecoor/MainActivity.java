@@ -70,7 +70,7 @@ public class MainActivity extends BannerActivity {
 		// spinner to change to a certain page;
 		Spinner spinner = (Spinner) findViewById(R.id.pager_spinner);
 		String[] tmpStrArray = this.getResources().getStringArray(
-				R.array.main_page_titles);
+				R.array.spinner_items);
 		ArrayList<String> strList = new ArrayList<String>();
 		for (int i = 0; i < tmpStrArray.length; ++i) {
 			strList.add(tmpStrArray[i]);
@@ -88,13 +88,12 @@ public class MainActivity extends BannerActivity {
 					int position, long id) {
 				((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
 				((TextView) parent.getChildAt(0)).setText("To");
-				Log.d("spinner", "" + position);
+				
 				if(position == 6) { // log out
 					ParseUser.logOut();
 					finish();
 				}
 				else {
-					Log.d("spinner", "else");
 					mViewPager.setCurrentItem(position);
 				}
 			}

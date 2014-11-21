@@ -7,6 +7,14 @@
         <item>Appointment</item>
         <item>Settings</item>
         <item>Friends</item>
+    </string-array>
+    <string-array name="spinner_items">
+        <item>History</item>
+        <item>Contacts</item>
+        <item>Reminder</item>
+        <item>Appointment</item>
+        <item>Settings</item>
+        <item>Friends</item>
         <item>Log out</item>
     </string-array>
     <string-array name="contact_group_items">
