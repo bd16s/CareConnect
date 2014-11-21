@@ -49,9 +49,9 @@ public class BannerActivity extends FragmentActivity {
 	protected void onStart() {
 		super.onStart();
 		Logger.i(TAG, "mTvTitle is " + (mTvTitle == null ? "null" : "not null"));
-		// if(mTvTitle != null) {
-		// mTvTitle.startAnimation(mAnimTitleIn);
-		// }
+//		 if(mTvTitle != null) {
+//		 mTvTitle.startAnimation(mAnimTitleIn);
+//		 }
 	}
 
 	@Override

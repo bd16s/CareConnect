@@ -3,28 +3,24 @@ package cis573.carecoor;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import cis573.carecoor.utils.Logger;
 import cis573.carecoor.utils.PreferenceUtil;
 
-import com.parse.Parse;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 /**
@@ -40,7 +36,7 @@ public class MainActivity extends BannerActivity {
 
 	private MainPagerAdapter mAdapter;
 
-	Button logout;
+	//Button logout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +87,16 @@ public class MainActivity extends BannerActivity {
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
-				((TextView) parent.getChildAt(0)).setText("To:");
-				mViewPager.setCurrentItem(position);
+				((TextView) parent.getChildAt(0)).setText("To");
+				Log.d("spinner", "" + position);
+				if(position == 6) { // log out
+					ParseUser.logOut();
+					finish();
+				}
+				else {
+					Log.d("spinner", "else");
+					mViewPager.setCurrentItem(position);
+				}
 			}
 
 			@Override
@@ -103,28 +107,24 @@ public class MainActivity extends BannerActivity {
 		
 		// Retrieve current user from Parse.com
 		ParseUser currentUser = ParseUser.getCurrentUser();
-
 		// Convert currentUser into String
 		String struser = currentUser.getUsername().toString();
-
-		// Locate TextView in welcome.xml
-		TextView txtuser = (TextView) findViewById(R.id.txtuser);
-
-		// Set the currentUser String into TextView
-		txtuser.setText("" + struser);
-
-		// Locate Button in welcome.xml
-		logout = (Button) findViewById(R.id.logout);
-
-		// Logout Button Click Listener
-		logout.setOnClickListener(new OnClickListener() {
-
-			public void onClick(View arg0) {
-				// Logout current user
-				ParseUser.logOut();
-				finish();
-			}
-		});
+		
+		String title = getResources().getString(R.string.app_name);
+		
+		setBannerTitle(title + ", " + struser);
+		// Locate Button in banner
+//		logout = (Button) findViewById(R.id.logout);
+//
+//		// Logout Button Click Listener
+//		logout.setOnClickListener(new OnClickListener() {
+//
+//			public void onClick(View arg0) {
+//				// Logout current user
+//				ParseUser.logOut();
+//				finish();
+//			}
+//		});
 	}
 
 	public static class MainPagerAdapter extends FragmentPagerAdapter {
