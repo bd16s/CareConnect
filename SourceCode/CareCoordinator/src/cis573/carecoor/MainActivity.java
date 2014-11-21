@@ -13,9 +13,11 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import cis573.carecoor.utils.Logger;
@@ -23,6 +25,7 @@ import cis573.carecoor.utils.PreferenceUtil;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 /**
  * Modified by:
@@ -38,26 +41,56 @@ public class MainActivity extends BannerActivity {
 	private ViewPager mViewPager;
 
 	private MainPagerAdapter mAdapter;
+	
+	Button logout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 			
-		// Test sending data
-		ParseObject testObject = new ParseObject("TestObject");
-		testObject.put("foo", "bar");
-		testObject.saveInBackground();
+//		// Test sending data
+//		ParseObject testObject = new ParseObject("TestObject");
+//		testObject.put("foo", "bar");
+//		testObject.saveInBackground();
 		
+		
+		// Retrieve current user from Parse.com
+		ParseUser currentUser = ParseUser.getCurrentUser();
+		
+		// Convert currentUser into String
+		String struser = currentUser.getUsername().toString();
+		
+		// Locate TextView in welcome.xml
+		TextView txtuser = (TextView) findViewById(R.id.txtuser);
+
+		// Set the currentUser String into TextView
+		txtuser.setText("" + struser);
+		
+		// Locate Button in welcome.xml
+		logout = (Button) findViewById(R.id.logout);
+
+		// Logout Button Click Listener
+		logout.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View arg0) {
+				// Logout current user
+				ParseUser.logOut();
+				finish();
+			}
+		});
+				
+				
+				
 		Logger.setDebug(true);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
 		setBannerTitle(R.string.app_name);
 		showBackButton(false);
 		String pin = PreferenceUtil.get(getApplicationContext(), 0);
-		if (pin != null & !pin.equals("")) {
-			Intent intent = new Intent(getApplicationContext(),
-					PinLockActivity.class);
-			startActivityForResult(intent, 0);
-		}
+//		if (pin != null & !pin.equals("")) {
+//			Intent intent = new Intent(getApplicationContext(),
+//					PinLockActivity.class);
+//			startActivityForResult(intent, 0);
+//		}
 		initViews();
 	}
 

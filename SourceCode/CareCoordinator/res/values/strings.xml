@@ -243,4 +243,11 @@
 	<!-- Parse -->
 	<string name="parse_app_id">i9Q9B7IunAFH8wIKsilvaZBFhFO95g3p6u0wl9nk</string>
     <string name="parse_client_key">axvhtEgQbjohhIE1HE6VlagGzs1G30thOyJVFIsP</string>
+    <string name="Username">Username</string>
+    <string name="Password">Password</string>
+    <string name="LoginBtn">Login</string>
+    <string name="SignupBtn">Sign Up</string>
+    <string name="LogoutBtn">Log Out</string>
+    <string name="Welcome">Welcome!</string>
+    <string name="hello">Hello World, ParseStarterProjectActivity!</string>
 </resources>

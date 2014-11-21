@@ -25,7 +25,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="cis573.carecoor.MainActivity"
+            android:name="cis573.carecoor.LogActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -84,6 +84,11 @@
             android:name="cis573.carecoor.PinSetActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+        
+        <activity
+            android:name="cis573.carecoor.MainActivity"/>
+        <activity
+            android:name="cis573.carecoor.LoginSignupActivity"/>
 
         <receiver android:name="cis573.carecoor.reminder.ReminderReceiver" >
             <intent-filter>
