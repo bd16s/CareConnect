@@ -1,21 +1,24 @@
 package cis573.carecoor;
 
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.parse.GetCallback;
+import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 public class FamilyFragment extends Fragment {
 	public static final String TAG = "FamilyFragment";
@@ -51,31 +54,24 @@ public class FamilyFragment extends Fragment {
 		self = this;
 		
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("MedicineHistory");
-		query.getInBackground("Y5OhRw0OJu", new GetCallback<ParseObject>() {
-			public void done(ParseObject object, ParseException e) {
-				if (e == null) {
-					// object will be your game score
-					String medStr = object.getString("medicineHistory");
-					String dateStr = object.getUpdatedAt().toString();
-					Toast toast = Toast
-							.makeText(
-									getActivity(),
-									dateStr,
-									Toast.LENGTH_LONG);
-					toast.setGravity(Gravity.CENTER_HORIZONTAL
-							| Gravity.CENTER_VERTICAL, 0, 0);
-					toast.show();
-					
-					ArrayList<String> strList = new ArrayList<String>();
-					strList.add(dateStr + ": " + medStr);
+		query.whereEqualTo("userName", ParseUser.getCurrentUser().getUsername());
+		query.findInBackground(new FindCallback<ParseObject>() {
+		    public void done(List<ParseObject> historyList, ParseException e) {
+		        if (e == null) {
+		        	ArrayList<String> strList = new ArrayList<String>();
+		        	for (int i = 0; i < historyList.size(); i++) {
+		        		Date tmpD = historyList.get(i).getUpdatedAt();
+		        		String tmpT = new SimpleDateFormat("yyyy-MM-dd kk:mm").format(tmpD);
+		        		String tmpStr = tmpT + " - " + historyList.get(i).getString("medicineName");
+		        		strList.add(tmpStr);
+		        	}
 					ArrayAdapter<String> familyMedAdapter = new ArrayAdapter<String>(
 							self.getActivity(), android.R.layout.simple_spinner_item, strList);
 					mListView.setAdapter(familyMedAdapter);
-					
-				} else {
-					// something went wrong
-				}
-			}
+		        } else {
+		            
+		        }
+		    }
 		});
 		
 	}
