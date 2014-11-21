@@ -231,6 +231,11 @@
     <string name="saturday">SAT</string>
     <string name="sunday">SUN</string>
 
+    <!-- Family -->
+    <string name="cloud_med_history_empty">Family member medicine taking history is listed here.</string>
+    <string name="new_cloud_group">New</string>
+    <string name="add_to_cloud_group">Add to</string>
+    
     <!-- Games -->
     <string name="games_installed">Installed</string>
     <string name="dialog_game_market">You haven\'t installed this game. Would you like to go to the market to download it?</string>

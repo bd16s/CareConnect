@@ -18,7 +18,9 @@
 	        android:background="@color/blue_title_bar"
 	        android:textColor="@android:color/white"
 	        android:textSize="20sp"
-	        android:text="@string/btn_back" />
+	        android:text="@string/btn_back"
+	        android:fontFamily="sans-serif-light"
+	        android:textStyle="normal" />
 	    
 	    <TextView
 	        android:id="@+id/banner_title_text"
@@ -28,7 +30,9 @@
 	        android:layout_marginLeft="20dp"
 	        android:textColor="@android:color/white"
 	        android:textSize="24sp"
-	        android:text="@string/app_name" />
+	        android:text="@string/app_name"
+	        android:fontFamily="sans-serif-light"
+	        android:textStyle="normal" />
 	    
 	    <Button
 	        android:id="@+id/banner_alert_btn"
@@ -38,7 +42,9 @@
 	        android:background="@drawable/red"
 	        android:textSize="18sp"
 	        android:textColor="@android:color/white"
-	        android:text="@string/btn_alert" />
+	        android:text="@string/btn_alert"
+	        android:fontFamily="sans-serif-light"
+	        android:textStyle="normal" />
 
 	    <Button
 	        android:id="@+id/banner_instructions_btn"
@@ -49,7 +55,9 @@
 	        android:background="@drawable/orange"
 	       	android:text=" ? "
 	        android:textColor="@android:color/white"
-	        android:textSize="24sp" />
+	        android:textSize="24sp"
+	        android:fontFamily="sans-serif-light"
+	        android:textStyle="normal" />
 
 		<Spinner
 		    android:id="@+id/pager_spinner"
@@ -59,7 +67,9 @@
 		    android:layout_toLeftOf="@+id/banner_instructions_btn"
 		    android:background="@drawable/green"
 		    android:textColor="@android:color/white" 
-		    android:textSize="30sp" />
+		    android:textSize="30sp"
+		    android:fontFamily="sans-serif-light"
+	        android:textStyle="normal" />
 	    
 	    <!-- <Button
 	        android:id="@+id/logout"

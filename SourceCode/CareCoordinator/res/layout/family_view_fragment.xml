@@ -1,4 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:fontFamily="sans-serif-light"
+	android:textStyle="normal">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+        
+        <ListView
+            android:id="@+id/cloud_med_history_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-light"
+			android:textStyle="normal" />
+        
+        <TextView
+            android:id="@+id/cloud_med_history_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/cloud_med_history_empty"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="34sp"
+            android:fontFamily="sans-serif-light"
+			android:textStyle="normal" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/new_cloud_group"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/new_cloud_group"
+            android:fontFamily="sans-serif-light"
+			android:textStyle="normal" />
+
+        <Button
+            android:id="@+id/add_to_cloud_group"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/add_to_cloud_group"
+            android:fontFamily="sans-serif-light"
+			android:textStyle="normal" />
+    </LinearLayout>
+
+</LinearLayout>

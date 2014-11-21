@@ -28,13 +28,6 @@ public class FamilyFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		// Toast toast = Toast.makeText(getActivity(),
-		// "Tap the orange\t?\tbutton above for instructions.",
-		// Toast.LENGTH_LONG);
-		// toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL,
-		// 0, 0);
-		// toast.show();
 	}
 
 	@Override
@@ -42,9 +35,7 @@ public class FamilyFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.family_view_fragment, container,
 				false);
-		 mListView = (ListView) view;
-		// TextView tvEmpty = (TextView) view.findViewById(R.id.history_empty);
-		// mListView.setEmptyView(tvEmpty);
+		mListView = (ListView) view.findViewById(R.id.cloud_med_history_list);
 		return view;
 	}
 	
