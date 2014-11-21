@@ -42,7 +42,7 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/shadow_box"
                 android:layout_marginTop="6dp"
-                android:onClick="onPhotoClick"
+                
                 android:text="@string/take_picture" />
             
             <ImageView

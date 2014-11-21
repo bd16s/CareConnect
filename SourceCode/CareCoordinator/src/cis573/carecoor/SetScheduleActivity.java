@@ -41,6 +41,7 @@ import cis573.carecoor.bean.Schedule.Time;
 import cis573.carecoor.data.DataCenter;
 import cis573.carecoor.reminder.ReminderCenter;
 import cis573.carecoor.utils.Const;
+import cis573.carecoor.utils.PreferenceUtil;
 import cis573.carecoor.utils.Utils;
 
 public class SetScheduleActivity extends BannerActivity {
@@ -89,6 +90,7 @@ public class SetScheduleActivity extends BannerActivity {
 	private void initViews() {
 		mTvMedName = (TextView) findViewById(R.id.set_schedule_medname);
 		mIvMedImage = (Button) findViewById(R.id.set_schedule_medimage);
+		mIvMedImage.setOnClickListener(onTakeClick);
 		mIvPillImage = (ImageView) findViewById(R.id.set_schedule_medpill);
 		mIvPillImage.setVisibility(View.INVISIBLE);
 		mTvMedInfo1 = (EditText) findViewById(R.id.set_schedule_medinfo1);
@@ -320,6 +322,13 @@ public class SetScheduleActivity extends BannerActivity {
 
 	static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1;
 
+	private OnClickListener onTakeClick = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			onPhotoClick(v);
+		}
+	};
+	
 	public void onPhotoClick(View v) {
 		dispatchTakePictureIntent();
 	}
