@@ -28,9 +28,7 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 /**
- * Modified by:
- * Naicheng Zhang on 11/17/14
- * Yucong Li on 11/12/14
+ * Modified by: Naicheng Zhang on 11/17/14 Yucong Li on 11/12/14
  * 
  */
 
@@ -41,30 +39,79 @@ public class MainActivity extends BannerActivity {
 	private ViewPager mViewPager;
 
 	private MainPagerAdapter mAdapter;
-	
+
 	Button logout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-			
-//		// Test sending data
-//		ParseObject testObject = new ParseObject("TestObject");
-//		testObject.put("foo", "bar");
-//		testObject.saveInBackground();
-		
-		
+
+		// // Test sending data
+		// ParseObject testObject = new ParseObject("TestObject");
+		// testObject.put("foo", "bar");
+		// testObject.saveInBackground();
+
+		Logger.setDebug(true);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main_activity);
+		setBannerTitle(R.string.app_name);
+		showBackButton(false);
+		String pin = PreferenceUtil.get(getApplicationContext(), 0);
+		// if (pin != null & !pin.equals("")) {
+		// Intent intent = new Intent(getApplicationContext(),
+		// PinLockActivity.class);
+		// startActivityForResult(intent, 0);
+		// }
+		initViews();
+
+	}
+
+	private void initViews() {
+		mViewPager = (ViewPager) findViewById(R.id.main_pager);
+		mAdapter = new MainPagerAdapter(getSupportFragmentManager(),
+				MainActivity.this);
+		mViewPager.setAdapter(mAdapter);
+
+		// spinner to change to a certain page;
+		Spinner spinner = (Spinner) findViewById(R.id.pager_spinner);
+		String[] tmpStrArray = this.getResources().getStringArray(
+				R.array.main_page_titles);
+		ArrayList<String> strList = new ArrayList<String>();
+		for (int i = 0; i < tmpStrArray.length; ++i) {
+			strList.add(tmpStrArray[i]);
+		}
+		ArrayAdapter<String> pageSpinnerAdapter = new ArrayAdapter<String>(
+				this, android.R.layout.simple_spinner_item, strList);
+		// Specify the layout to use when the list of choices appears
+		pageSpinnerAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		// Apply the adapter to the spinner
+		spinner.setAdapter(pageSpinnerAdapter);
+		OnItemSelectedListener onSpinnerItemSelected = new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
+				((TextView) parent.getChildAt(0)).setText("To:");
+				mViewPager.setCurrentItem(position);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+			}
+		};
+		spinner.setOnItemSelectedListener(onSpinnerItemSelected);
 		// Retrieve current user from Parse.com
 		ParseUser currentUser = ParseUser.getCurrentUser();
-		
+
 		// Convert currentUser into String
 		String struser = currentUser.getUsername().toString();
-		
+
 		// Locate TextView in welcome.xml
 		TextView txtuser = (TextView) findViewById(R.id.txtuser);
 
 		// Set the currentUser String into TextView
 		txtuser.setText("" + struser);
-		
+
 		// Locate Button in welcome.xml
 		logout = (Button) findViewById(R.id.logout);
 
@@ -77,55 +124,6 @@ public class MainActivity extends BannerActivity {
 				finish();
 			}
 		});
-				
-				
-				
-		Logger.setDebug(true);
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main_activity);
-		setBannerTitle(R.string.app_name);
-		showBackButton(false);
-		String pin = PreferenceUtil.get(getApplicationContext(), 0);
-//		if (pin != null & !pin.equals("")) {
-//			Intent intent = new Intent(getApplicationContext(),
-//					PinLockActivity.class);
-//			startActivityForResult(intent, 0);
-//		}
-		initViews();
-	}
-
-	private void initViews() {
-		mViewPager = (ViewPager) findViewById(R.id.main_pager);
-		mAdapter = new MainPagerAdapter(getSupportFragmentManager(),
-				MainActivity.this);
-		mViewPager.setAdapter(mAdapter);
-
-		// spinner to change to a certain page;
-		Spinner spinner = (Spinner) findViewById(R.id.pager_spinner);
-		String[] tmpStrArray = this.getResources().getStringArray(R.array.main_page_titles);
-		ArrayList<String> strList= new ArrayList<String>();
-		for(int i = 0; i < tmpStrArray.length; ++i) {
-			strList.add(tmpStrArray[i]);
-		}
-		ArrayAdapter<String> pageSpinnerAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, strList);
-		// Specify the layout to use when the list of choices appears
-		pageSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// Apply the adapter to the spinner
-		spinner.setAdapter(pageSpinnerAdapter);
-		OnItemSelectedListener onSpinnerItemSelected = new OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-				((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
-				((TextView) parent.getChildAt(0)).setText("To:");
-				mViewPager.setCurrentItem(position);
-			}
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {	
-			}
-		};
-		spinner.setOnItemSelectedListener(onSpinnerItemSelected);
 	}
 
 	public static class MainPagerAdapter extends FragmentPagerAdapter {
@@ -154,9 +152,9 @@ public class MainActivity extends BannerActivity {
 			} else if (arg0 == 5) { // Friends
 				f = new FriendsFragment();
 			}
-//			} else if (arg0 == 6) { // Games
-//				f = new GameFragment();
-//			}
+			// } else if (arg0 == 6) { // Games
+			// f = new GameFragment();
+			// }
 			/*
 			 * { f = DummyFragment.newInstance(mPageTitles[arg0]); }
 			 */
