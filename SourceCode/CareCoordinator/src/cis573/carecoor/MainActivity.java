@@ -108,10 +108,8 @@ public class MainActivity extends BannerActivity {
 		ParseUser currentUser = ParseUser.getCurrentUser();
 		// Convert currentUser into String
 		String struser = currentUser.getUsername().toString();
-		
-		String title = getResources().getString(R.string.app_name);
-		
-		setBannerTitle(title + ", " + struser);
+				
+		setBannerTitle("Hello, " + struser);
 		// Locate Button in banner
 //		logout = (Button) findViewById(R.id.logout);
 //
