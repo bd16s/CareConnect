@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
@@ -28,12 +27,16 @@ import com.parse.ParseUser;
 
 public class FamilyFragment extends Fragment {
 	public static final String TAG = "FamilyFragment";
-	private ListView mListView;
 	private ExpandableListView mExListView;
 	private Fragment self;
 	
+	// for selector
 	private boolean hasGroup;
 	private String groupName;
+	
+	// for group list
+	List<String> listDataHeader;
+	HashMap<String, List<String>> listDataChild;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -58,50 +61,81 @@ public class FamilyFragment extends Fragment {
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
+		System.out.println("in onActivityCreated");
 		super.onActivityCreated(savedInstanceState);
 		self = this;
 		
-		List<String> listDataHeader = new ArrayList<String>();
-		HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
+		listDataHeader = new ArrayList<String>();
+		listDataChild = new HashMap<String, List<String>>();
  
-        // Adding child data
-        listDataHeader.add("Top 250");
-        listDataHeader.add("Now Showing");
-        listDataHeader.add("Coming Soon..");
- 
-        // Adding child data
-        List<String> top250 = new ArrayList<String>();
-        top250.add("The Shawshank Redemption");
-        top250.add("The Godfather");
-        top250.add("The Godfather: Part II");
-        top250.add("Pulp Fiction");
-        top250.add("The Good, the Bad and the Ugly");
-        top250.add("The Dark Knight");
-        top250.add("12 Angry Men");
- 
-        List<String> nowShowing = new ArrayList<String>();
-        nowShowing.add("The Conjuring");
-        nowShowing.add("Despicable Me 2");
-        nowShowing.add("Turbo");
-        nowShowing.add("Grown Ups 2");
-        nowShowing.add("Red 2");
-        nowShowing.add("The Wolverine");
- 
-        List<String> comingSoon = new ArrayList<String>();
-        comingSoon.add("2 Guns");
-        comingSoon.add("The Smurfs 2");
-        comingSoon.add("The Spectacular Now");
-        comingSoon.add("The Canyons");
-        comingSoon.add("Europa Report");
- 
-        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), nowShowing);
-        listDataChild.put(listDataHeader.get(2), comingSoon);
+//        // Adding child data
+//        listDataHeader.add("Top 250");
+//        listDataHeader.add("Now Showing");
+//        listDataHeader.add("Coming Soon..");
+// 
+//        // Adding child data
+//        List<String> top250 = new ArrayList<String>();
+//        top250.add("The Shawshank Redemption");
+//        top250.add("The Godfather");
+//        top250.add("The Godfather: Part II");
+//        top250.add("Pulp Fiction");
+//        top250.add("The Good, the Bad and the Ugly");
+//        top250.add("The Dark Knight");
+//        top250.add("12 Angry Men");
+// 
+//        List<String> nowShowing = new ArrayList<String>();
+//        nowShowing.add("The Conjuring");
+//        nowShowing.add("Despicable Me 2");
+//        nowShowing.add("Turbo");
+//        nowShowing.add("Grown Ups 2");
+//        nowShowing.add("Red 2");
+//        nowShowing.add("The Wolverine");
+// 
+//        List<String> comingSoon = new ArrayList<String>();
+//        comingSoon.add("2 Guns");
+//        comingSoon.add("The Smurfs 2");
+//        comingSoon.add("The Spectacular Now");
+//        comingSoon.add("The Canyons");
+//        comingSoon.add("Europa Report");
+// 
+//        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
+//        listDataChild.put(listDataHeader.get(1), nowShowing);
+//        listDataChild.put(listDataHeader.get(2), comingSoon);
         
-		ExpandableListAdapter adp = new ExpandableListAdapter(self.getActivity(), listDataHeader, listDataChild);
-		mExListView.setAdapter(adp);
-//		ParseQuery<ParseObject> query = ParseQuery.getQuery("MedicineHistory");
-//		query.whereEqualTo("userName", ParseUser.getCurrentUser().getUsername());
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Group");
+		query.whereEqualTo("groupName", groupName);
+		try {
+			List<ParseObject> groups = query.find();
+			
+	    	if (null != groups && groups.size() == 1 && groups.get(0).getList("usersList") != null) {
+        		List<String> userList = groups.get(0).getList("usersList");
+        		for (int i = 0; i < userList.size(); ++i) {
+        			listDataHeader.add(userList.get(i));
+        			ParseQuery<ParseObject> query2 = ParseQuery.getQuery("MedicineHistory");
+        			query2.whereEqualTo("userName", userList.get(i));
+        			List<String> medList = new ArrayList<String>();
+        			List<ParseObject> historyList = query2.find();
+        			for (int j = 0; j < historyList.size(); j++) {
+        				Date tmpD = historyList.get(j).getUpdatedAt();
+		        		String tmpT = new SimpleDateFormat("MM/dd-kk:mm").format(tmpD);
+		        		String tmpStr = "On " + tmpT + " took " + historyList.get(j).getString("medicineName");
+		        		
+        				medList.add(tmpStr);
+        			}
+        			listDataChild.put(userList.get(i), medList);
+        		}
+        		System.out.println(listDataHeader.size());
+        		System.out.println(listDataChild.size());
+        	} else {
+        		System.out.println("in else");
+        	}
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+			System.out.println("exception");
+		}
+		
+//		ParseQuery<ParseObject> query = ParseQuery.getQuery("Group");
+//		query.whereEqualTo("groupName", groupName);
 //		query.findInBackground(new FindCallback<ParseObject>() {
 //		    public void done(List<ParseObject> historyList, ParseException e) {
 //		        if (e == null) {
@@ -121,6 +155,8 @@ public class FamilyFragment extends Fragment {
 //		    }
 //		});
 		
+        ExpandableListAdapter adp = new ExpandableListAdapter(self.getActivity(), listDataHeader, listDataChild);
+		mExListView.setAdapter(adp);
 	}
 	
 	public void fragmentSelector() {
