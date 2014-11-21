@@ -3,61 +3,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-	<RelativeLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="@dimen/banner_height"
-	    android:background="@color/blue_title_bar" >
-	    
-	    <Button
-	        android:id="@+id/banner_back_btn"
-	        android:layout_width="40dp"
-	        android:layout_height="match_parent"
-	        android:padding="6dp"
-	        android:gravity="left|center_vertical"
-	        android:background="@color/blue_title_bar"
-	        android:textColor="@android:color/white"
-	        android:textSize="20sp"
-	        android:text="@string/btn_back" />
-	    
-	    <TextView
-	        android:id="@+id/banner_title_text"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_centerVertical="true"
-	        android:layout_marginLeft="20dp"
-	        android:textColor="@android:color/white"
-	        android:textSize="24sp"
-	        android:text="@string/app_name" />
-	    
-	    <Button
-	        android:id="@+id/banner_alert_btn"
-	        android:layout_width="76dp"
-	        android:layout_height="match_parent"
-	        android:layout_alignParentRight="true"
-	        android:background="@drawable/alert_btn_bg"
-	        android:textSize="20sp"
-	        android:textColor="@android:color/white"
-	        android:text="@string/btn_alert" />
 
-	    <Button
-	        android:id="@+id/banner_instructions_btn"
-	        android:layout_width="40dp"
-	        android:layout_height="match_parent"
-	        android:layout_alignParentTop="true"
-	        android:layout_toLeftOf="@+id/banner_alert_btn"
-	        android:background="@drawable/inst_btn_bg"
-	       	android:text=" ? "
-	        android:textColor="@android:color/white"
-	        android:textSize="30sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/banner_height"
+        android:background="@color/blue_title_bar" >
 
-	    <Spinner
-	        android:id="@+id/pager_spinner"
-	        android:layout_width="55dp"
-	        android:layout_height="wrap_content"
-	        android:layout_centerVertical="true"
-	        android:layout_toRightOf="@+id/banner_title_text"
-	        android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/banner_back_btn"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@color/blue_title_bar"
+            android:gravity="left|center_vertical"
+            android:padding="6dp"
+            android:text="@string/btn_back"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
 
-	</RelativeLayout>
+        <TextView
+            android:id="@+id/banner_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/banner_alert_btn"
+            android:layout_width="76dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/alert_btn_bg"
+            android:text="@string/btn_alert"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/banner_instructions_btn"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/banner_alert_btn"
+            android:background="@drawable/inst_btn_bg"
+            android:text=" ? "
+            android:textColor="@android:color/white"
+            android:textSize="30sp" />
+
+        <Spinner
+            android:id="@+id/pager_spinner"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/banner_title_text"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/txtuser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/banner_instructions_btn"
+            android:layout_alignBottom="@+id/banner_instructions_btn"
+            android:layout_toLeftOf="@+id/banner_alert_btn" />
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/txtuser"
+            android:layout_alignBottom="@+id/txtuser"
+            android:layout_toLeftOf="@+id/txtuser"
+            android:text="@string/LogoutBtn" />
+    </RelativeLayout>
+
 </LinearLayout>
