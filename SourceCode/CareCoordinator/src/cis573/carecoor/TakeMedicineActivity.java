@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -244,6 +247,14 @@ public class TakeMedicineActivity extends BannerActivity {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
+								String userName = ParseUser.getCurrentUser().getUsername().toString();
+								String medicineName = mTvMedName.getText().toString();
+								
+								ParseObject gameScore = new ParseObject("MedicineHistory");
+								gameScore.put("userName", userName);
+								gameScore.put("medicineName", medicineName);
+								gameScore.saveInBackground();
+								
 								Date now = new Date();
 								TakeRecord record = new TakeRecord(mSchedule,
 										now, Utils.getAdjustedDate(now,
