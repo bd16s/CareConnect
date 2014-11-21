@@ -89,7 +89,7 @@ public class MainActivity extends BannerActivity {
 				((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
 				((TextView) parent.getChildAt(0)).setText("To");
 				
-				if(position == 6) { // log out
+				if(position == parent.getCount() - 1) { // log out
 					ParseUser.logOut();
 					finish();
 				}
@@ -149,10 +149,9 @@ public class MainActivity extends BannerActivity {
 				f = new AlertConfFragment();
 			} else if (arg0 == 5) { // Friends
 				f = new FriendsFragment();
+			} else if (arg0 == 6) { // Games
+				f = new FamilyFragment();
 			}
-			// } else if (arg0 == 6) { // Games
-			// f = new GameFragment();
-			// }
 			/*
 			 * { f = DummyFragment.newInstance(mPageTitles[arg0]); }
 			 */

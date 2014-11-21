@@ -7,6 +7,7 @@
         <item>Appointment</item>
         <item>Settings</item>
         <item>Friends</item>
+        <item>Family</item>
     </string-array>
     <string-array name="spinner_items">
         <item>History</item>
@@ -15,6 +16,7 @@
         <item>Appointment</item>
         <item>Settings</item>
         <item>Friends</item>
+        <item>Family</item>
         <item>Log out</item>
     </string-array>
     <string-array name="contact_group_items">
