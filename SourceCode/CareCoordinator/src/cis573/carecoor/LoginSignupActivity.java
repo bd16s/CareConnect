@@ -110,7 +110,7 @@ public class LoginSignupActivity extends Activity {
 										Toast.LENGTH_LONG).show();
 							} else {
 								Toast.makeText(getApplicationContext(),
-										"Sign up Error", Toast.LENGTH_LONG)
+										"User already exsited!", Toast.LENGTH_LONG)
 										.show();
 							}
 						}
