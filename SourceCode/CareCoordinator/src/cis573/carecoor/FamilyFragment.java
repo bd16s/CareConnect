@@ -149,7 +149,7 @@ public class FamilyFragment extends Fragment {
 					} else if (tmpStr.length() > 20){
 						MyToast.show(self.getActivity(), "Group name can't be more than 20 characters.");
 					} else if (isGroupExist(tmpStr)) {
-						MyToast.show(self.getActivity(), "Group already exist.");
+						MyToast.show(self.getActivity(), "Group already exists.");
 					} else {
 						jumpToConfirmationActivity(true);
 					}
