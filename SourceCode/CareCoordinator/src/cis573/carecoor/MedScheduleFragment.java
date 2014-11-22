@@ -21,6 +21,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import cis573.carecoor.bean.Medicine;
@@ -222,8 +223,12 @@ public class MedScheduleFragment extends Fragment {
 				vh.speech.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
+						RelativeLayout vwParentRow = (RelativeLayout)v.getParent();
+						TextView schedule_item_name = (TextView) vwParentRow.getChildAt(0);
+						String medcineName = (String) schedule_item_name.getText();
 						Toast.makeText(v.getContext(), " Button clicked",
 								Toast.LENGTH_SHORT).show();
+						ttobj.speak(medcineName, TextToSpeech.QUEUE_FLUSH, null);
 					}
 				});
 
