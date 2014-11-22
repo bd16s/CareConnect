@@ -232,10 +232,11 @@
     <string name="sunday">SUN</string>
 
     <!-- Family -->
-    <string name="cloud_med_history_empty">Family member medicine taking history is listed here.</string>
+    <string name="cloud_med_history_empty">To use family view, please create or add to a group.</string>
     <string name="new_cloud_group">New</string>
     <string name="add_to_cloud_group">Add to</string>
     <string name="cloud_group_text">Family Group:&#160;</string>
+    <string name="type_group_name">Type group name here</string>
     
     <!-- Games -->
     <string name="games_installed">Installed</string>

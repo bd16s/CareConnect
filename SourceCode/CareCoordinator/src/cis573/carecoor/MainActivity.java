@@ -137,7 +137,7 @@ public class MainActivity extends BannerActivity {
 		@Override
 		public Fragment getItem(int arg0) {
 			Fragment f = null;
-			if (arg0 == 0) { // History
+			if (arg0 == 6) { // History
 				f = new HistoryFragment();
 			} else if (arg0 == 1) { // Contact
 				f = new ContactFragment();
@@ -149,7 +149,7 @@ public class MainActivity extends BannerActivity {
 				f = new AlertConfFragment();
 			} else if (arg0 == 5) { // Friends
 				f = new FriendsFragment();
-			} else if (arg0 == 6) { // Games
+			} else if (arg0 == 0) { // Family
 				f = new FamilyFragment();
 			}
 			/*
