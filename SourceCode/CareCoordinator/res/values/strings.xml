@@ -1,7 +1,6 @@
 <resources>
-    
-    <string name="dialog_add_contact_input">Add Contact</string>
 
+    <string name="dialog_add_contact_input">Add Contact</string>
     <string name="app_name">Care Connect</string>
     <string name="msg_empty_phone_number">Phone number cannot be empty</string>
     <string name="msg_primary_number_empty">Primary alert phone is not set</string>
@@ -45,8 +44,8 @@
     <string name="settings_insurance_label">Insurance Provider</string>
     <string name="settings_none">None</string>
     <string name="invalid_input">Please make sure the input is valid</string>
-    
-     <!-- Alert -->
+
+    <!-- Alert -->
     <string name="alertconf_primary_num">Primary Number</string>
     <string name="alertconf_secondary_num">Secondary Number</string>
     <string name="alertconf_alert_options">Alert Options</string>
@@ -138,8 +137,6 @@
     <string name="set_schedule_instructions">Usage Instructions</string>
     <string name="take_picture">Take picture of pill</string>
     <string name="set_schedule_detailed_name">Detailed Name</string>
-    
-    
 
     <!-- New Schedule -->
     <string name="title_new_schedule">New Schedule</string>
@@ -195,6 +192,7 @@
     <string name="reminder_title">Medicine Reminder</string>
     <string name="reminder_ticker">Time to take your medicine!</string>
     <string name="reminder_text">Take medicine: %1$s</string>
+    <string name="text_to_speech">Speech</string>
 
     <!-- Appointment -->
     <string name="MY_ACCOUNT_NAME">CareConnect</string>
@@ -244,18 +242,18 @@
     <string name="confirm_label">Confirm</string>
     <string name="leave_label">Leave</string>
     <string name="confirmation_label">Confirmation</string>
-    
+
     <!-- Games -->
     <string name="games_installed">Installed</string>
     <string name="dialog_game_market">You haven\'t installed this game. Would you like to go to the market to download it?</string>
     <string name="dialog_game_launch">Launch this game?</string>
     <string name="title_activity_track">Track</string>
 
-	<!-- Track -->
-	<string name="track">Track Medicine</string>
-	
-	<!-- Parse -->
-	<string name="parse_app_id">i9Q9B7IunAFH8wIKsilvaZBFhFO95g3p6u0wl9nk</string>
+    <!-- Track -->
+    <string name="track">Track Medicine</string>
+
+    <!-- Parse -->
+    <string name="parse_app_id">i9Q9B7IunAFH8wIKsilvaZBFhFO95g3p6u0wl9nk</string>
     <string name="parse_client_key">axvhtEgQbjohhIE1HE6VlagGzs1G30thOyJVFIsP</string>
     <string name="Username">Username</string>
     <string name="Password">Password</string>
@@ -264,4 +262,5 @@
     <string name="LogoutBtn">Log Out</string>
     <string name="Welcome">Welcome!</string>
     <string name="hello">Hello World, ParseStarterProjectActivity!</string>
+
 </resources>

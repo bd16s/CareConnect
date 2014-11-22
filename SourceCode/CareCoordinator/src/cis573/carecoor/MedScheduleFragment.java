@@ -1,6 +1,7 @@
 package cis573.carecoor;
 
 import java.util.List;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -16,10 +18,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +27,6 @@ import cis573.carecoor.bean.Medicine;
 import cis573.carecoor.bean.Schedule;
 import cis573.carecoor.bean.Schedule.Time;
 import cis573.carecoor.data.DataCenter;
-import cis573.carecoor.data.MedicineCenter;
 import cis573.carecoor.data.ScheduleCenter;
 import cis573.carecoor.reminder.ReminderCenter;
 import cis573.carecoor.utils.Const;
@@ -61,6 +60,7 @@ public class MedScheduleFragment extends Fragment {
 		mLvSchedules.setEmptyView(tvEmpty);
 		mAdapter = new ScheduleAdapter(getActivity());
 		mLvSchedules.setAdapter(mAdapter);
+
 		return view;
 	}
 
@@ -69,6 +69,7 @@ public class MedScheduleFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		mAdapter.setScheduleList(DataCenter.getSchedules(getActivity()));
 		mAdapter.notifyDataSetChanged();
+
 	}
 
 	@Override
@@ -167,9 +168,19 @@ public class MedScheduleFragment extends Fragment {
 
 		private Context mContext;
 		private List<Schedule> mScheduleList;
+		private TextToSpeech ttobj;
 
 		public ScheduleAdapter(Context context) {
 			this.mContext = context;
+			ttobj = new TextToSpeech(context,
+					new TextToSpeech.OnInitListener() {
+						@Override
+						public void onInit(int status) {
+							if (status != TextToSpeech.ERROR) {
+								ttobj.setLanguage(Locale.US);
+							}
+						}
+					});
 		}
 
 		public void setScheduleList(List<Schedule> scheduleList) {
@@ -204,12 +215,23 @@ public class MedScheduleFragment extends Fragment {
 						.findViewById(R.id.schedule_item_status);
 				vh.tracking = (TextView) convertView
 						.findViewById(R.id.schedule_item_tracking);
-				vh.image = (ImageView) convertView
-						.findViewById(R.id.schedule_item_image);
+				vh.speech = (Button) convertView
+						.findViewById(R.id.speech_button);
+				// vh.image = (ImageView) convertView
+				// .findViewById(R.id.schedule_item_image);
+				vh.speech.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Toast.makeText(v.getContext(), " Button clicked",
+								Toast.LENGTH_SHORT).show();
+					}
+				});
+
 				convertView.setTag(vh);
 			} else {
 				vh = (ViewHolder) convertView.getTag();
 			}
+
 			Medicine med = null;
 			Schedule item = (Schedule) getItem(position);
 			if (item != null) {
@@ -239,10 +261,11 @@ public class MedScheduleFragment extends Fragment {
 				med = item.getMedicine();
 				if (med != null) {
 					vh.name.setText(med.getName());
-					vh.image.setImageResource(MedicineCenter
-							.getMedicineImageRes(mContext, med));
+					// vh.image.setImageResource(MedicineCenter
+					// .getMedicineImageRes(mContext, med));
 				}
 			}
+
 			return convertView;
 		}
 
@@ -250,7 +273,8 @@ public class MedScheduleFragment extends Fragment {
 			TextView name;
 			TextView state;
 			TextView tracking;
-			ImageView image;
+			Button speech;
+			// ImageView image;
 		}
 	}
 }

@@ -13,7 +13,7 @@
         android:gravity="center_vertical"
         android:orientation="vertical" >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
@@ -22,6 +22,7 @@
                 android:id="@+id/schedule_item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:text="Name"
                 android:textSize="18sp" />
 
@@ -29,10 +30,19 @@
                 android:id="@+id/schedule_item_tracking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_alignParentBottom="true"
                 android:text="@string/take_medicine_tracking"
                 android:textColor="@color/green_text" />
-        </LinearLayout>
+
+            <Button
+                android:id="@+id/speech_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:text="@string/text_to_speech" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/schedule_item_status"
@@ -43,7 +53,8 @@
             android:textColor="@color/gray_text" />
     </LinearLayout>
 
-    <ImageView
+    <!--
+         <ImageView
         android:id="@+id/schedule_item_image"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -52,5 +63,6 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/shadow_box"
         android:visibility="invisible" />
+    -->
 
 </LinearLayout>
