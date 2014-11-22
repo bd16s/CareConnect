@@ -24,7 +24,9 @@ import cis573.carecoor.utils.PreferenceUtil;
 import com.parse.ParseUser;
 
 /**
- * Modified by: Naicheng Zhang on 11/17/14 Yucong Li on 11/12/14
+ * Modified by: 
+ * Naicheng Zhang on 11/17/14
+ * Yucong Li on 11/12/14
  * 
  */
 
@@ -41,11 +43,6 @@ public class MainActivity extends BannerActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
-		// // Test sending data
-		// ParseObject testObject = new ParseObject("TestObject");
-		// testObject.put("foo", "bar");
-		// testObject.saveInBackground();
-
 		Logger.setDebug(true);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
@@ -58,7 +55,6 @@ public class MainActivity extends BannerActivity {
 		// startActivityForResult(intent, 0);
 		// }
 		initViews();
-
 	}
 
 	private void initViews() {
@@ -137,20 +133,20 @@ public class MainActivity extends BannerActivity {
 		@Override
 		public Fragment getItem(int arg0) {
 			Fragment f = null;
-			if (arg0 == 6) { // History
+			if (arg0 == 0) { // Family
+				f = new FamilyFragment();
+			} else if (arg0 == 1) { // History
 				f = new HistoryFragment();
-			} else if (arg0 == 1) { // Contact
-				f = new ContactFragment();
 			} else if (arg0 == 2) { // Reminder
 				f = new MedScheduleFragment();
 			} else if (arg0 == 3) { // Appointment
 				f = new AppointmentFragment();
-			} else if (arg0 == 4) { // Alert
-				f = new AlertConfFragment();
+			} else if (arg0 == 4) { // Contacts
+				f = new ContactFragment();
 			} else if (arg0 == 5) { // Friends
 				f = new FriendsFragment();
-			} else if (arg0 == 0) { // Family
-				f = new FamilyFragment();
+			} else if (arg0 == 6) { // Alert
+				f = new AlertConfFragment();
 			}
 			/*
 			 * { f = DummyFragment.newInstance(mPageTitles[arg0]); }
@@ -193,8 +189,7 @@ public class MainActivity extends BannerActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View view = inflater.inflate(R.layout.dummy_fragment, container,
-					false);
+			View view = inflater.inflate(R.layout.dummy_fragment, container, false);
 			TextView tv = (TextView) view;
 			if (mTitle != null) {
 				tv.setText(mTitle);

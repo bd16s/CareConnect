@@ -2,21 +2,21 @@
 <resources>
     <string-array name="main_page_titles">
         <item>Family</item>
-        <item>Contacts</item>
+        <item>History</item>
         <item>Reminder</item>
         <item>Appointment</item>
-        <item>Settings</item>
+        <item>Contacts</item>
         <item>Friends</item>
-        <item>History</item>
+        <item>Alert Settings</item>
     </string-array>
     <string-array name="spinner_items">
         <item>Family</item>
-        <item>Contacts</item>
+        <item>History</item>
         <item>Reminder</item>
         <item>Appointment</item>
-        <item>Settings</item>
+        <item>Contacts</item>
         <item>Friends</item>
-        <item>History</item>
+        <item>Alert Settings</item>
         <item>Log out</item>
     </string-array>
     <string-array name="contact_group_items">

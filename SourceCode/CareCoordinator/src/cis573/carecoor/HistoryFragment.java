@@ -31,12 +31,6 @@ public class HistoryFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mAdapter = new HistoryAdapter(getActivity());
-		Toast toast = Toast.makeText(getActivity(),
-				"Tap the orange\t?\tbutton above for instructions.",
-				Toast.LENGTH_LONG);
-		toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL,
-				0, 0);
-		toast.show();
 	}
 
 	@Override
