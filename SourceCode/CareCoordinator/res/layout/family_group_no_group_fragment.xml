@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fontFamily="sans-serif-light"
     android:orientation="vertical"
+    android:fontFamily="sans-serif-light"
     android:textStyle="normal"
     android:tag="unique_tag" >
 
@@ -17,12 +17,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="sans-serif-light"
             android:gravity="center"
-            android:text="@string/cloud_med_history_empty"
+            android:text="@string/family_group_create_add_instruction"
             android:textColor="@android:color/darker_gray"
             android:textSize="34sp"
+            android:fontFamily="sans-serif-light"
             android:textStyle="normal" />
+        
     </FrameLayout>
 
     <LinearLayout
@@ -36,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:text="@string/cloud_group_text"
+            android:text="@string/family_group_lable"
             android:textSize="20sp"
             android:textStyle="normal" />
 
@@ -45,7 +46,9 @@
             android:layout_weight="1"
         	android:layout_width="250dp"
             android:layout_height="50dp"
-            android:hint="@string/type_group_name" />
+            android:hint="@string/type_group_name_here_label"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="normal"  />
 
     </LinearLayout>
 
@@ -59,18 +62,25 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginBottom="0dip"
             android:fontFamily="sans-serif-light"
-            android:text="@string/new_cloud_group"
-            android:textStyle="normal" />
+            android:text="@string/new_label"
+            android:textStyle="normal"
+            android:textColor="#ecf0f1"
+            android:background="#34495e" />
 
         <Button
             android:id="@+id/add_to_cloud_group"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginBottom="0dip"
             android:fontFamily="sans-serif-light"
-            android:text="@string/add_to_cloud_group"
-            android:textStyle="normal" />
+            android:text="@string/add_to_label"
+            android:textStyle="normal"
+            android:textColor="#ecf0f1"
+            android:background="#2c3e50"  />
+        
     </LinearLayout>
 
 </LinearLayout>

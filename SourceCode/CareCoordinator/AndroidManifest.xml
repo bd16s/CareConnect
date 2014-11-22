@@ -109,13 +109,13 @@
         </activity>
         
         <activity
-            android:name="cis573.carecoor.GroupActivity"
-            android:label="@string/title_activity_track" >
+            android:name="cis573.carecoor.FamilyGroupCreateOrAddActivity"
+            android:label="@string/family_group_create_or_add_activity_label" >
         </activity>
         
         <activity
             android:name="cis573.carecoor.FamilyGroupDropGroupActivity"
-            android:label="@string/title_activity_track" >
+            android:label="@string/family_group_drop_group_activity_label" >
         </activity>
         
         <activity android:name="org.achartengine.chartdemo.demo.chart.XYChartBuilder" />

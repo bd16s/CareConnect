@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+    
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="@string/family_group_drop_group_instruction"
+            android:text="@string/family_group_create_add_confirmation_instruction"
             android:textColor="@android:color/darker_gray"
             android:textSize="34sp"
             android:fontFamily="sans-serif-light"
@@ -30,7 +30,7 @@
         android:gravity="center" >
 
         <Button
-            android:id="@+id/family_group_drop_group_confirm_btn"
+            android:id="@+id/family_group_create_add_confirm_btn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

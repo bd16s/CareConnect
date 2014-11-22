@@ -1,6 +1,5 @@
 package cis573.carecoor;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import cis573.carecoor.utils.MyToast;
 
 import com.parse.GetCallback;
 import com.parse.ParseACL;
@@ -17,10 +17,10 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-public class GroupActivity extends BannerActivity {
+public class FamilyGroupCreateOrAddActivity extends BannerActivity {
 
 	Button mBtnConfirm;
-	GroupActivity self;
+	FamilyGroupCreateOrAddActivity self;
 
 	String enteredGroupName;
 	Boolean isNewGroup;
@@ -30,7 +30,7 @@ public class GroupActivity extends BannerActivity {
 		super.onCreate(savedInstanceState);
 		self = this;
 
-		setContentView(R.layout.group_activity);
+		setContentView(R.layout.family_group_new_or_add_activity);
 		setBannerTitle(R.string.track);
 
 		if (savedInstanceState == null) {
@@ -50,7 +50,7 @@ public class GroupActivity extends BannerActivity {
 		}
 
 		mBtnConfirm = (Button) this
-				.findViewById(R.id.family_group_cloud_confirm);
+				.findViewById(R.id.family_group_create_add_confirm_btn);
 		mBtnConfirm.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -67,18 +67,17 @@ public class GroupActivity extends BannerActivity {
 		if (isNewGroup) {
 			// add a group to Group table
 			ParseObject newGroup = new ParseObject("Group");
-			
+
 			ParseACL aclSetting = new ParseACL(ParseUser.getCurrentUser());
 			aclSetting.setPublicReadAccess(true);
 			aclSetting.setPublicWriteAccess(true);
 			newGroup.setACL(aclSetting);
-			
+
 			newGroup.put("groupName", enteredGroupName);
-			newGroup
-					.put("adminUser", ParseUser.getCurrentUser().getUsername());
-			ArrayList<String> tmpList = new ArrayList<String>();
-			tmpList.add(ParseUser.getCurrentUser().getUsername());
-			newGroup.put("usersList", tmpList);
+			newGroup.put("adminUser", ParseUser.getCurrentUser().getUsername());
+
+			newGroup.put("usersList",
+					Arrays.asList(ParseUser.getCurrentUser().getUsername()));
 			newGroup.saveInBackground();
 
 			ParseUser user = ParseUser.getCurrentUser();
@@ -86,7 +85,7 @@ public class GroupActivity extends BannerActivity {
 			try {
 				user.save();
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+				MyToast.show(self, "User create group failed.");
 				e.printStackTrace();
 			}
 		} else {
@@ -96,49 +95,48 @@ public class GroupActivity extends BannerActivity {
 				List<ParseObject> groups = query.find();
 				System.out.println("before if " + groups.size());
 				if (groups.size() == 1) {
-					// List<String> a = groups.get(0).getList("usersList");
-					// a.add(enteredGroupName);
-					// groups.get(0).put("usersList", a);
-					// groups.get(0).saveInBackground();
 					String strId = groups.get(0).getObjectId();
-					System.out.println("o id " + strId);
-					ParseQuery<ParseObject> x = ParseQuery.getQuery("Group");
+					ParseQuery<ParseObject> query2 = ParseQuery
+							.getQuery("Group");
 
 					// Retrieve the object by id
-					x.getInBackground(strId, new GetCallback<ParseObject>() {
-						public void done(ParseObject gameScore0,
-								ParseException e) {
-							if (e == null) {
-								// Now let's update it with some new data. In
-								// this case, only cheatMode and score
-								// will get sent to the Parse Cloud. playerName
-								// hasn't changed.
-								List<String> b = new ArrayList<String>();
-								b.add("what?!");
-								System.out.println(gameScore0.getList(
-										"usersList").get(0));
-								String str = ParseUser.getCurrentUser().getUsername();
-								gameScore0.addAllUnique("usersList",
-										Arrays.asList(str));
-								gameScore0.saveInBackground();
-							}
-						}
-					});
+					query2.getInBackground(strId,
+							new GetCallback<ParseObject>() {
+								public void done(ParseObject group,
+										ParseException e) {
+									if (e == null) {
+										// Now let's update it with some new
+										// data. In
+										// this case, only cheatMode and score
+										// will get sent to the Parse Cloud.
+										// playerName
+										// hasn't changed.
+										String str = ParseUser.getCurrentUser()
+												.getUsername();
+										group.addAllUnique("usersList",
+												Arrays.asList(str));
+										group.saveInBackground();
+									} else {
+										MyToast.show(self,
+												"Add to group failed. (get group by ID)");
+									}
+								}
+							});
 
 				}
 			} catch (ParseException e) {
+				MyToast.show(self, "Add to group failed.");
 				e.printStackTrace();
 			}
 
-			ParseUser user = ParseUser.getCurrentUser();
-			user.put("group", enteredGroupName);
 			try {
+				ParseUser user = ParseUser.getCurrentUser();
+				user.put("group", enteredGroupName);
 				user.save();
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+				MyToast.show(self, "Save group to user failed.");
 				e.printStackTrace();
 			}
 		}
-
 	}
 }

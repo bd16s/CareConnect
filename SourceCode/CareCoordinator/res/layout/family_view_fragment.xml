@@ -30,7 +30,7 @@
             android:id="@+id/cloud_group_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cloud_group_text"
+            android:text="@string/family_group_lable"
             android:textSize="24sp"
             android:fontFamily="sans-serif-light"
 			android:textStyle="normal" />
@@ -48,8 +48,7 @@
             android:id="@+id/family_group_delete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            
-            android:text="Drop"
+            android:text="@string/leave_label"
             android:textSize="24sp"
             android:textColor="#ecf0f1"
             android:fontFamily="sans-serif-light"

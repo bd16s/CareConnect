@@ -77,7 +77,7 @@ public class FamilyFragment extends Fragment {
 		} else {
 			System.out.println("in else");
 			View view = inflater.inflate(
-					R.layout.family_view_fragment_no_group, container, false);
+					R.layout.family_group_no_group_fragment, container, false);
 			mBtnNew = (Button) view.findViewById(R.id.new_cloud_group);
 			mBtnAdd = (Button) view.findViewById(R.id.add_to_cloud_group);
 			mEtGroupName = (EditText) view
@@ -169,7 +169,7 @@ public class FamilyFragment extends Fragment {
 
 	private void jumpToConfirmationActivity(boolean isNewGroup) {
 		Intent intent = new Intent(self.getActivity(),
-				GroupActivity.class);
+				FamilyGroupCreateOrAddActivity.class);
 		intent.putExtra("GROUP_NAME", mEtGroupName.getText().toString());
 		intent.putExtra("NEW_OR_ADD", isNewGroup);
 		startActivityForResult(intent, 0);
@@ -290,7 +290,7 @@ public class FamilyFragment extends Fragment {
 
 			TextView lblListHeader = (TextView) convertView
 					.findViewById(R.id.lblListHeader);
-			lblListHeader.setTypeface(null, Typeface.BOLD);
+//			lblListHeader.setTypeface(null, Typeface.BOLD);
 			lblListHeader.setText(headerTitle);
 
 			return convertView;
