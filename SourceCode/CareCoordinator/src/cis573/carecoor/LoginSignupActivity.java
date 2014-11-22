@@ -104,9 +104,14 @@ public class LoginSignupActivity extends Activity {
 							if (e == null) {
 								// Show a simple Toast message upon successful
 								// registration
+								Intent intent = new Intent(
+										LoginSignupActivity.this,
+										MainActivity.class);
+								startActivity(intent);
+								
 								Toast.makeText(
 										getApplicationContext(),
-										"Successfully Signed up, please log in.",
+										"Successfully Signed up!",
 										Toast.LENGTH_LONG).show();
 							} else {
 								Toast.makeText(getApplicationContext(),
