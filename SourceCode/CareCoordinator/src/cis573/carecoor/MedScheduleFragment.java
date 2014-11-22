@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -223,12 +224,22 @@ public class MedScheduleFragment extends Fragment {
 				vh.speech.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
+						StringBuilder sb = new StringBuilder();
 						RelativeLayout vwParentRow = (RelativeLayout)v.getParent();
 						TextView schedule_item_name = (TextView) vwParentRow.getChildAt(0);
 						String medcineName = (String) schedule_item_name.getText();
-						Toast.makeText(v.getContext(), " Button clicked",
-								Toast.LENGTH_SHORT).show();
-						ttobj.speak(medcineName, TextToSpeech.QUEUE_FLUSH, null);
+						
+						
+						LinearLayout vwParentParentRow = (LinearLayout) (v.getParent().getParent());
+						TextView schedule_item_tracking = (TextView) vwParentParentRow.getChildAt(1);
+						CharSequence tracking = schedule_item_tracking.getText();
+						
+						sb.append("Medicine Name is ");
+						sb.append(medcineName);
+						sb.append("The State is ");
+						sb.append(tracking);
+						
+						ttobj.speak(sb.toString(), TextToSpeech.QUEUE_FLUSH, null);
 					}
 				});
 
