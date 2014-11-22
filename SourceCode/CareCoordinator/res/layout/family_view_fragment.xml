@@ -39,9 +39,22 @@
             android:id="@+id/cloud_group_text_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingRight="10dip"
             android:textSize="24sp"
             android:fontFamily="sans-serif-light"
 			android:textStyle="normal" />
+        
+        <Button
+            android:id="@+id/family_group_delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="Drop"
+            android:textSize="24sp"
+            android:textColor="#ecf0f1"
+            android:fontFamily="sans-serif-light"
+			android:textStyle="normal"
+			android:background="#e74c3c"/>
     </LinearLayout>
 
 </LinearLayout>

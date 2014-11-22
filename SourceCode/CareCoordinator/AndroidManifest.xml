@@ -113,6 +113,11 @@
             android:label="@string/title_activity_track" >
         </activity>
         
+        <activity
+            android:name="cis573.carecoor.FamilyGroupDropGroupActivity"
+            android:label="@string/title_activity_track" >
+        </activity>
+        
         <activity android:name="org.achartengine.chartdemo.demo.chart.XYChartBuilder" />
         <activity android:name="org.achartengine.GraphicalActivity" />
     </application>

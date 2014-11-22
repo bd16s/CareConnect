@@ -32,6 +32,8 @@ public class FamilyFragment extends Fragment {
 	private FamilyFragment self;
 
 	private ExpandableListView mExListView;
+	private Button mDropBtn;
+	
 	private Button mBtnNew;
 	private Button mBtnAdd;
 	private EditText mEtGroupName;
@@ -61,6 +63,16 @@ public class FamilyFragment extends Fragment {
 			TextView tv = (TextView) view
 					.findViewById(R.id.cloud_group_text_content);
 			tv.setText(groupName);
+			mDropBtn = (Button) view.findViewById(R.id.family_group_delete_button);
+			mDropBtn.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(self.getActivity(),
+							FamilyGroupDropGroupActivity.class);
+					intent.putExtra("GROUP_NAME", groupName);
+					startActivityForResult(intent, 0);
+				}
+			});
 			return view;
 		} else {
 			System.out.println("in else");
@@ -195,11 +207,7 @@ public class FamilyFragment extends Fragment {
 			e1.printStackTrace();
 		}
 	}
-
-	public void refresh() {
-		this.refresh();
-	}
-
+	
 	public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
 		private Context _context;

@@ -66,18 +66,20 @@ public class GroupActivity extends BannerActivity {
 
 		if (isNewGroup) {
 			// add a group to Group table
-			ParseObject gameScore = new ParseObject("Group");
-			ParseACL postACL = new ParseACL(ParseUser.getCurrentUser());
-			postACL.setPublicReadAccess(true);
-			postACL.setPublicWriteAccess(true);
-			gameScore.setACL(postACL);
-			gameScore.put("groupName", enteredGroupName);
-			gameScore
+			ParseObject newGroup = new ParseObject("Group");
+			
+			ParseACL aclSetting = new ParseACL(ParseUser.getCurrentUser());
+			aclSetting.setPublicReadAccess(true);
+			aclSetting.setPublicWriteAccess(true);
+			newGroup.setACL(aclSetting);
+			
+			newGroup.put("groupName", enteredGroupName);
+			newGroup
 					.put("adminUser", ParseUser.getCurrentUser().getUsername());
 			ArrayList<String> tmpList = new ArrayList<String>();
 			tmpList.add(ParseUser.getCurrentUser().getUsername());
-			gameScore.put("usersList", tmpList);
-			gameScore.saveInBackground();
+			newGroup.put("usersList", tmpList);
+			newGroup.saveInBackground();
 
 			ParseUser user = ParseUser.getCurrentUser();
 			user.put("group", enteredGroupName);
