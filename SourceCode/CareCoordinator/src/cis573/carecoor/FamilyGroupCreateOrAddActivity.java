@@ -34,7 +34,7 @@ public class FamilyGroupCreateOrAddActivity extends BannerActivity {
 		self = this;
 
 		setContentView(R.layout.family_group_new_or_add_activity);
-		setBannerTitle(R.string.track);
+		setBannerTitle(R.string.confirmation_label);
 
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();

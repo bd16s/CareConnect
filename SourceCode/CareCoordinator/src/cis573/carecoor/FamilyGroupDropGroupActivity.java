@@ -31,12 +31,13 @@ public class FamilyGroupDropGroupActivity extends BannerActivity {
 	String mCurrentUsername;
 	boolean mIsAdminUser;
 	int mListLen;
+	ParseUser currentUser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.family_group_drop_group_activity);
-		setBannerTitle(R.string.track);
+		setBannerTitle(R.string.confirmation_label);
 		self = this;
 
 		// get group name from intent
@@ -56,80 +57,58 @@ public class FamilyGroupDropGroupActivity extends BannerActivity {
 		mBtnConfirm.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Group");
-				query.whereEqualTo("groupName", mGroupName);
 				try {
+					try {
+						// delete group from current user
+						currentUser = ParseUser.getCurrentUser();
+						currentUser.remove("group");
+						currentUser.save();
+					} catch (ParseException e2) {
+						MyToast.show(self, "Delete group from current user failed.");
+						e2.printStackTrace();
+					}
+					
+					ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Group");
+					query.whereEqualTo("groupName", mGroupName);
 					List<ParseObject> groups = query.find();
+					
 					if (groups.size() == 1) {
 						// prepare the group ID and users list before query the object
-						mGroupId = groups.get(0).getObjectId();
+						ParseObject group = groups.get(0);
+						mGroupId = group.getObjectId();
 						mCurrentUsername = ParseUser.getCurrentUser().getUsername();
-						mIsAdminUser = mCurrentUsername.equals(groups.get(0).getString("adminUser"));
-						mListLen = groups.get(0).getList("usersList").size();
-						// query exact one group object back and update the usersList field
-						ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Group");
-						query2.getInBackground(mGroupId, new GetCallback<ParseObject>() {
-							public void done(ParseObject group, ParseException e) {
-								if (e == null) {
-									try {
-										// delete group from current user
-										ParseUser currentUser = ParseUser.getCurrentUser();
-										currentUser.remove("group");
-										currentUser.save();
-									} catch (ParseException e2) {
-										MyToast.show(self, "Delete group from current user failed.");
-										e2.printStackTrace();
-									}
-									if (mListLen > 1) {
-										try {
-											// delete current user from group
-											group.removeAll("usersList", Arrays.asList(mCurrentUsername));
-											group.save();
-											// assign group administrator to another user
-											ParseQuery<ParseObject> query = ParseQuery.getQuery("Group");
-											query.getInBackground(mGroupId, new GetCallback<ParseObject>() {
-												public void done(ParseObject group2, ParseException e) {
-													if (e == null) {
-														String nextAdmin = (String) group2.getList("usersList").get(0);
-														group2.put("adminUser", nextAdmin);
-														try {
-															group2.save();
-														} catch (ParseException e1) {
-															e1.printStackTrace();
-														}
-													} else {
-														// something went wrong
-														MyToast.show(self, "Assign new group administrator failed.");
-													}
-												}
-											});
-										} catch (ParseException e1) {
-											MyToast.show(self, "Delete group from current user failed.");
-											e1.printStackTrace();
-										}
-									} else if (mListLen == 1
-											&& mCurrentUsername.equals(group.getList("usersList").get(0).toString())) {
-										try {
-											group.delete();
-											group.save();
-										} catch (ParseException e1) {
-											MyToast.show(self, "Delete whole group failed.");
-											e1.printStackTrace();
-										}
-									} else {
-										MyToast.show(self, "Leave group failed.");
-									}
-								} else {
-									// something went wrong
-									MyToast.show(self, "Leave group failed.");
-								}
+						mIsAdminUser = mCurrentUsername.equals(group.getString("adminUser"));
+						mListLen = group.getList("usersList").size();
+						
+						// query exact one group object back and update the usersList field		
+						if (mListLen > 1) {
+							try {
+								// delete current user from group
+								group.removeAll("usersList", Arrays.asList(mCurrentUsername));
+								group.save();
+								String nextAdmin = (String) group.getList("usersList").get(0);
+								group.put("adminUser", nextAdmin);
+								group.save();
+							} catch (ParseException e1) {
+								MyToast.show(self, "Delete group from current user failed.");
+								e1.printStackTrace();
 							}
-						});
+						} else if (mListLen == 1
+								&& mCurrentUsername.equals(group.getList("usersList").get(0).toString())) {
+							try {
+								group.delete();
+								// group.save();
+							} catch (ParseException e1) {
+								MyToast.show(self, "Delete whole group failed.");
+								e1.printStackTrace();
+							}
+						} else {
+							MyToast.show(self, "Leave group failed.");
+						}
 					}
-
 				} catch (ParseException e) {
-					e.printStackTrace();
 					MyToast.show(self, "Dirty data in table, leave group failed.");
+					e.printStackTrace();
 				}
 
 				Intent intent = new Intent(self, MainActivity.class);

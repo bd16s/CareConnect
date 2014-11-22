@@ -243,6 +243,7 @@
     <string name="family_group_drop_group_activity_label">FamilyGroupDropGroupActivityLabel</string>
     <string name="confirm_label">Confirm</string>
     <string name="leave_label">Leave</string>
+    <string name="confirmation_label">Confirmation</string>
     
     <!-- Games -->
     <string name="games_installed">Installed</string>

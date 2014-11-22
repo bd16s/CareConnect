@@ -63,12 +63,12 @@ public class FamilyFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// pop up help instruction
-		Toast toast = Toast.makeText(getActivity(),
-				"Tap the orange\t?\tbutton above for instructions.",
-				Toast.LENGTH_LONG);
-		toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL,
-				0, 0);
-		toast.show();
+//		Toast toast = Toast.makeText(getActivity(),
+//				"Tap the orange\t?\tbutton above for instructions.",
+//				Toast.LENGTH_LONG);
+//		toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL,
+//				0, 0);
+//		toast.show();
 		
 		fragmentSelector();
 		if (mHasGroup) {
