@@ -29,10 +29,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 /**
- * Created by:
- * Chunxiao Mu on 11/20/14
- * Modified by:
- * Yucong Li on 11/21/14
+ * Created by: Chunxiao Mu on 11/20/14 Modified by: Yucong Li on 11/21/14
  */
 public class FamilyFragment extends Fragment {
 	public static final String TAG = "FamilyFragment";
@@ -63,13 +60,13 @@ public class FamilyFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// pop up help instruction
-//		Toast toast = Toast.makeText(getActivity(),
-//				"Tap the orange\t?\tbutton above for instructions.",
-//				Toast.LENGTH_LONG);
-//		toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL,
-//				0, 0);
-//		toast.show();
-		
+		// Toast toast = Toast.makeText(getActivity(),
+		// "Tap the orange\t?\tbutton above for instructions.",
+		// Toast.LENGTH_LONG);
+		// toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL,
+		// 0, 0);
+		// toast.show();
+
 		fragmentSelector();
 		if (mHasGroup) {
 			View view = inflater.inflate(R.layout.family_view_fragment, container, false);
@@ -146,7 +143,12 @@ public class FamilyFragment extends Fragment {
 			mBtnNew.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					if (isGroupExist(mEtGroupName.getText().toString())) {
+					String tmpStr = mEtGroupName.getText().toString();
+					if ("".equals(tmpStr)) {
+						MyToast.show(self.getActivity(), "Group name can't be empty.");
+					} else if (tmpStr.length() > 20){
+						MyToast.show(self.getActivity(), "Group name can't be more than 20 characters.");
+					} else if (isGroupExist(tmpStr)) {
 						MyToast.show(self.getActivity(), "Group already exist.");
 					} else {
 						jumpToConfirmationActivity(true);
@@ -157,7 +159,12 @@ public class FamilyFragment extends Fragment {
 			mBtnAdd.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					if (!isGroupExist(mEtGroupName.getText().toString())) {
+					String tmpStr = mEtGroupName.getText().toString();
+					if ("".equals(tmpStr)) {
+						MyToast.show(self.getActivity(), "Group name can't be empty.");
+					} else if (tmpStr.length() > 20){
+						MyToast.show(self.getActivity(), "Group name can't be more than 20 characters.");
+					} else if (!isGroupExist(tmpStr)) {
 						MyToast.show(self.getActivity(), "Group doesn't exist.");
 					} else {
 						jumpToConfirmationActivity(false);

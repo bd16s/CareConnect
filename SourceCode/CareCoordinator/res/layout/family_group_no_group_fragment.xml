@@ -64,7 +64,7 @@
             android:layout_weight="1"
             android:layout_marginBottom="0dip"
             android:fontFamily="sans-serif-light"
-            android:text="@string/new_label"
+            android:text="@string/create_label"
             android:textStyle="normal"
             android:textColor="#ecf0f1"
             android:background="#34495e" />
@@ -76,7 +76,7 @@
             android:layout_weight="1"
             android:layout_marginBottom="0dip"
             android:fontFamily="sans-serif-light"
-            android:text="@string/add_to_label"
+            android:text="@string/join_label"
             android:textStyle="normal"
             android:textColor="#ecf0f1"
             android:background="#2c3e50"  />

@@ -232,11 +232,11 @@
     <string name="sunday">SUN</string>
 
     <!-- Family -->
-    <string name="family_group_create_add_instruction">To use family view, please create or add to a group.</string>
+    <string name="family_group_create_add_instruction">To use family view, please create or join in a group.</string>
     <string name="family_group_drop_group_instruction">Are you sure you want to leave the current group?</string>
     <string name="family_group_create_add_confirmation_instruction">Are you sure you want to become a member of the group?</string>
-    <string name="new_label">New</string>
-    <string name="add_to_label">Add to</string>
+    <string name="create_label">Create</string>
+    <string name="join_label">Join</string>
     <string name="family_group_lable">Family Group:&#160;</string>
     <string name="type_group_name_here_label">Type group name here</string>
     <string name="family_group_create_or_add_activity_label">FamilyGroupCreateOrAddActivityLabel</string>
