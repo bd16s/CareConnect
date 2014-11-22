@@ -236,9 +236,10 @@ public class MedScheduleFragment extends Fragment {
 						
 						sb.append("Medicine Name is ");
 						sb.append(medcineName);
-						sb.append("The State is ");
+						sb.append(".");
+						sb.append("And the State now is, ");
 						sb.append(tracking);
-						
+						sb.append(".");
 						ttobj.speak(sb.toString(), TextToSpeech.QUEUE_FLUSH, null);
 					}
 				});
