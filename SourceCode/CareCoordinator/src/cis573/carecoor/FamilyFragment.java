@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import cis573.carecoor.database.DatabaseOperations;
 import cis573.carecoor.utils.MyToast;
 
 import com.parse.ParseException;
@@ -198,7 +199,7 @@ public class FamilyFragment extends Fragment {
 
 	public void fragmentSelector() {
 		ParseQuery<ParseUser> query = ParseUser.getQuery();
-		query.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
+		query.whereEqualTo("username", DatabaseOperations.getCurrentUsername());
 		try {
 			List<ParseUser> users = query.find();
 			if (null != users && users.size() == 1 && users.get(0).getString("group") != null) {

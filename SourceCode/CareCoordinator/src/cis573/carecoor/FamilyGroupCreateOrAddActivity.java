@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import cis573.carecoor.database.DatabaseOperations;
 import cis573.carecoor.utils.MyToast;
 
 import com.parse.GetCallback;
@@ -68,18 +69,18 @@ public class FamilyGroupCreateOrAddActivity extends BannerActivity {
 			// add a group to Group table
 			ParseObject newGroup = new ParseObject("Group");
 
-			ParseACL aclSetting = new ParseACL(ParseUser.getCurrentUser());
+			ParseACL aclSetting = new ParseACL(DatabaseOperations.getCurrentUser());
 			aclSetting.setPublicReadAccess(true);
 			aclSetting.setPublicWriteAccess(true);
 			newGroup.setACL(aclSetting);
 
 			newGroup.put("groupName", mEnteredGroupName);
-			newGroup.put("adminUser", ParseUser.getCurrentUser().getUsername());
+			newGroup.put("adminUser", DatabaseOperations.getCurrentUsername());
 
-			newGroup.put("usersList", Arrays.asList(ParseUser.getCurrentUser().getUsername()));
+			newGroup.put("usersList", Arrays.asList(DatabaseOperations.getCurrentUsername()));
 			newGroup.saveInBackground();
 
-			ParseUser user = ParseUser.getCurrentUser();
+			ParseUser user = DatabaseOperations.getCurrentUser();
 			user.put("group", mEnteredGroupName);
 			try {
 				user.save();
@@ -103,7 +104,7 @@ public class FamilyGroupCreateOrAddActivity extends BannerActivity {
 							if (e == null) {
 								// Now let's update it with some new data. In this case, only cheatMode and score will
 								// get sent to the Parse Cloud. playerName hasn't changed.
-								String str = ParseUser.getCurrentUser().getUsername();
+								String str = DatabaseOperations.getCurrentUsername();
 								group.addAllUnique("usersList", Arrays.asList(str));
 								group.saveInBackground();
 							} else {
@@ -119,7 +120,7 @@ public class FamilyGroupCreateOrAddActivity extends BannerActivity {
 			}
 
 			try {
-				ParseUser user = ParseUser.getCurrentUser();
+				ParseUser user = DatabaseOperations.getCurrentUser();
 				user.put("group", mEnteredGroupName);
 				user.save();
 			} catch (ParseException e) {

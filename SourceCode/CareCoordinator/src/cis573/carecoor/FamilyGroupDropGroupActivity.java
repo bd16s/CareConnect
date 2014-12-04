@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import cis573.carecoor.database.DatabaseOperations;
 import cis573.carecoor.utils.MyToast;
 
 import com.parse.GetCallback;
@@ -60,7 +61,7 @@ public class FamilyGroupDropGroupActivity extends BannerActivity {
 				try {
 					try {
 						// delete group from current user
-						currentUser = ParseUser.getCurrentUser();
+						currentUser = DatabaseOperations.getCurrentUser();
 						currentUser.remove("group");
 						currentUser.save();
 					} catch (ParseException e2) {
@@ -76,7 +77,7 @@ public class FamilyGroupDropGroupActivity extends BannerActivity {
 						// prepare the group ID and users list before query the object
 						ParseObject group = groups.get(0);
 						mGroupId = group.getObjectId();
-						mCurrentUsername = ParseUser.getCurrentUser().getUsername();
+						mCurrentUsername = DatabaseOperations.getCurrentUsername();
 						mIsAdminUser = mCurrentUsername.equals(group.getString("adminUser"));
 						mListLen = group.getList("usersList").size();
 						
