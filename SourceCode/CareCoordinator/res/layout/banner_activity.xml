@@ -36,11 +36,11 @@
 	    
 	    <Button
 	        android:id="@+id/banner_alert_btn"
-	        android:layout_width="70dp"
+	        android:layout_width="72dp"
 	        android:layout_height="match_parent"
 	        android:layout_alignParentRight="true"
 	        android:background="@drawable/red"
-	        android:textSize="18sp"
+	        android:textSize="22sp"
 	        android:textColor="@android:color/white"
 	        android:text="@string/btn_alert"
 	        android:fontFamily="sans-serif-light"
@@ -48,26 +48,26 @@
 
 	    <Button
 	        android:id="@+id/banner_instructions_btn"
-	        android:layout_width="40dp"
+	        android:layout_width="42dp"
 	        android:layout_height="match_parent"
 	        android:layout_alignParentTop="true"
 	        android:layout_toLeftOf="@+id/banner_alert_btn"
 	        android:background="@drawable/orange"
 	       	android:text=" ? "
 	        android:textColor="@android:color/white"
-	        android:textSize="24sp"
+	        android:textSize="26sp"
 	        android:fontFamily="sans-serif-light"
 	        android:textStyle="normal" />
 
 		<Spinner
 		    android:id="@+id/pager_spinner"
-		    android:layout_width="40dp"
+		    android:layout_width="42dp"
 		    android:layout_height="match_parent"
 		    android:layout_centerVertical="true"
 		    android:layout_toLeftOf="@+id/banner_instructions_btn"
 		    android:background="@drawable/green"
 		    android:textColor="@android:color/white" 
-		    android:textSize="30sp"
+		    android:textSize="32sp"
 		    android:fontFamily="sans-serif-light"
 	        android:textStyle="normal" />
 	    
