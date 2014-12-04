@@ -5,27 +5,14 @@
     android:background="#AAEEFF"
     android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="#000000"
-        android:gravity="center_horizontal"
-        android:paddingBottom="0dp"
-        android:paddingTop="0dp"
-        android:text="App Information"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:typeface="sans" />
-	
 	<TextView
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_weight="1"
 	    android:gravity="center_horizontal"
-	    android:paddingBottom="15dp"
-	    android:paddingTop="15dp"
-	    android:text="Swipe left and right to navigate between sections:"
+	    android:paddingBottom="2dp"
+	    android:paddingTop="2dp"
+	    android:text="Swipe left and right or press To to navigate between sections (press Log out to quit):"
 	    android:textColor="#FF0000"
 	    android:textSize="16.0dp"
 	    android:typeface="sans" />
@@ -49,9 +36,113 @@
 	    android:layout_height="wrap_content"
 	    android:layout_weight="1"
 	    android:gravity="center_horizontal"
-	    android:paddingBottom="5dp"
-	    android:paddingTop="5dp"
+	    android:paddingBottom="4dp"
+	    android:paddingTop="2dp"
 	    android:text="Set who Care Coordinator will contact in case of an emergency. In such an emergency, tap the red ALERT button to call for help."
+	    android:textColor="#222222"
+	    android:textSize="16.0dp"
+	    android:typeface="sans" />
+	
+	<TextView
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1"
+	    android:background="#444444"
+	    android:gravity="center_horizontal"
+	    android:paddingBottom="0dp"
+	    android:paddingTop="0dp"
+	    android:text="Family:"
+	    android:textColor="#FFFFFF"
+	    android:textSize="16.0dp"
+	    android:textStyle="bold"
+	    android:typeface="sans" />
+
+	<TextView
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1"
+	    android:gravity="center_horizontal"
+	    android:paddingBottom="4dp"
+	    android:paddingTop="2dp"
+	    android:text="See medicine adherence of your family. You can join or create a group for your family."
+	    android:textColor="#222222"
+	    android:textSize="16.0dp"
+	    android:typeface="sans" />
+	
+	<TextView
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1"
+	    android:background="#444444"
+	    android:gravity="center_horizontal"
+	    android:paddingBottom="0dp"
+	    android:paddingTop="0dp"
+	    android:text="History:"
+	    android:textColor="#FFFFFF"
+	    android:textSize="16.0dp"
+	    android:textStyle="bold"
+	    android:typeface="sans" />
+
+	<TextView
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1"
+	    android:gravity="center_horizontal"
+	    android:paddingBottom="4dp"
+	    android:paddingTop="2dp"
+	    android:text="See how well you have been sticking to your medicine schedules."
+	    android:textColor="#222222"
+	    android:textSize="16.0dp"
+	    android:typeface="sans" />
+	
+	<TextView
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1"
+	    android:background="#444444"
+	    android:gravity="center_horizontal"
+	    android:paddingBottom="0dp"
+	    android:paddingTop="0dp"
+	    android:text="Reminders:"
+	    android:textColor="#FFFFFF"
+	    android:textSize="16.0dp"
+	    android:textStyle="bold"
+	    android:typeface="sans" />
+
+	<TextView
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1"
+	    android:gravity="center_horizontal"
+	    android:paddingBottom="4dp"
+	    android:paddingTop="2dp"
+	    android:text="See when you need to take, or have taken, your medications."
+	    android:textColor="#222222"
+	    android:textSize="16.0dp"
+	    android:typeface="sans" />
+	
+	<TextView
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1"
+	    android:background="#444444"
+	    android:gravity="center_horizontal"
+	    android:paddingBottom="0dp"
+	    android:paddingTop="0dp"
+	    android:text="Appointments:"
+	    android:textColor="#FFFFFF"
+	    android:textSize="16.0dp"
+	    android:textStyle="bold"
+	    android:typeface="sans" />
+
+	<TextView
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1"
+	    android:gravity="center_horizontal"
+	    android:paddingBottom="4dp"
+	    android:paddingTop="2dp"
+	    android:text="Make and manage medical appointments."
 	    android:textColor="#222222"
 	    android:textSize="16.0dp"
 	    android:typeface="sans" />
@@ -90,85 +181,6 @@
 	    android:gravity="center_horizontal"
 	    android:paddingBottom="0dp"
 	    android:paddingTop="0dp"
-	    android:text="Reminders:"
-	    android:textColor="#FFFFFF"
-	    android:textSize="16.0dp"
-	    android:textStyle="bold"
-	    android:typeface="sans" />
-
-	<TextView
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_weight="1"
-	    android:gravity="center_horizontal"
-	    android:paddingBottom="10dp"
-	    android:paddingTop="5dp"
-	    android:text="See when you need to take, or have taken, your medications."
-	    android:textColor="#222222"
-	    android:textSize="16.0dp"
-	    android:typeface="sans" />
-	
-	
-	<TextView
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_weight="1"
-	    android:background="#444444"
-	    android:gravity="center_horizontal"
-	    android:paddingBottom="0dp"
-	    android:paddingTop="0dp"
-	    android:text="History:"
-	    android:textColor="#FFFFFF"
-	    android:textSize="16.0dp"
-	    android:textStyle="bold"
-	    android:typeface="sans" />
-
-	<TextView
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_weight="1"
-	    android:gravity="center_horizontal"
-	    android:paddingBottom="10dp"
-	    android:paddingTop="5dp"
-	    android:text="See how well you have been sticking to your medicine schedules."
-	    android:textColor="#222222"
-	    android:textSize="16.0dp"
-	    android:typeface="sans" />
-	
-	<TextView
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_weight="1"
-	    android:background="#444444"
-	    android:gravity="center_horizontal"
-	    android:paddingBottom="0dp"
-	    android:paddingTop="0dp"
-	    android:text="Appointments:"
-	    android:textColor="#FFFFFF"
-	    android:textSize="16.0dp"
-	    android:textStyle="bold"
-	    android:typeface="sans" />
-
-	<TextView
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_weight="1"
-	    android:gravity="center_horizontal"
-	    android:paddingBottom="10dp"
-	    android:paddingTop="5dp"
-	    android:text="Make and manage medical appointments."
-	    android:textColor="#222222"
-	    android:textSize="16.0dp"
-	    android:typeface="sans" />
-	
-	<TextView
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_weight="1"
-	    android:background="#444444"
-	    android:gravity="center_horizontal"
-	    android:paddingBottom="0dp"
-	    android:paddingTop="0dp"
 	    android:text="Social:"
 	    android:textColor="#FFFFFF"
 	    android:textSize="16.0dp"
@@ -180,9 +192,9 @@
 	    android:layout_height="wrap_content"
 	    android:layout_weight="1"
 	    android:gravity="center_horizontal"
-	    android:paddingBottom="10dp"
-	    android:paddingTop="5dp"
-	    android:text="Manage friends and play games."
+	    android:paddingBottom="4dp"
+	    android:paddingTop="2dp"
+	    android:text="Manage friends."
 	    android:textColor="#222222"
 	    android:textSize="16.0dp"
 	    android:typeface="sans" />
