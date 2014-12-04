@@ -7,6 +7,7 @@ import android.app.Application;
 import cis573.carecoor.bean.Contact;
 import cis573.carecoor.data.DataCenter;
 import cis573.carecoor.data.MedicineCenter;
+import cis573.carecoor.database.DatabaseOperations;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
@@ -20,17 +21,7 @@ public class CoorApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		
-		Parse.initialize(this, getString(R.string.parse_app_id),
-		        getString(R.string.parse_client_key));
-		
-		ParseUser.enableAutomaticUser();
-        ParseACL defaultACL = new ParseACL();
- 
-        // If you would like all objects to be private by default, remove this
-        // line.
-        defaultACL.setPublicReadAccess(true);
- 
-        ParseACL.setDefaultACL(defaultACL, true);
+		DatabaseOperations.dbInit(this);
 		
 		initUsefulContacts();
 		MedicineCenter.init(this);
