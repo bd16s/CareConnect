@@ -105,7 +105,7 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
         month.setLayoutParams(params);
         month.setTextAppearance(context, android.R.attr.textAppearanceLarge);
         month.setText(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())+" "+cal.get(Calendar.YEAR));
-        month.setTextSize(25*getResources().getDisplayMetrics().density);
+        month.setTextSize(25);
 
         base.addView(month);
 
