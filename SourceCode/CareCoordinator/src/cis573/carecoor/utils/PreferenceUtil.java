@@ -107,9 +107,6 @@ public class PreferenceUtil {
     private static String getLocale(int code) {
         String locale = null;
         switch (code) {
-            case AlertConfFragment.PIN:
-                locale = Const.PREF_PIN;
-                break;
             case AlertConfFragment.PRIMARY_PHONE:
                 locale = Const.PREF_PRIMARY_ALERT_NUM;
                 break;

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+   <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
@@ -13,46 +13,6 @@
             android:layout_height="1px"
             android:background="@android:color/darker_gray" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:lines="1"
-            android:textColor="#ff000000"
-            android:textSize="26sp"
-            android:text="@string/settings_login_label" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@android:color/darker_gray" />
-
-        <LinearLayout
-            android:id="@+id/settings_pin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/list_selector_background"
-            android:orientation="vertical"
-            android:padding="10dp" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_pin_label"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/settings_pin_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:lines="1"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="16sp"
-                android:text="@string/settings_unset"
-                android:inputType="textVisiblePassword"/>
-        </LinearLayout>
 
         <ImageView
             android:layout_width="match_parent"
